@@ -1,0 +1,19 @@
+\documentclass[main.tex]{subfiles}
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+\allowdisplaybreaks
+
+\begin{document}
+\section{Kernel methods}
+Kernel methods is a family of non-parametric techniques. To better explain what it means, we start from what we have already seen in the previous chapters. With parametric method a certain hypothesis in the hypothesis space is defined by the combination of values of the learnable parameters. For example, linear regression is a parametric method, where each hypothesis is defined by the value of the parameters associated with each feature plus the constant term.
+With non-parametric methods we have no explicit parameters. %in fact they are somewhat implicit and they depends on the size of the training set. 
+In parametric methods the training set is used in the training phase to learn the parameters. Then for the prediction phase the training set is not used because all the relevant information are encoded in the learned model. In non-parametric methods the training set is used also in the prediction phase because the model is implicitly encoded in the dataset.
+\paragraph{Example} A very famous example of non-parametric method is the k-nearest neighbour\footnotemark. This method is used for classification. In practice when we have a new sample we search for the k nearest training data samples in the training data. Then we assign a class to the new sample equal to the most frequent class between the k nearest training samples. Once classified the new sample becomes part of the training data. \footnotetext{It worth mentioning that k-nearest neighbour is not a kernel method. It's used only as an example for non-parametric methods}
+
+K-nearest neighbour doesn't utilize parameters, but introduce the concept of "distance" for evaluating the new samples. The distance, more formally, is called \textbf{metric}. As in parametric method we need to define the features, in non-parametric methods we need to define a metric. 
+We can notice that in the k-nearest neighbour example we have no training time because we haven't a model. But this comes with a price, in fact we have a time penalty during the prediction phase because we need to review each training data to make our assumption, instead of just use our model. 
+\begin{itemize}
+    \item Parametric: long training time, short prediction time
+    \item Non-parametric: short training time, long prediction time
+\end{itemize}
+\end{document}
