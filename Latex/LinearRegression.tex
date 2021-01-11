@@ -99,7 +99,7 @@ This loss function is called SSE(Squared Sum of Errors) or half RSS(Residual Sum
 \end{equation}
 \textbf{Note} Given $x=\begin{bmatrix}x_1 & x_2 & \dots & x_{N}\end{bmatrix}$, the $l_2 norm$ of x corresponds to
 \begin{align}
-    l_2norm(x) = \|x\|_{2} = \sqrt{\sum_{n=1}^{N} x_i^2}
+    l_2norm(x) = \|x\|_{2} = \sqrt{\sum_{n=1}^{N} x_n^2}
 \end{align}
 
 \newpage
@@ -113,7 +113,7 @@ We can rewrite the SSE in matrix notation
 \end{equation}
 
 \textbf{Note} $\Phi[NxM]$, $w[Mx1]$, $t[Nx1]$
-\footnotetext{The [] next to the equations indicates result dimensions}
+\footnotetext{The [ ] next to the equations indicates result dimensions}
 \newline
 To minimize L(w) we have to calculate the first and the second derivative
 \begin{equation}
@@ -224,7 +224,7 @@ We can achieve variance reduction by gathering more samples for our estimation.
 \end{equation}
 
 \subsubsection{Gradient optimization (Open form)}
-Closed form solutions are not practical with large datasets because they are computationally too complex. To overcome this problem we can use iterative approaches which make sequential(online) updates of the parameters instead of calculating them directly. an example is stochastic\footnotemark gradient descent. \footnotetext{Stochastic means that we won't use all data at once to update the parameters, but we can update them from smaller subsets of the dataset. This is done to reduce the complexity.}
+Closed form solutions are not practical with large datasets because they are computationally too complex. To overcome this problem we can use iterative approaches which make sequential(online) updates of the parameters instead of calculating them directly. An example is stochastic\footnotemark gradient descent. \footnotetext{Stochastic means that we won't use all data at once to update the parameters, but we can update them from smaller subsets of the dataset. This is done to reduce the complexity.}
 If the loss function can be represented as a sum over samples ($L(x)=\sum_nL(x_n)$) this iterative approach is applicable. This is the case for least squares.
 \begin{align}
     w^{\overset{\text{iteration}}{(k+1)}}=w^{(k)}-\underset{\text{learning rate}}{\alpha^{(k)}} \nabla L(x_n)
@@ -423,7 +423,7 @@ For two particular prior distribution cases, Bayesian regression estimate reduce
 \end{itemize}
 
 \newpage
-\paragraph{Example} 
+\paragraph{Example - Bayesian sequential learning} 
 We generate some data from 
 \begin{equation*}
     t(x) = -0.3 + 0.5x + \epsilon, \quad where \quad \epsilon \sim \mathcal{N}(0,0.04)

@@ -79,8 +79,8 @@ We can avoid these difficulties by considering a single K-class discriminant com
 \begin{equation}
     y_k(x) = w_k^Tx + w_{ko},\quad where \quad k=1,\dots,K
 \end{equation}
-and then assigning a point x to class $C_k$ if $y_k(x) > y_j (x), \quad \forall j = k$. The decision boundary between class $C_k$ and class $C_j$ is therefore given by $y_k(x) = y_j(x)$ and hence corresponds to a (D − 1)-dimensional hyperplane.
-The resulting decision boundaries are singly connected\footnotemark and convex. \footnotetext{It means that all the linear functions are ray originating from a common point}. Convexity imposes that taken two points $x_A$ and $x_B$ that belong to the same region $R_k$, every point $\hat{x}$ in between is still inside region $R_k$
+and then assigning a point x to class $C_k$ if $y_k(x) > y_j (x), \quad \forall j \neq k$. The decision boundary between class $C_k$ and class $C_j$ is therefore given by $y_k(x) = y_j(x)$ and hence corresponds to a (D − 1)-dimensional hyperplane.
+The resulting decision boundaries are singly connected\footnotemark and convex. \footnotetext{It means that all the linear functions are ray originating from a common point}Convexity imposes that taken two points $x_A$ and $x_B$ that belong to the same region $R_k$, every point $\hat{x}$ in between is still inside region $R_k$
 \begin{equation*}
     \hat{x} = \lambda x_A + (1-\lambda)x_B, \quad \hat{x}\in R_k. \quad \lambda \in [0, 1]
 \end{equation*}
@@ -133,7 +133,7 @@ We recall that least squares corresponds to the maximum likelihood under the ass
 \newpage
 \subsubsection{Basis functions}
 So far, we have considered classification models that work directly in the input space. All considered algorithms are equally applicable if we first make a fixed nonlinear transformation of the input space using vector of basis functions $\Phi(x)$. Decision boundaries will be linear in the feature space, but would correspond to nonlinear boundaries in the original input space.
-\paragraph{Example}
+\paragraph{Example - Nonlinear basis}
 Illustration of the role of nonlinear basis functions in linear classification models. The left plot shows the original input space $(x_1, x_2)$ together with data points from two classes labelled red and blue. Two
 ‘Gaussian’ basis functions $\Phi_1(x)$ and $\Phi_2(x)$ are defined in this space with centres shown by the green crosses
 and with contours shown by the green circles. The right-hand plot shows the corresponding feature space $(\Phi_1(x), \Phi_2(x))$ together with the linear decision boundary. This corresponds to a nonlinear decision boundary in the original input space, shown by the black curve in the left-hand plot.
@@ -142,7 +142,7 @@ and with contours shown by the green circles. The right-hand plot shows the corr
 \end{center}
 
 \subsection{Perceptron}
-The perceptron is an algorithm for online\footnotemark supervised learning of binary classifiers. \footnotetext{Online means that it is an iterative approach which calculate the solutions with multiple steps}. The algorithm tries to find a threshold function: a function that maps its input x (a real-valued vector) to an output value
+The perceptron is an algorithm for online\footnotemark supervised learning of binary classifiers. \footnotetext{Online means that it is an iterative approach which calculate the solutions with multiple steps}The algorithm tries to find a threshold function: a function that maps its input x (a real-valued vector) to an output value
 \begin{align*}
     y(x)= f(w^T\Phi(x)), \quad where \\
     f(a) =
@@ -153,7 +153,7 @@ The perceptron is an algorithm for online\footnotemark supervised learning of bi
 \end{align*}
 Target values are +1 for $C_1$ and -1 for $C_2$. The algorithm finds the separating hyperplane by minimizing the distance of misclassified points to the decision boundary.
 Our objective is to find a parameter vector $w$ such that $w^T \Phi(x_n) \geq 0$ when $x_n \in C_1$ and $w^T \Phi(x_n) < 0$ when $x_n \in C_2$.
-Now we define a an error function as follow,
+Now we define an error function as follow,
 \begin{align*}
     \epsilon_p(w, x_n) =
     \begin{cases}
@@ -170,8 +170,8 @@ To perform minimization we use stochastic gradient descent(online)
     w^{(k+1)} = w^{(k)} - \alpha \nabla L_P(w) = w^{(k)} + \alpha \Phi(x_n)t_n
 \end{equation}
 
-\paragraph{Note} We have a minus sign in the loss function because $w^T\Phi(x_n)t_n$ will always be negative. This is due to the fact that if $w^T\Phi(x_n)$ is misclassified, then it will have an opposite sign compared to $t_n$.
-\paragraph{Note} The learning rate $\alpha$ can be set to 1 because it doesn't change the direction of w. We assume that w starts from the origin, so a scaling of the vector doesn't affect the boundary definition.
+\paragraph{Note - Loss sign} We have a minus sign in the loss function because $w^T\Phi(x_n)t_n$ will always be negative. This is due to the fact that if $w^T\Phi(x_n)$ is misclassified, then it will have an opposite sign compared to $t_n$.
+\paragraph{Note - Learning rate} The learning rate $\alpha$ can be set to 1 because it doesn't change the direction of w. We assume that w starts from the origin, so a scaling of the vector doesn't affect the boundary definition.
 
 \subsubsection{Perceptron algorithm}
 \begin{algorithm}[H]
@@ -231,7 +231,7 @@ We now use maximum likelihood to determine the parameters of the logistic regres
 \begin{align*}
     y_n(\Phi(x_n)|w) = P(t_n|\Phi(x_n)), \quad t_n \in [0,1] \Rightarrow t_n \sim Be(y_n(\Phi(x_n)|w))
 \end{align*}
-\paragraph{Note} For $t_n = 1$ we have $C_1$ and for $t_n = 0$ we have $C_2$.
+\paragraph{Note - Output} For $t_n = 1$ we have $C_1$ and for $t_n = 0$ we have $C_2$.
 \newline \newline
 Knowing that $t_n$ follows a Bernoulli distribution we have,
 \begin{equation}
@@ -264,7 +264,7 @@ Now we have to minimize the loss function. Unfortunately L(w) is no longer linea
 %\underset{\substack{\text{\scriptsize Chain} \\ \text{\scriptsize rule}}}{=}
 There is no closed form solution, due to non-linearity of the logistic sigmoid function, but the error function is convex\footnotemark and can be optimized by standard gradient-based optimization techniques. \footnotetext{Convex in this case implies that $L(w)$ has only one minimum}
 
-\paragraph{Note} If we replace the sigmoid with a step function we obtain the perceptron algorithm. Both algorithm use the same updating rule $w \leftarrow w + \alpha(y(x_n, w)-t_n)\Phi(x_n)$
+\paragraph{Note - Activation function} If we replace the sigmoid with a step function we obtain the perceptron algorithm. Both algorithm use the same updating rule $w \leftarrow w - \alpha(y(x_n, w)-t_n)\Phi(x_n)$
 
 \subsubsection{Multiclass logistic regression}
 Logistic regression can be expanded to multiclass classification. Before starting, it can be useful to talk about the role of the sigmoid function in standard logistic regression. $\sigma$ is used to remap the infinite space $w^T \Phi$ in a finite output space. Furthermore, the output space have to be a probability distribution, so every output must be between 0 and 1, and the sum of the two classes must be 1. In logistic regression the first property is ensured by the sigmoid function and the second by the fact that $P(C_2|\Phi) = 1- P(C_1|\Phi)$. In the multiclass case, we have to find a new way to ensure that the second property is still valid. To comply with both properties we can use the \textbf{softmax} operator. If we have K classes we construct K classifier as follow,

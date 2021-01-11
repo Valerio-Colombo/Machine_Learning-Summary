@@ -178,7 +178,7 @@ In the second case we have
 \end{align*}
 Here the solution is no longer in the global optimum, but lies on the constraint. In fact, we have that $g(w^*) = 0$ and $\alpha \geq 0$.
 
-When the solution lies on the constraint, it is called active constraint. When a constraint is active its Lagrange multiplier is positive. On the other hand, if the solution in inside the region defined by the constraint its Lagrange multiplier will be 0.
+When the solution lies on the constraint, it is called active constraint. When a constraint is active its Lagrange multiplier is positive. On the other hand, if the solution is inside the region defined by the constraint, its Lagrange multiplier will be 0.
 \subsection{Dual representation}
 Now we have a way to solve our problem. We can observe that we have a constraint for every training sample. Now comes the very interesting part. Every sample related to a constraint with positive Lagrange multiplier will be in the support vectors set. Through weights optimization, we have found the training data subset to use for finding the solution, as we anticipated early in this section.
 
@@ -231,7 +231,7 @@ This is very similar to the perceptron case. Be aware, that we don't have a fast
     b = \frac{1}{N_\mathcal{S}} \sum_{n \in \mathcal{S}} \bigg( t_n - \sum_{m \in \mathcal{S}} \alpha_m t_m k(x,x_m) \bigg)
 \end{equation*}
 
-Sadly, as for every method we have seen so far, the curse of dimensionality hits also the SVMs. When the number of dimensions increases, the percentage of support vectors increases too. This leads to poor generalization and too some scalability issue.
+Sadly, as for every method we have seen so far, the curse of dimensionality hits also the SVMs. When the number of dimensions increases, the percentage of support vectors increases too. This leads to poor generalization and to some scalability issue.
 We have seen how we are able to construct bounds about the loss function of our models. For SVMs exists a very handy way to construct such bound. It's called \textbf{Leave-One-Out Bound}.
 As for classic LOO, we use N-1 samples for the training phase and one sample for validation. We repeat this operation N times. We have already observed how eliminating a sample from the training set, which is not a support vector, doesn't change the solution. In this case we will not misclassify any point. In the worst case, when we "leave out" a support vector, we can misclassify a point. The loss function will be upper bounded by the probability of misclassify a point, which in our case is \footnotemark \footnotetext{$|\mathcal{S}|$ is the number of support vectors}
 \begin{equation}
@@ -283,5 +283,7 @@ In the figure above we can see an example of non-linearly separable problem. We 
     \item Clustering
     \item Semi-supervised learning
 \end{itemize}
+
+\newpage
 
 \end{document} 

@@ -11,7 +11,7 @@
 Kernel methods is a family of non-parametric techniques. To better explain what it means, we start from what we have already seen in the previous chapters. With parametric method a certain hypothesis in the hypothesis space is defined by the combination of values of the learnable parameters. For example, linear regression is a parametric method, where each hypothesis is defined by the value of the parameters associated with each feature plus the constant term.
 With non-parametric methods we have no explicit parameters. %in fact they are somewhat implicit and they depends on the size of the training set. 
 In parametric methods the training set is used in the training phase to learn the parameters. Then for the prediction phase the training set is not used because all the relevant information are encoded in the learned model. In non-parametric methods the training set is used also in the prediction phase because the model is implicitly encoded in the dataset.
-\paragraph{Example} A very famous example of non-parametric method is the k-nearest neighbour\footnotemark. This method is used for classification. In practice when we have a new sample, we search for the k nearest training data samples in the training data. Then we assign a class to the new sample equal to the most frequent class between the k nearest training samples. Once classified, the new sample becomes part of the training data. \footnotetext{It worth mentioning that k-nearest neighbour is not a kernel method. It's used only as an example for non-parametric methods}
+\paragraph{Example - KNN} A very famous example of non-parametric method is the k-nearest neighbour\footnotemark. This method is used for classification. In practice when we have a new sample, we search for the k nearest training data samples in the training data. Then we assign a class to the new sample equal to the most frequent class between the k nearest training samples. Once classified, the new sample becomes part of the training data. \footnotetext{It worth mentioning that k-nearest neighbour is not a kernel method. It's used only as an example for non-parametric methods}
 
 K-nearest neighbour doesn't utilize parameters, but introduce the concept of "distance" for evaluating the new samples. The distance, more formally, is called \textbf{metric}. As in parametric method we need to define the features, in non-parametric methods we need to define a metric. 
 We can notice that in the k-nearest neighbour example we have no training time because we haven't a model. But this comes with a price, in fact we have a time penalty during the prediction phase because we need to review each training data to make our assumption, instead of just use our model. 
@@ -65,7 +65,7 @@ There are different type of kernel
 
 \subsubsection{Dual representation}
 Many linear models for regression and classification can be reformulated in terms of dual representation, in which the kernel function arises naturally. We want this in order to be able to apply the kernel trick. In practice we want to describe our model not using feature but with a kernel. For every linear model exist a dual representation involving kernels. Let's take as an example ridge regression.
-We recall that loss function for ridge regression is
+We recall that the loss function for ridge regression is
 \begin{equation*}
     L_w = \frac{1}{2}\sum_{n=1}^N (w^T\Phi(x_n) - t_n)^2 + \frac{\lambda}{2}w^T w
 \end{equation*}
@@ -86,7 +86,7 @@ Putting $\overset{w}{\nabla}L = 0$ we have
     & \text{Define } \Phi = \begin{bmatrix}\begin{bmatrix}\Phi^T(x_1)\end{bmatrix}\\ \vdots \\ \begin{bmatrix} \Phi^T(x_N)\end{bmatrix}\end{bmatrix} \text{, and } a=\begin{bmatrix}a_1 \\ \vdots \\ a_N\end{bmatrix}\\
     &= \Phi^T a \quad [Mx1]
 \end{align*}
-Now we can substitute w in the loss function. For make the calculus simpler we switch to full matrix notation
+Now we can substitute w in the loss function. To make the computation simpler, we switch to full matrix notation
 \begin{align*}
     L_w &= \frac{1}{2}(\Phi w - t)^T(\Phi w - t)+\frac{\lambda}{2}w^T w \\
     &= \frac{1}{2}(\Phi \Phi^T a - t)^T(\Phi \Phi^T a - t)+\frac{\lambda}{2}(\Phi^T a)^T \Phi^T a \\
@@ -142,7 +142,7 @@ When we make a prediction for a new x we have our linear regression model. If we
 As we can see, the prediction is a linear combination of the target values from the training set. We can get a very nice intuition of this. Making a linear combination of the target values is like taking a weighted average over the target samples, based on the similarity between the new samples and the target samples in the training data. In this way, we have completely eliminated the parameters, so we have found a dual representation of the parametric model eliminating the need of parameters and features, for describing the model, by using kernels. So the "model" is now implicit in the data.
 This approach have several advantages
 \begin{itemize}
-    \item Solution for a is entirely described in terms of kernel s functions. Once we get $a$ we can recover $w$ as a linear combination of $\Phi$ using $w = \Phi^T a$
+    \item Solution for a is entirely described in terms of kernel functions. Once we get $a$ we can recover $w$ as a linear combination of $\Phi$ using $w = \Phi^T a$
     \item When computing the solution we need to invert a [NxN] matrix and not a [MxM] matrix. This is good when the number of features is very high
     \item The true advantage is that for some kernel, we don't even need to compute $\Phi$. Doing so we resolve a lot of issues revolving around the high number of features. We will see how we can work even with infinite features.
     \item Kernel functions can be defined not only over simply vectors of real numbers, but also over objects as diverse as graphs, sets, string, and text documents
@@ -156,8 +156,8 @@ So the most naive way to construct a kernel is through the scalar product of $\P
 \end{equation*}
 Where $\Phi(x)$ are basis functions.
 
-It exist a second and much more interesting method to construct kernels. We choose a function that correspond to a scalar product in some space. We make an example to better understand what it means.
-\paragraph{Example}Suppose to have the kernel function $k(x, z) = (x^T z)^2$.
+It exist a second and much more interesting method to construct kernels. We can choose a kernel function that correspond to a scalar product in some space. We make an example to better understand what it means.
+\paragraph{Example - Kernel construction}Suppose to have the kernel function $k(x, z) = (x^T z)^2$.
 To be a valid kernel we need to find a features expansion that is able to provide the same result as the initial kernel definition. Suppose we are in two dimensional space.
 \begin{align*}
     k(x,z) &= (x^T z)^2 \\
@@ -178,11 +178,11 @@ This is a very simple example and the gain is very small. If we consider the ker
     \item \textbf{Direct estimation of valid kernel}: linear grow in number of operation
 \end{itemize}
 We can represent features expansion that include billions of elements with very simple kernel which need few operation to be computed.
-in this way we have construct a memory based method which doesn't use both features and weights, but it exploit the training data to predict new samples.
+In this way we have constructed a memory based method which doesn't use both features and weights, but it exploit the training data only to predict new samples.
 
 Now we can define more formally how we can demonstrate that a given kernel is valid.
 Necessary and sufficient condition for a function $k(x, x')$ to be a kernel is that the gram matrix $K$, whose elements are given by $k(x_n, x_m)$, is positive semi-definite\footnotemark for all possible choices of the set $\{x_n\}$.
-\footnotetext{Positive semi-definite means that $x^T K x \geq 0,$ $\forall x:x_i\in \mathbb{R}^+$. A notable consequence is that a positive semi-definite matrix has}
+\footnotetext{Positive semi-definite means that $x^T K x \geq 0,$ $\forall x:x_i\in \mathbb{R}^+$}
 \begin{theorem}[Mercer’s theorem]
 Any continuous, symmetric, positive semi-definite kernel function $k(x, y)$ can be expressed as a dot product in a high-dimensional space
 \end{theorem}
@@ -275,7 +275,7 @@ In the case of ridge regression we have that the prior over w is
 \begin{equation*}
     w \sim \mathcal{N}(w|0, \tau I)
 \end{equation*}
-So how is y distributed? We know that the linear combination of Gaussian is still Gaussian. So knowing that y is a linear combination of w, we are sure that it is distributed as a Gaussian. Now we can calculate its mean and variance.
+So how is y distributed?\footnotemark \footnotetext{As $p(w)$ is the prior for liner Bayesian regression, $p(y)$ is the prior for Gaussian processes} We know that the linear combination of Gaussian is still Gaussian. So knowing that y is a linear combination of w, we are sure that it is distributed as a Gaussian. Now we can calculate its mean and variance.
 \begin{align*}
     E[y] &= \Phi E[w] = 0 \\
     Cov[y] &= E[yy^T] = \Phi E[ww^T] \Phi^T = \tau \Phi \Phi^T = K, \text{ Gram matrix}\\
@@ -306,11 +306,11 @@ We can also assume that the noise is independent on each data point. So the join
 \begin{equation}
     p(t|y) = \mathcal{N}(t|y, \sigma^2 I)
 \end{equation}
-Since $p(y)=\mathcal{N}(0, K)$, we can compute the marginal distribution $p(t)$\footnotemark \footnotetext{As $p(w)$ is the prior in liner Bayesian regression, $p(t)$ is the prior with Gaussian processes}
+Since $p(y)=\mathcal{N}(0, K)$, we can compute the marginal distribution $p(t)$
 \begin{equation}
     p(t) = \int p(t|y)p(y)dy = \mathcal{N}(t|0,C),\text{where } C = K + \sigma^2 I_N
 \end{equation}
-Now suppose we want to make a prediction $t_{N+1}$ for a new data input $x_{N+1}$, given the training data. Our goal is to evaluate the predictive distribution $p(t_{N+1}|t^{(N)},x_1,\dots,x_N+1)$\footnotemark \footnotetext{$t^{(N)}$ is the $t$ vector when we have N sample. The professor in the lecture uses $\pmb{t}_N$ but I found it a little misleading, because the difference between the bold character and the normal one can be easily missed. Also putting the number of sample as a superscript reminds of the iterations count in other notation}
+Now suppose we want to make a prediction $t_{N+1}$ for a new data input $x_{N+1}$, given the training data. Our goal is to evaluate the predictive distribution $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$\footnotemark \footnotetext{$t^{(N)}$ is the $t$ vector when we have N sample. The professor in the lecture uses $\pmb{t}_N$ but I found it a little misleading, because the difference between the bold character and the normal one can be easily missed. Also putting the number of sample as a superscript reminds of the iterations count in other notation}
 We can calculate that
 \begin{align*}
     p(t^{(N+1)}) &= \mathcal{N}(t^{(N+1)}|0,C^{(N+1)}), \text{ where} \\
@@ -322,7 +322,7 @@ We can calculate that
     k &= \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [Nx1] \\
     c &= k(x_{N+1},x_{N+1}), \quad [1x1]
 \end{align*}
-We can observe that for the Gaussian distribution properties, the predictive distribution is still a Gaussian. From that, we can apply the properties over conditional Gaussian distribution to obtain $p(t_{N+1}|t^{(N)},x_1,\dots,x_N+1)$.
+We can observe that for the Gaussian distribution properties, the predictive distribution is still a Gaussian. From that, we can apply the properties over conditional Gaussian distribution to obtain $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$.
 \begin{equation}
     p(t_{N+1}|t^{(N)},x_1,\dots,x_N+1) \sim \mathcal{N}(t_{N+1}|k^T {C^{(N)}}^{-1} t, c - k^T {C^{(N)}}^{-1} k)
 \end{equation}
@@ -335,4 +335,9 @@ First, we construct our prior p(t) (red ellipses). We assume a zero mean distrib
 
 As we have said before, like we need to define features in the parametric world, we need to define a kernel in the non-parametric case. In some cases, the kernel have some hyperparameters. How can we find the optimal values for this hyperparameters?
 We have already seen how cross validation can be used to do model selection. This method is very robust, but at the same time it is slow. Another approach uses the maximization of the marginal likelihood using gradient optimization. In practice, you want to find the hyperparameters for which the observed target variables are more likely. This is faster, but it can be stuck in local minima. Usually the gradient approach is the go to method for hyperparameters optimization.
+\begin{center}
+    \includegraphics[height=60mm]{img/GaussianProcessExample.PNG}
+\end{center}
+
+\newpage
 \end{document}

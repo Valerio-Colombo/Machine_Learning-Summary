@@ -39,12 +39,12 @@ As we can see, the state is a function of the history, but it may not be equal.
 \newline
 \newline
 We can distinguish between two states. The \textbf{environment state} $s_t^e$ is the environment's private representation. It's used to produce the next observation/reward based on agent action. It's worth mentioning, that in many real applications the environment state is usually not visible. The non-observability of the real state greatly increases the difficulty of the problem.
-The \textbf{agent state} $s_t^a$ is the agent internal representation. It's used by the agent to select the next action. It's build upon the observation coming from the environment and can be any function of the history($s_t^a = f(h_t)$). Ideally, the observation are enough to build a correct agent state, which can be used to behave efficiently in the environment. From now on we will make a very important and limiting assumption. The observation that the environment provides to the agents are its internal state at a given time t, $o_t = s_t^e$. As a consequence the state of the agent is the same of the environment, $s_t^a = s_t^e$, when this happens we have a \textbf{fully observable environment}. In practice the environment doesn't have hidden information. For example, chess is fully observable, because all the pieces and squares can be seen by both players. Poker is not, because a player don't know the cards of the other players.
+The \textbf{agent state} $s_t^a$ is the agent internal representation. It's used by the agent to select the next action. It's build upon the observation coming from the environment and can be any function of the history($s_t^a = f(h_t)$). Ideally, the observation are enough to build a correct agent state, which can be used to behave efficiently in the environment. From now on we will make a very important and limiting assumption. The observations that the environment provides to the agent are its internal state at a given time t, $o_t = s_t^e$. As a consequence the state of the agent is the same of the environment, $s_t^a = s_t^e$, when this happens we have a \textbf{fully observable environment}. In practice the environment doesn't have hidden information. For example, chess is fully observable, because all the pieces and squares can be seen by both players. Poker is not, because a player don't know the cards of the other players.
 \paragraph{Note - When RL is useful?} The goal of RL in many cases is to build a controller which can perform some task in an environment. RL is useful when the dynamic of the environment is unknown or difficult to be modelled. This is a different approach compared to the classic control theory. Historically, we build manually a model that describe the environment and the effect of an agent in it. RL tries to learn the environment from the experience, without the need of formalizing from the beginning how the environment behaves. Another advantage of RL compared to classical control theory is the ability of generating approximate, but yet efficient, solutions. For example, if we want to learn a controller to make a humanoid robot walk, an exact solution using control theory would be very complex, due to the shear amount of degree of freedom and sensors. 
 
 \subsection{MDP}
 \subsubsection{MDP model}
-In this chapter we introduce the formal problem of finite Markov decision processes, or finite MDPs. MDPs are a mathematically idealized form of the reinforcement learning problem, for which precise theoretical statements can be made. MDPs are constructed on two principles. The problem is \textbf{fully observable} and \textbf{Markovian}.
+In this chapter we introduce the formal problem of finite \textbf{Markov decision processes}, or finite MDPs. MDPs are a mathematically idealized form of the reinforcement learning problem, for which precise theoretical statements can be made. MDPs are constructed on two principles. The problem is \textbf{fully observable} and \textbf{Markovian}.
 \begin{definition}[Markov assumption]
 A stochastic process $X_t$\footnotemark is said to be Markovian if and only if \footnotetext{A stochastic or random process can be defined as a collection of random variables that, in our case, is indexed by time. We can see it as a sequential observation of a time series or model}
 \begin{equation*}
@@ -58,7 +58,7 @@ This means that the future is independent of the past given the present.
 If a problem is Markovian, the current state captures all the information from history. As a consequence, once the state is known, the history can be thrown away. The MDPs we will analyze in this chapter will be \textbf{stationary}\footnotemark.\footnotetext{In a more formal way we have $p_{ij} = P(X_{t+1}=j|X_t=i) = P(X_1=j|X_0=i)$} It means that the the environment doesn't change through time, so the problem is time invariant.
 \newline
 Let's define formally what Discrete-time Markov Decision Processes are.
-A Markov decision process (MDP) is Markov reward process with decisions. It models an environment in which all states are Markovian and time is divided into stages.
+A Markov decision process (MDP) is a Markov reward process with decisions. It models an environment in which all states are Markovian and time is divided into stages.
 \newpage
 \begin{definition}[Finite MDP]
 A Markov process is a tuple $\langle S, A, P, R, \gamma, \mu \rangle$
@@ -106,14 +106,14 @@ As we have said the goal of a problem can be encoded in the reward function. Wha
         \item \textbf{Mean-variance reward}
     \end{itemize}
 \end{itemize}
-The most used cumulative reward is the discounted reward. We make use of the discount factor $\gamma$ to penalize future rewards. We can give a definition of the infinite–horizon discounted return highlighting with
+The most used cumulative reward is the discounted reward. We make use of the discount factor $\gamma$ to penalize future rewards. We can give a definition of the infinite–horizon discounted return
 \begin{definition}
 The return $v_t$ is the total discounted reward from time–step t.
 \begin{equation}
     v_t = r_{t+1} + \gamma r_{t+2} + \gamma^2 r_{t+3} + \dots = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
 \end{equation}
 \end{definition}
-We know that $\gamma \in [0,1]$. $\gamma^k$ can be interpret as a measure of the importance of a reward at time $t+k+1$. The discount factor will penalize more the rewards far in the future because it is monotonically decreasing. If $\gamma$ is close to zero we will prefer immediate rewards, on the other side if $\gamma$ is close to 1 we will equally evaluate immediate and future rewards. Ideally, $\gamma$ equal to one will represents the true problem. but it makes the learning process very complex from a computational point of view. Sometimes, it's worth simplifying the problem reducing $\gamma$, in order to find an optimal solution of a simplified version of the true problem. Another way to interpret $\gamma$ is from a probabilistic point of view. $\gamma$ could represents the probability that the process will go on, so that we will play another step. We invest in future rewards, only if we are confident that we will play future steps. The discount factor has many advantages. It is mathematically convenient to discount rewards and avoids infinite returns in cyclic or infinite Markov processes. From a model point of view, we can model uncertainty about the future easily. For example, we can represents animal/human behavior preference for immediate reward.
+We know that $\gamma \in [0,1]$. $\gamma^k$ can be interpret as a measure of the importance of a reward at time $t+k+1$. The discount factor will penalize more the rewards far in the future because it is monotonically decreasing. If $\gamma$ is close to zero we will prefer immediate rewards, on the other side if $\gamma$ is close to 1 we will equally evaluate immediate and future rewards. Ideally, $\gamma$ equal to one will represents the true problem, but it makes the learning process very complex from a computational point of view. Sometimes, it's worth simplifying the problem reducing $\gamma$, in order to find an optimal solution of a simplified version of the true problem. Another way to interpret $\gamma$ is from a probabilistic point of view. $\gamma$ could represents the probability that the process will go on, so that we will play another step. We invest in future rewards, only if we are confident that we will play future steps. The discount factor has many advantages. It is mathematically convenient to discount rewards and avoids infinite returns in cyclic or infinite Markov processes. From a model point of view, we can model uncertainty about the future easily. For example, we can represents animal/human behavior preference for immediate reward.
 
 \subsubsection{Policies} So far we have define what a MDP is, and how the behaviour of an agent can be evaluated at a given time $t$. Now we need to formalize the decision making process of our agent. The rules that control which action an agent will take in a given state are called \textbf{policy}. In other words, a policy, at any given point in time, decides which action the agent selects. A policy can be
 \begin{itemize}
@@ -140,7 +140,7 @@ The state-value function $V^{\pi}(s)$ of an MDP is the expected return starting 
 \end{definition}
 For control purposes, rather than the value of each state, it is easier to consider the value of each action in each state
 \begin{definition}[Action-Value function]
-The action–value function $Q^(s, a)$ is the expected return starting from state $s$, taking action $a$,
+The action–value function $Q^\pi(s, a)$ is the expected return starting from state $s$, taking action $a$,
 and then following policy $\pi$
 \begin{equation*}
     Q^{\pi}(s,a) = E_{\pi}[v_t|s_t=s, a_t=a]
@@ -251,7 +251,7 @@ The most interesting property is the last one. It means that they may exist mult
 \begin{equation}
     \pi^*(a|s) = 
     \begin{cases}
-        1,& \text{if } a = \underset{a \in A}{argmax} Q^*(s,a)\\
+        1,& \text{if } a = \underset{a \in A}{argmax} \big(Q^*(s,a)\big)\\
         0,& \text{otherwise}
     \end{cases}
 \end{equation}
@@ -293,12 +293,16 @@ The Bellman optimality operator have the same properties as the Bellman operator
         T^{\pi}(V_1) \leq T^{\pi}(V_2) \\
         T^*(V_1) \leq T^*(V_2)
     \end{align*}
-    \item \textbf{Max-Norm contraction} For two value unctions $V_1$ and $V_2$ \footnotemark \footnotetext{$\|V_1 - V_2\|_{\infty} = \max_s |V_1(s) - V_2(s)|$}
+    \item \textbf{Max-Norm contraction} For two value functions $V_1$ and $V_2$ \footnotemark \footnotetext{$\|V_1 - V_2\|_{\infty} = \max_s |V_1(s) - V_2(s)|$}
     \begin{align*}
         \|T^{\pi}(V_1) - T^{\pi}(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty} \\
         \|T^*(V_1) - T^*(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty}
     \end{align*}
     \item \textbf{Fixed point uniqueness} $V^{\pi}$ is the unique fixed point of $T^{\pi}$. $V^*$ is the unique fixed point of $T^*$
+    \begin{align*}
+        T^{\pi}(V^{\pi}) = V^{\pi} \\
+        T^*(V^*) = V^*
+    \end{align*}
     \item \textbf{True value function convergence} For any value function $V$ and any policy $\pi$
     \begin{align*}
         \lim_{k \rightarrow \infty} (T^{\pi})^k V = V^{\pi} \\
@@ -309,7 +313,103 @@ The Bellman optimality operator have the same properties as the Bellman operator
 \noindent
 Being an iterative approach, it would be nice if we can actually know at which step we had reached a good approximation. We can define $\epsilon = \|T^*(V) - V\|_{\infty}$. We can bound the distance of our approximation to the real value as
 \begin{equation}
-    \|V^* - V\|_{\infty} \leq \frac{2 \gamma \epsilon}{\- \gamma}
+    \|V^* - V\|_{\infty} \leq \frac{2 \gamma \epsilon}{1 - \gamma} \label{eqn-value_iteration_bound}
 \end{equation}
+
+\subsection{Dynamic programming}
+To find the optimal policy we have seen that the simple approach of enumerating all possible policies is unfeasible. In fact, we would need to evaluate $|A|^{|S|}$. We can use dynamic programming to find a better way to fond $\pi^*$. Dynamic Programming is a very general solution method for problems
+which have two properties
+\begin{itemize}
+    \item \textbf{Optimal substructure} Optimal solution can be decomposed into subproblems and the principle of optimality applies. A problem is said to satisfy the principle of optimality, if the subsolutions of an optimal solution of the problem are themselves optimal solutions for their subproblems.
+    \item \textbf{Overlapping subproblems} Subproblems recur many times and solutions can be cached and reused
+\end{itemize}
+Markov decision processes satisfy both properties. Bellman equation gives recursive decomposition. Value function stores and reuses solutions.
+
+\subsubsection{Policy iteration}
+Policy iteration is an iterative method to find the optimal policy of an MDP. It's an extension of what we have seen for the evaluation of a value function. The method can be divided in two steps
+\begin{enumerate}
+    \item \textbf{Policy evaluation} In this step, our objective is to evaluate the true state-value function of a policy. We have already seen how we can estimate it. In closed form with (\ref{eqn_V-pi}), or with an iterative approach (\ref{eqn-bellman_operator}).
+    \item \textbf{Policy improvement} In this step, we improve our policy, generating a new one, based on the information given by the evaluation of the state-value function of the previous step.
+\end{enumerate}
+The method start with a given or random policy $\pi_0$. First, we apply the policy evaluation step generating $V^{\pi_0}$. Then we apply the policy improvement using $V^{\pi_0}$ to generate a new policy $\pi_1$. We iterate this two step iteratively ($\pi_0 \rightarrow V^{\pi_0} \rightarrow \pi_1 \rightarrow V^{\pi_1} \rightarrow \dots $). The policy improvement step is done in order to obtain a new policy which satisfies $V^{\pi_i} \leq V^{\pi_{i+1}}$. This implies that at each evaluation-improvement cycle the newly generated policy is monotonically better than the previous ones. We reach the convergence when $V^{\pi_i} = V^{\pi_{i+1}}$. This means that we have found $V^*$ and the relative optimal policy $\pi^*$.
+\paragraph{Example - Grid world policy evaluation} Imagine to have a 4x4 grid. This grid represents our MDP states. From each cell we can make four actions. Go up, down, left or right. If the agent make an action which result in reaching a cell outside the grid, the state remains unchanged. The action will have deterministic results. The top left and bottom right state are absorbing states(goals). If we reach these states the episode is concluded. The immediate reward is $-1$ until an absorbing state is reached. We use $\gamma = 1$.
+\begin{center}
+    \includegraphics[width=95mm]{img/Grid_World.PNG}
+\end{center}
+\begin{center}
+    \includegraphics[width=120mm]{img/First-Grid_World.jpg}
+\end{center}
+Notice that here we are doing only policy evaluation.
+We start from our random policy $\pi_0$ and state-value function $V^{\pi_0}_0$ initialized to all zeros. This means that in every state we have an equal probability of choosing one of the four possible actions. We apply the Bellman operator to find an approximation of $V^{\pi_0}$. To update the state-value function in a state we use
+\begin{equation*}
+    V_{k+1}(s) \leftarrow \sum_{a \in A} \pi(a|s) \bigg[ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V_k(s') \bigg]
+\end{equation*}
+To declutter the notation we remove the policy superscript on $V_k$.
+In practice, using synchronous backups at each iteration $k+1$, for all state $s \in S$, we update $V_{k+1}$(s) from $V_k(s')$.
+For example let's take state $5$. We know that for every action $\pi^0(a|5) = \frac{1}{4}$
+\begin{equation*}
+V_1(5) = \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \underbrace{\gamma \sum_{s' \in S} P(s'|s,a)V_0(s')}_{V_0(s')=0} \bigg] = -1
+\end{equation*}
+This holds true for every state, excluded the absorbing state where the state-value function is always zero.
+For $k=2$ we have. 
+\begin{align*}
+    V_2(5) &= \sum_{a \in A} \pi(a|s) \bigg[ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V_1(s') \bigg] \\
+    &= \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \sum_{s' \in S} P(s'|s,a) (-1) \bigg] \\
+    &= \sum_{a \in A} \frac{1}{4} \bigg[ -1 -1 \bigg] \\
+    &= -2
+\end{align*}
+Applying the Bellman operator on the random policy we are simply averaging the state-value function of the neighbours and adding the immediate reward.
+\begin{equation*}
+    V_2(1) = -1 + \frac{1}{4}(0 -1 -1 -1) = -1.75
+\end{equation*}
+\begin{center}
+    \includegraphics[width=120mm]{img/Second-Grid_World.jpg}
+\end{center}
+If we keep going iterating the Bellman operator, we obtain what we see in the last row of the image above. In the images above, for every iteration of the policy evaluation step we calculate the greedy policy. The \textbf{greedy policy} is the policy which choose in every state the action which leads to the most promising state. We can notice how after three steps the greedy policy is already optimal. This is due to the fact that from every state we need to perform at most three steps to reach the goal.
+\newline
+\par
+\noindent
+As we have seen in the example above, once we have found $V^{\pi_0}$ we can calculate a new policy $\pi_1$. We can improve the previous policy by acting greedily in every state
+\begin{equation*}
+    \pi_1(s) = \underset{a \in A}{argmax} \bigg\{ Q^{\pi_0}(s,a) \bigg\}
+\end{equation*}
+This improves the value from any state s over one step
+\begin{equation*}
+    Q^{\pi_0}(s, \pi^1(s)) \geq Q^{\pi_0}(s, \pi^0(s)) = V^{\pi_0}
+\end{equation*}
+
+\begin{theorem}[Policy improvement theorem]
+Let $\pi$ and $\pi'$ be any pair of deterministic policies such that
+\begin{equation*}
+    Q^{\pi}(s, \pi'(s)) \geq V^{\pi}(s), \quad \forall s \in S
+\end{equation*}
+Then the policy $\pi'$ must be as good as, or better than $\pi$
+\begin{equation*}
+    V^{\pi'}(s) \geq V^{\pi}(s), \quad \forall s \in s
+\end{equation*}
+\end{theorem}
+\begin{proof}
+\begin{align*}
+    V^{\pi}(s) &\leq Q^{\pi}(s,\pi'(s)) = E_{\pi'}[r_{t+1} + \gamma V^{\pi}(s_{t+1})|s_t=s] \\
+    &\leq E_{\pi'}[r_{t+1} + \gamma Q^{\pi}(s_{t+1}, \pi'(s_{t+1}))|s_t=s] \\
+    &\leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \gamma^2 Q^{\pi}(s_{t+2}, \pi'(s_{t+2}))|s_t=s] \\
+    &\leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \dots|s_t=s] = V^{\pi'}(s)
+\end{align*}
+\end{proof}
+\par
+\noindent
+Policy iteration can't be stuck in local minima. We have a finite number of policies. For the theorem we have seen above, if we find a greedy policy $\pi'$ with respect to $V^{\pi}$, we are sure that $V^{\pi} \leq V^{\pi'}$. This means that if we found, in two consecutive steps two identical value function, we have reached the optimal $V^*$, and so $\pi^*$.
+\paragraph{Generalized policy iteration} In the example above, we can notice that in the policy evaluation step, after the third iteration of the Bellman operator, the corresponding greedy policies of each iteration are the same. Stopping our policy evaluation at the third iteration would have produced the same policy improvement step. Generalized policy iteration simplify the policy evaluation stopping the estimation step earlier, in order to reduce the amount of computation needed.
+
+\subsubsection{Value iteration}
+Dynamic programming gave us another methodology to find the optimal policy of an MDP. As we have hinted before, we can actually use the \textbf{Bellman optimality operator} to iteratively estimate $V^*$. We know that finding $V^*$ is equivalent to solving the MDP. So we know that starting from an arbitrary value function $V$, we can obtain $V^*$ by applying iteratively infinite time the Bellman optimality operator ($\lim_{k \rightarrow \infty} (T^*)^k V = V^*$).
+For practical reasons, we can't perform infinite iteration steps. We stop iterating when we see that our approximation is close to $V^*$. We can use as a stopping condition the bound (\ref{eqn-value_iteration_bound}).
+\newline
+Once we have obtained a $V_k \approx V^*$, we can find the relative greedy policy to estimate the true optimal policy
+\begin{equation}
+    \Tilde{\pi}^*(s) = \underset{a \in A}{argmax} \bigg\{ R(s,a) + \gamma \sum_{s' \in s} P(s'|s,a) V_k(s') \bigg\}
+\end{equation}
+
+\newpage
 
 \end{document}

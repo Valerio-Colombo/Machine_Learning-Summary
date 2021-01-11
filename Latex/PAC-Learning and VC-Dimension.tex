@@ -10,9 +10,9 @@
 \begin{document}
 \section{PAC-Learning and VC-Dimension}
 In this section we will have a look to some statistical learning method.
-Previously we focused our attention on estimating the generalization error of a given model in order to measure the true performance. The training error usually is not a good indicator of how a model is behaving, but is way easier to estimate than other error terms. So we would like to extract as many information as possible from training error. Also there are cases where the training error is somewhat a good estimation of the performance. For example when we have a good number of samples relative to our hypothesis space we are less prone to overfitting. A question arises naturally. Can we estimate how many samples are necessary given an hypothesis space? We can answer this question in a theoretical way. Please remind that from a practical point of view is rarely used.
+Previously we focused our attention on estimating the generalization error of a given model in order to measure the true performance. The training error usually is not a good indicator of how a model is behaving, but is way easier to estimate than other error terms. So we would like to extract as many information as possible from training error. Also there are cases where the training error is somewhat a good estimation of the performance. For example when we have a good number of samples relative to our hypothesis space we are less prone to overfitting. A question arises naturally. Can we estimate how many samples are necessary given an hypothesis space? We can answer this question in a theoretical way. Please remind that from a practical point of view it is rarely used.
 \subsection{PAC-Learning}
-To introduce the ingredients of the theoretical setting we use a character recognition task given an array of n bits encoding a binary-valued image.
+To introduce the ingredients of the theoretical setting we use a character recognition task. Given an array of n bits encoding a binary-valued image we have
 \begin{itemize}
     \item X \textbf{Instances set}. In the character recognition problem, the instance space is $X=\{0,1\}^{n}$. The set of all possible input binary images.
     \item H \textbf{Hypothesis space}. The space where lies all possible combination of parameters.
@@ -24,7 +24,7 @@ The learner observes a sequence $\mathcal{D}$ of training example $<x,c(x)>$ for
     L_{true} = P_{x \in \mathcal{P}}(c(x) \neq h(x))
 \end{equation*}
 Our objective is to bound $L_{true}$ given $L_{train}$.
-Now we introduce the so called version space $VS_{H,\mathcal{D}}$. It is a subset of H where the training error $L_{train}$ is zero. So the hypothesis h are always correct on training instances. For now, we assume that VS is non-empty. Making some consideration we can bound $L_{train}$ inside VS.
+Now we introduce the so called \textbf{version space} $VS_{H,\mathcal{D}}$. It is a subset of H where the training error $L_{train}$ is zero. So the hypothesis h are always correct on training instances. For now, we assume that VS is non-empty. Making some consideration we can bound $L_{train}$ inside VS.
 \begin{theorem}[$L_{train}$ bound in VS]
 If the hypothesis space H is finite and $\mathcal{D}$ is a sequence of $N \geq 1$ independent random examples of some target concept c, then for any $0 \leq \epsilon \leq 1$, the probability that $VS_{H,\mathcal{D}}$ contains a hypothesis error greater then $\epsilon$ is less than $|H|e^{−\epsilon N}$:
 \begin{equation*}
@@ -43,7 +43,7 @@ $$P((L_{train}(h_1)=0 \land L_{train}(h_1) \geq \epsilon) \lor \dots \lor (L_{tr
     &\leq |H|e^{-\epsilon N} &(1-\epsilon \leq e^{-\epsilon},for \quad 0 \leq \epsilon \leq 1)
 \end{align*}
 \end{proof}
-We can notice that the dimension of the hypothesis space influences negatively the bound, in fact a larger searching space will give us less guarantees on the value of $L_{true}$. On the other hand, having more samples is always better, in fact $e^{-\epsilon N}$ is monotonically decreasing with N. Larger $\epsilon$ will lead to smaller bound because we are less demanding on the similarity between $L_{true}$ and $L_{train}$. $\epsilon$ is the probability of making a wrong guess.
+We can notice that the dimension of the hypothesis space influences negatively the bound, in fact a larger searching space will give us less guarantees on the value of $L_{true}$. On the other hand, having more samples is always better, in fact $e^{-\epsilon N}$ is monotonically decreasing with N. Larger $\epsilon$ will lead to smaller bound because we are less demanding on the similarity between $L_{true}$ and $L_{train}$.
 Now we can bound the probability of $P(\exists h \in H: L_{train}(h)=0 \land L_{true}(h) \geq \epsilon) \leq |H|e^{−\epsilon N}$. We can set a parameter $\delta$
 \begin{equation*}
     |H|e^{-\epsilon N} \leq \delta
@@ -65,7 +65,7 @@ Given N and $\delta$
 \newline
 Now we are ready to define formally what PAC\footnotemark is. Consider a class C of possible target concepts defined over a set of instances X of length n, and a learner L using hypothesis space H. \footnotetext{Probably Approximately Correct learning. Probably refers to $\delta$ and it is the confidence. Approximately refers to $\epsilon$ and it is the accuracy}
 \begin{definition}
-C is \textbf{PAC-learnable} if there exists an algorithm L such that for every $f \in C$, for any distribution $\mathcal{P}$, for any $\epsilon$ such that $0 \leq \epsilon < \frac{1}{2}$, and $\delta$ such that $0 \leq \delta < \frac{1}{2}$, then algorithm L, with probability at least $(1-\delta)$, outputs a concept h such that $L_{true}(h \leq \epsilon)$ using a number of samples that is polynomial of $\frac{1}{\epsilon}$ and $\frac{1}{\delta}$
+C is \textbf{PAC-learnable} if there exists an algorithm L such that for every $f \in C$, for any distribution $\mathcal{P}$, for any $\epsilon$ such that $0 \leq \epsilon < \frac{1}{2}$, and $\delta$ such that $0 \leq \delta < \frac{1}{2}$, then algorithm L, with probability at least $(1-\delta)$, outputs a concept h such that $L_{true}(h) \leq \epsilon$ using a number of samples that is polynomial of $\frac{1}{\epsilon}$ and $\frac{1}{\delta}$
 \end{definition}
 \begin{definition}
 C is \textbf{efficiently PAC-learnable} by L using H $\iff$ $\forall c \in C$, distributions $\mathcal{P}$ over X, $\epsilon$ such that $0 \leq \epsilon < \frac{1}{2}$, and $\delta$ such that $0 \leq \delta < \frac{1}{2}$, algorithm L, with probability at least $(1-\delta)$, outputs a concept h such that $L_{true}(h \leq \epsilon)$, in time that is polynomial in $\frac{1}{\epsilon}$, $\frac{1}{\delta}$, M and size(c)\footnotemark
@@ -103,7 +103,7 @@ Now we can rewrite the gap between $L_{train}$ and $L_{true}$ as
 Once more, we can see how $|H|$ influences the loss function. For large $|H|$ we assume a low bias because it's more probable to find a good h and a high variance. For small $|H|$ we have high bias because we have a low probability of including a good h and low variance. In practice what we are saying is that we have to justify a large H with a lot of data. If we do so the training error will be a good estimation of the overall performance(test/true error).
 
 \subsection{VC Dimension}
-So far we have considered only finite hypothesis space. If we use the bound that we have just found in an infinite\footnotemark H, we would have infinite variance. This is not the case, for infinite H the previous bound is too pessimistic. So we need to find a new one.\footnotetext{Infinite hypothesis spaces are very common. For example linear regression or classification have infinite hypothesis spaces}. In the finite H case we encoded the complexity of H in the number of possible hypothesis. In the infinite case we can't do this, so we need to find a new metric to measure H complexity. We will use the \textbf{VC dimension}. To lay the ground for our theoretical discussion, we need to introduce two definitions,
+So far we have considered only finite hypothesis space. If we use the bound that we have just found in an infinite\footnotemark H, we would have infinite variance. This is not the case, for infinite H the previous bound is too pessimistic. So we need to find a new one\footnotetext{Infinite hypothesis spaces are very common. For example linear regression or classification have infinite hypothesis spaces}. In the finite H case we encoded the complexity of H in the number of possible hypothesis. In the infinite case we can't do this, so we need to find a new metric to measure the complexity of H. We will use the \textbf{VC dimension}. To lay the ground for our theoretical discussion, we need to introduce two definitions,
 \begin{definition}[Dichotomy]
 A dichotomy of a set S is a partition of S into two disjoint subsets
 \end{definition}
@@ -123,7 +123,7 @@ In practice shattering means that if we split our instances set in two not overl
   \includegraphics[height=80mm]{img/VC_example4.PNG}
 \end{tabular}
 \end{center}
-Note that for four instances, H won't shutter S\footnotemark \footnotetext{This is the XOR problem. It's not linearly separable}
+Note that for four instances, H won't shutter S.\footnotemark \footnotetext{This is the XOR problem. It's not linearly separable}
 Now we can define what is the VC dimension
 \begin{definition}[VC dimension]
 The Vapnik-Chervonenkis dimension, $VC(H)$, of hypothesis space H

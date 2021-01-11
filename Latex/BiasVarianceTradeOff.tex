@@ -73,10 +73,10 @@ From what we have said, we can see how model complexity can affect the estimatio
     \item $\frac{\sigma^2}{K}$ is the variance term. It depends on the irreducible error and decreases as K increases
     \item $\bigg( \frac{1}{K}\sum_{i=1}^K f(x_i) \bigg)^2$ is the bias term. It depends on how rough the model space is. The rougher the space, the faster the bias term will increase as further away neighbors are brought into the estimates
 \end{itemize}
-
+\newpage
 \subsubsection{Training-test error}
-Given a data set $\mathcal{D}$ with N samples, we can split it in a training set and a test set(cross-validation).
-To calculate the training error we have to choose a loss function(e-g RSS).
+Given a data set $\mathcal{D}$ with N samples, we can split it in a training set and a test set.
+To calculate the training error we have to choose a loss function(e.g. RSS).
 We can distinguish between 
 \begin{itemize}
     \item Regression: $L_{train} = \frac{1}{N} \sum_{n=1}^N (t_n - y(x_n))^2$
@@ -103,8 +103,8 @@ We use the training set to estimate the model's parameters and the test set to e
 Model selection cover a key role in the performance of our model and can be performed in several ways. 
 Increasing the complexity of a model means to add dimensions to the input space. This could have really bad consequences.
 
-\subsubsection{Curse of dimensionality} In ML we have the so called curse of dimensionality. It is related to the exponential increase in volume associated with adding extra dimensions to the input space. Working with high-dimensional data is difficult because the variance of the model becomes larger, we need more samples and computational power to counteract this phenomenon. So a common pitfall when we can't solve a learning problem is to add features to the input space. However the number of samples remain the same and so the importance of the old features decreases leading to worse performance. To have a better grasp of what can lead to an increasing search volume we can think of the following. Imagine the parameter space of a learning problem. Adding a feature will add a dimension in the parameter space. Let's imagine a uni-dimensional parameters space. Suppose we have two points on a line, 0 and 1. These two points are unit distance away from one another. Suppose we introduce a second axis, again distributed a unit distance away. Now we have two points, (0,0) and (1,1). But the distance between the points has grown to $\sqrt{2}$. If we iterate this process adding new dimension the two point will go further away. More formally, consider a p-dimensional hypercube with unit volume. Suppose that we have n points uniformally distributed inside the hypercube. Let r be the ratio of points inside the cube which are within some neighborhood. To capture an r-full of points in the data, we need to grow a cube which takes up r of the unit cube's volume on every axis. Since the length of an edge on the cube is simply 1, we have that $r=e^p$.
-So expressed in terms of $e_p$, the edge length necessary to fill a p-hypercube, we have that $e_p=r^{\frac{1}{p}}$. For example, to take 10\% of the point in a 2-dimensional space we have $e_p(0.1)=0.1^{\frac{1}{2}}=0.31$. Similarly, for a 10-dimension space we would have $e_p(0.1)=0.1^{\frac{1}{10}}=0.8$. To include 10\% of the data in a 10-dimensional space we need to take up to 80\% of the volume, in contrast in a 2-dimensional space we only need 31\%. The searching space grows exponentially.
+\subsubsection{Curse of dimensionality} In ML we have the so called curse of dimensionality. It is related to the exponential increase in volume associated with adding extra dimensions to the input space. Working with high-dimensional data is difficult because the variance of the model becomes larger, we need more samples and computational power to counteract this phenomenon. So a common pitfall when we can't solve a learning problem is to add features to the input space. However the number of samples remain the same and so the importance of the old features decreases leading to worse performance. To have a better grasp of what can lead to an increasing search volume we can think of the following. Imagine the parameter space of a learning problem. Adding a feature will add a dimension in the parameter space. Let's imagine a uni-dimensional parameters space. Suppose we have two points on a line, 0 and 1. These two points are unit distance away from one another. Suppose we introduce a second axis, again distributed a unit distance away. Now we have two points, (0,0) and (1,1). But the distance between the points has grown to $\sqrt{2}$. If we iterate this process adding new dimension the two point will go further away. More formally, consider a p-dimensional hypercube with unit volume. Suppose that we have n points uniformally distributed inside the hypercube. Let r be the ratio of points inside the cube which are within some neighborhood. To capture an r-full of points in the data, we need to grow a cube which takes up r of the unit cube's volume. Since the length of an edge on the cube is simply 1, we have to find the cube edge $e$ so that $r=e^p$ is equal to the desired volume.
+So expressed in terms of $e_p$, the edge length necessary to fill a p-hypercube is $e_p=r^{\frac{1}{p}}$. For example, to take 10\% of the point in a 2-dimensional space we have $e_2(0.1)=0.1^{\frac{1}{2}}=0.31$. Similarly, for a 10-dimension space we would have $e_{10}(0.1)=0.1^{\frac{1}{10}}=0.8$. To include 10\% of the data in a 10-dimensional space we need to take up to 80\% of the possible parameters values, in contrast in a 2-dimensional space we only need 31\%. The searching space grows exponentially.
 
 \subsubsection{Feature selection}
 Identifies a subset of input features that are most related to the output. We can use the following approach to select the best features.
@@ -126,13 +126,13 @@ We can start from understanding how we can evaluate and select a single best mod
 So far we have divided the dataset into two subsets: training and test set. We do so to decouple the test data from the training phase in order to have an unbiased estimation of model performance. This decoupling must be preserved so \textbf{we can't use both training and test data to evaluate the various models and their features}. To have a fair evaluation we can introduce a new subset of data: \textbf{Validation set}. 
 \begin{itemize}
     \item \textbf{Training dataset}: The sample of data used to fit the model
-    \item \textbf{Validation dataset}: The sample of data used to provide an unbiased evaluation of a model fit on the training dataset while tuning model hyperparameters\footnotemark.
-    \item \textbf{Test dataset}: The sample of data used to provide an unbiased evaluation of a final model fit on the training dataset.
+    \item \textbf{Validation dataset}: The sample of data used to provide an unbiased evaluation of a model fit on the training dataset, while tuning model hyperparameters\footnotemark
+    \item \textbf{Test dataset}: The samples of data used to provide an unbiased evaluation of the final model fit
 \end{itemize}
-\footnotetext{The hyperparameters are those parameters describing a model representation that cannot be learned by common optimization methods but nonetheless affect the loss function. An example is the regularization parameter $\lambda$ in lasso}
-In practice training set is used to learn the parameters, the validation set to tune the hyperparameter and the test set to evaluate the performance of our fit.
-Validation set can't be use directly to estimate the error, because is used indirectly in the training phase. The solution is to use cross validation.
-In practice we want to train the model on training set and evaluate it on the validation set. The novelty in the cross validation approach is that training and validation set are not fixed\footnotemark. \footnotetext{Every sample is used as training data and validation data in different phases of the learning process}
+\footnotetext{The hyperparameters are those parameters describing a model representation that cannot be learned by common optimization methods, but nonetheless affect the loss function. An example is the regularization parameter $\lambda$ in lasso}
+In practice, the training set is used to learn the parameters, the validation set to tune the hyperparameter and the test set to evaluate the performance of our fit.
+Validation set can't be use directly to estimate the error, because is used indirectly in the training phase. The solution is to use \textbf{cross validation}.
+In practice we want to train the model on training set and evaluate it on the validation set. The novelty in the cross validation approach is that training and validation set are not fixed\footnotemark.\footnotetext{Every sample is used as training data and validation data in different phases of the learning process}
 We can randomly divide the training data into k equal subsets: $\mathcal{D}_1, \dots, \mathcal{D}_k$. We learn k times the parameters producing k different models, each time excluding a different $\mathcal{D}_i$. Then we evaluate the performance of every model on the relative excluded set. To estimate the validation error we can calculate the average of every subset $\mathcal{D}_i$ error. Based on the parameter k we can have different type of cross validation error.
 \paragraph{K-fold cross validation}
 k-fold cross validation is the most used, because is a good trade-off between performance and accuracy. Usually we have $k \sim 10$\\
@@ -192,7 +192,7 @@ LOO is almost unbiased(pessimistically) as opposed to k-fold, but from a computa
 
 \newpage
 \subsubsection{Regularization}
-We have already seen regularization approaches applied to linear models like ridge regression and lasso. Such methods shrink the parameters towards zero. It may not be immediately obvious why such a constraint should improve the fit, but it turns out that shrinking coefficient estimates can significantly reduce the variance. A possible motivation could be that smaller parameters are less prone to produce fast changing output function, so they are less prone to overfitting because they can't interpolate directly all the samples. Regularization methods are very useful when we have limited dataset and a large number of features compared to the dataset size. To visualize the importance of choosing the correct we can consider the following example. We pick $N = 50$ samples from a given function and we try to fit it with a model with $45$ features. As a regression method we use ridge regression.
+We have already seen regularization approaches applied to linear models like ridge regression and lasso. Such methods shrink the parameters towards zero. It may not be immediately obvious why such a constraint should improve the fit, but it turns out that shrinking coefficient estimates can significantly reduce the variance. A possible motivation could be that smaller parameters are less prone to produce fast changing output function, so they are less prone to overfitting because they can't interpolate directly all the samples. Regularization methods are very useful when we have limited dataset and a large number of features compared to the dataset size. To visualize the importance of choosing the correct regularization coefficient, we can consider the following example. We pick $N = 50$ samples from a given function and we try to fit it with a model with $45$ features. As a regression method we use ridge regression.
 From the figure below we can see in action the bias-variance trade-off. When $\lambda$ gets bigger we obtain simpler models, so the variance is reduced and the bias gets bigger. We need to find the optimal $\lambda$ which minimizes the MSE. Cross-validation provides a simple way to tackle this problem. We choose a grid of $\lambda$ values, and compute the cross-validation error rate for each value of $\lambda$. We then select the tuning parameter value for which the cross-validation error is smallest. Finally, the model is re-fit using all of the available observations and the selected value of the tuning parameter.
 
 \begin{center}
@@ -210,7 +210,7 @@ The approach we are going to present differs from the previous one because it do
     \item ...
 \end{itemize}
 
-\paragraph{PCA} The most used methodology is PCA. The idea is to find a new orthogonal base in the input space, which accounts for most on input variance. In other word we want to find a line such that when the data is projected onto that line, it has the maximum variance. Then we find a new line, orthogonal to the first one, that has maximum projected variance.We repeat this process until we have covered a certain percentage of input variance or we have reached a given number of dimensions(lines).
+\paragraph{PCA} The most used methodology is PCA. The idea is to find a new orthogonal base in the input space, which accounts for most of the input variance. In other word, we want to find a line such that when the data is projected onto that line, it has the maximum variance. Then we find a new line, orthogonal to the first one, that has maximum projected variance. We repeat this process until we have covered a certain percentage of input variance or we have reached a given number of dimensions(lines).
 \begin{center}
    \includegraphics[width=90mm]{img/PCA.png} \\
 \end{center}
@@ -235,7 +235,7 @@ Left: Original data projected into full PC space, Right: Original data reconstru
 \end{tabular}
 \end{center}
 
-PCA is very useful to reduce computational complexity. In supervised learning reducing the number of dimension leads to smaller hypothesis space resulting in models that are less prone to overfitting. PCA can be seen as a noise reduction reduction.
+PCA is very useful to reduce computational complexity. In supervised learning reducing the number of dimension leads to smaller hypothesis space resulting in models that are less prone to overfitting. PCA can be seen as a noise reduction method.
 This technique have some defects,
 \begin{itemize}
     \item Fails when data consists of multiple cluster
@@ -246,7 +246,7 @@ This technique have some defects,
 
 \subsection{Model Ensembles}
 The methods seen so far can reduce bias by increasing variance or vice versa. But there's a class of technique that can reduce variance or bias only.
-To decrease the variance without increasing the bias er can use \textbf{bagging}.
+To decrease the variance without increasing the bias we can use \textbf{bagging}.
 To decrease the bias without increasing the variance we can use \textbf{boosting}.
 Bagging and Boosting are meta-algorithms. Their basic idea is to learn several models and combine them, instead of learning only one model. Typically they greatly improve accuracy.
 
