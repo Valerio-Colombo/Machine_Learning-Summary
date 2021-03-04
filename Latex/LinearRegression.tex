@@ -32,7 +32,7 @@ property of this model is that it is a linear function of the parameters $w_0, .
 also, however, a linear function of the input variables $x_i$, and this imposes significant limitations on the model.
 \footnotetext{Note that we added a dummy sample $x_0=1$ to include $w_0$ in $w^{T}x$.}
 
-\textbf{Example} We want to estimate the weight of a person based on his age, height and gender
+\paragraph{Example} We want to estimate the weight of a person based on his age, height and gender
 So our inputs variables would be
 \begin{align*}
     &age,\quad &x_a\in \mathbb{N} \\
@@ -46,7 +46,7 @@ So our inputs variables would be
     \begin{bmatrix}1\\ x_a \\ x_h \\x_g\end{bmatrix}
 \end{align*}
 
-\textbf{Note} In linear regression we can distinguish two spaces. Hypothesis space(Parameters space) and Output space(Input space)
+\paragraph{Note} In linear regression we can distinguish two spaces. Hypothesis space(Parameters space) and Output space(Input space)
 
 \begin{center}
     \includegraphics[scale=0.4]{img/param_input_space.jpg}
@@ -86,7 +86,7 @@ Based on $q$ the model that minimize $E[L]$ is
     \item $q=1: \quad y(x) = median(t|x)$ Conditional median
     \item $q\xrightarrow{}0: \quad y(x) = mode(t|x)$ Conditional mode
 \end{itemize}
-\textbf{Note} For $q=2$ we have the squared loss function. This is the most used one.
+\paragraph{Note} For $q=2$ we have the squared loss function. This is the most used one.
 
 \subsection{Least square minimization}
 The method of least squares is a standard approach in regression analysis to approximate a model by minimizing the sum of the squares of the residuals. Given N samples, we consider the following loss(error) function
@@ -97,7 +97,7 @@ This loss function is called SSE(Squared Sum of Errors) or half RSS(Residual Sum
 \begin{equation}
     RSS(w)=\|\epsilon\|_{2\quad l_2norm}^{2\quad square},\quad where \quad \epsilon=\begin{bmatrix}y(x_1,w)-t_1\\ \vdots \\ y(x_N,w)-t_N\end{bmatrix}
 \end{equation}
-\textbf{Note} Given $x=\begin{bmatrix}x_1 & x_2 & \dots & x_{N}\end{bmatrix}$, the $l_2 norm$ of x corresponds to
+\paragraph{Note} Given $x=\begin{bmatrix}x_1 & x_2 & \dots & x_{N}\end{bmatrix}$, the $l_2 norm$ of x corresponds to
 \begin{align}
     l_2norm(x) = \|x\|_{2} = \sqrt{\sum_{n=1}^{N} x_n^2}
 \end{align}
@@ -112,7 +112,7 @@ We can rewrite the SSE in matrix notation
     L(w) = \frac{1}{2}RSS(w)=\frac{1}{2}(t-\Phi w)^T(t-\Phi w) \quad [1x1]\footnotemark
 \end{equation}
 
-\textbf{Note} $\Phi[NxM]$, $w[Mx1]$, $t[Nx1]$
+\paragraph{Note} $\Phi[NxM]$, $w[Mx1]$, $t[Nx1]$
 \footnotetext{The [ ] next to the equations indicates result dimensions}
 \newline
 To minimize L(w) we have to calculate the first and the second derivative
@@ -120,13 +120,13 @@ To minimize L(w) we have to calculate the first and the second derivative
     \frac{\partial L(w)}{\partial w}=\frac{\partial(\frac{1}{2}(t-\Phi w)^T(t-\Phi w))}{\partial w} = -\Phi^T(t-\Phi w) \quad[Mx1]
 \end{equation}
 
-\textbf{Note} $\frac{\partial L(w)}{\partial w}$ are the directions of every $w_i$ to minimize $L(w)$
+\paragraph{Note} $\frac{\partial L(w)}{\partial w}$ are the directions of every $w_i$ to minimize $L(w)$
 
 \begin{equation}
     \frac{\partial L(w)}{\partial w \partial w^T}=\Phi^T\Phi \quad [MxM]
 \end{equation}
 
-\textbf{Note} $\frac{\partial L(w)}{\partial w \partial w^T}$ is a semi-definite positive matrix\footnotemark, so all eigen values$\geq0$ and it's invertible. It also means that for $\frac{\partial L(w)}{\partial w}=0$ we find the minimum of $L(w)$
+\paragraph{Note} $\frac{\partial L(w)}{\partial w \partial w^T}$ is a semi-definite positive matrix\footnotemark, so all eigen values$\geq0$. It also means that for $\frac{\partial L(w)}{\partial w}=0$ we find the minimum of $L(w)$
 
 \footnotetext{$x^T\Phi^T \Phi x\geq0,\quad \forall x\in \mathbb{R} \setminus \O$}
 
@@ -250,7 +250,6 @@ To overcome this problem we can split the dataset in two subset,
     \item \textbf{Training set} This set is used to learn the model's parameters.
     \item \textbf{Test set} This set is used to test model performance on unseen data. This is very helpful for complexity selection.
 \end{itemize}
-This technique is called \textbf{cross-validation}.
 A good error function for testing the complexity is
 \begin{equation}
     E_{RMS}=\sqrt{\frac{2RSS(\hat{w})}{N}}
@@ -264,7 +263,7 @@ Differently from the loss function used at training time $E_{RMS}$ is not monoto
 Another indicator for poor generalization is parameters absolute value. If we have very large parameters it means that the model oscillate very rapidly. This is an evidence of overfitting.
 
 \subsection{Regularization}
-One of the major aspects of training your machine learning model is avoiding overfitting. The model will have a low accuracy if it is overfitting. This happens because your model is trying too hard to capture the noise in your training dataset. One way to avoid overfitting is using cross validation, that helps in estimating the error over test set, and in deciding what parameters work best for your model [\ref{fitting}]. Another way to reduce overfitting is constrain/ regularize or shrink the parameters estimates towards zero. To do so, we can change the loss function
+One of the major aspects of training your machine learning model is avoiding overfitting. The model will have a low accuracy if it is overfitting. This happens because your model is trying too hard to capture the noise in your training dataset. One way to avoid overfitting is using cross validation. Another way to reduce overfitting is constrain/regularize or shrink the parameters estimates towards zero. To do so, we can change the loss function
 \begin{equation}
     L(w)=\underbrace{L_D(w)}_{\text{error on data}}+ \underbrace{\lambda L_W(w)}_{\text{error on complexity}}
 \end{equation}
@@ -296,7 +295,7 @@ The main advantage of ridge regression is that the loss function is still quadra
 \begin{equation}
     \hat{w}_{ridge}=(\lambda I+\Phi^T \Phi)^{-1}\Phi^T t
 \end{equation}
-\textbf{Note} The eigen values of $(\lambda I+\Phi^T \Phi)$ are still greater or equal to zero because $\Phi^T \Phi$ is semi-definite positive and $\lambda I$ simply imposes a positive lower bound to the eigen values. $(\lambda I+\Phi^T \Phi)$ is still semi-definite positive and so invertible.
+\paragraph{Note} The eigen values of $(\lambda I+\Phi^T \Phi)$ are still greater or equal to zero because $\Phi^T \Phi$ is semi-definite positive and $\lambda I$ simply imposes a positive lower bound to the eigen values. $(\lambda I+\Phi^T \Phi)$ is still semi-definite positive and so invertible.
 
 \subsubsection{Lasso}
 For $q=1$ we have the so called Lasso.
@@ -328,12 +327,12 @@ because this always leads to excessively complex models and over-fitting. We the
 avoid the over-fitting problem of maximum likelihood, and which will also lead to
 automatic methods of determining model complexity using the training data alone.
 
-\textbf{Note} Bayes theorem is obviously the hearth of this type of regression. As a reminder, Bayes theorem states
+\paragraph{Note} Bayes theorem is obviously the hearth of this type of regression. As a reminder, Bayes theorem states
 \begin{equation}
     \underbrace{P(A|B)}_{Posterior} = \frac{\overbrace{P(B|A)}^{Likelihood} \overbrace{P(A)}^{Prior}}{\underbrace{P(B)}_{Marginalization}}
 \end{equation}
 
-\textbf{Example} We can estimate the probability of getting head or tail with a coin flip. We don't know if the coin is tricked or not.
+\paragraph{Example} We can estimate the probability of getting head or tail with a coin flip. We don't know if the coin is tricked or not.
 We know that a coin flip follow a Bernoulli distribution
 \begin{align*}
     P(r)= 
@@ -377,7 +376,7 @@ As the example we have made before we have
 Our objective is to find the most probable value of $w$ given the data maximum a
 posteriori (MAP), which is the mode of the posterior $P(w|D)$.
 
-\textbf{Note} An advantage of the Bayesian approach is the introduction of the prior distribution. This greatly reduce our hypothesis space(parameter space) reducing overfitting.
+\paragraph{Note} An advantage of the Bayesian approach is the introduction of the prior distribution. This greatly reduce our hypothesis space(parameter space) reducing overfitting.
 Assuming a Gaussian likelihood model we can take a Gaussian prior.
 The Gaussian family is conjugate to itself (or self-conjugate) with respect to a Gaussian likelihood function: if the likelihood function is Gaussian, choosing a Gaussian prior over the mean will ensure that the posterior distribution is also Gaussian.
 \begin{equation}
