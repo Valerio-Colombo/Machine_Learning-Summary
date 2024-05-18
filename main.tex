@@ -15,7 +15,14 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{tikz}
 
-\graphicspath{ {./img/} }
+% Command section 
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[section]\newtheorem{definition}{Definition}[section]
+
+% Allow page breaks in align environment
+\allowdisplaybreaks
 
 \begin{document}
 
@@ -70,13 +77,13 @@
     %	LOGO SECTION
     %----------------------------------------------------------------------------------------
 
-    \includegraphics[scale=0.4]{img/Logo_Politecnico_Milano.png}\\[2cm] % Include a department/university logo - this will require the graphicx package
+    \includegraphics[scale=0.4]{images/Logo_Politecnico_Milano.png}\\[2cm] % Include a department/university logo - this will require the graphicx package
 
     %----------------------------------------------------------------------------------------
     %	COPYRIGHT SECTION
     %----------------------------------------------------------------------------------------
 
-    \includegraphics[scale=0.4]{img/Copyright.png}\\[1cm]
+    \includegraphics[scale=0.4]{images/by-nc-sa.eps}\\[1cm]
 
     %----------------------------------------------------------------------------------------
     %	DATE SECTION
@@ -94,14 +101,14 @@
 
 \newpage
 
-\subfile{LinearRegression.tex}
-\subfile{LinearClassification.tex}
-\subfile{BiasVarianceTradeOff.tex}
-\subfile{PAC-Learning and VC-Dimension.tex}
-\subfile{KernelMethods.tex}
-\subfile{SupportVectorMachines.tex}
-\subfile{MDP.tex}
-\subfile{RLFinite.tex}
-\subfile{MAB.tex}
+\subfile{sections/LinearRegression.tex}
+\subfile{sections/LinearClassification.tex}
+\subfile{sections/BiasVarianceTradeOff.tex}
+\subfile{sections/PAC-Learning and VC-Dimension.tex}
+\subfile{sections/KernelMethods.tex}
+\subfile{sections/SupportVectorMachines.tex}
+\subfile{sections/MDP.tex}
+\subfile{sections/RLFinite.tex}
+\subfile{sections/MAB.tex}
 
 \end{document}

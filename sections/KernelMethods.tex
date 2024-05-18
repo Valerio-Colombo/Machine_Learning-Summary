@@ -1,10 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{Kernel methods}
@@ -27,13 +21,13 @@ A mapping to higher dimensions can be very expensive to compute, but kernels can
 \paragraph{Example - Linearize by dimensions augmentation} Consider this binary classification problem
 
 \begin{center}
-    \includegraphics[width=70mm]{img/Add_Dimension.PNG}
+    \includegraphics[width=70mm]{images/Add_Dimension.PNG}
 \end{center}
 
 Each example is represented by a single feature x. It clearly doesn't exist a linear separator between the two classes. But if we map $\{x\} \rightarrow \{x,x^2\}$ the data are linearly separable.
 
 \begin{center}
-    \includegraphics[width=70mm]{img/Add_Dimension2.PNG}
+    \includegraphics[width=70mm]{images/Add_Dimension2.PNG}
 \end{center}
 This was the standard approach for extending linear models to non-linear problems
 
@@ -255,14 +249,14 @@ This distribution describe the values of our function based on the inputs x. Not
 \newpage
 \begin{center}
     \begin{tabular}{cc}
-        \includegraphics[width=80mm]{img/GaussianProcesses.jpg} &
-        \includegraphics[width=80mm]{img/MultivariateGaussian.jpg}                                 \\
-        (a) Function we want to estimate                        & (b) Multivariate Gaussian over t
+        \includegraphics[width=80mm]{images/GaussianProcesses.jpg} &
+        \includegraphics[width=80mm]{images/MultivariateGaussian.jpg}                                 \\
+        (a) Function we want to estimate                           & (b) Multivariate Gaussian over t
     \end{tabular}
 \end{center}
 If we draw a sample from the multivariate Gaussian we would define a new function. In fact, picking a sample is the same as picking an infinite sequence of points in the $(x,t)$ system. So our goal is to define a multivariate Gaussian which describe as well as possible the values of every point of our original function. The white dot in figure (b) is a sample of the multivariate Gaussian representing a guess on the original function.
 \begin{center}
-    \includegraphics[width=90mm]{img/SampleGaussianProcesses.jpg} \\
+    \includegraphics[width=90mm]{images/SampleGaussianProcesses.jpg} \\
     (c) Function estimated from the multivariate Gaussian. Correspond to the white dot in (b)
 \end{center}
 
@@ -336,7 +330,7 @@ First, we construct our prior p(t) (red ellipses). We assume a zero mean distrib
 As we have said before, like we need to define features in the parametric world, we need to define a kernel in the non-parametric case. In some cases, the kernel have some hyperparameters. How can we find the optimal values for this hyperparameters?
 We have already seen how cross validation can be used to do model selection. This method is very robust, but at the same time it is slow. Another approach uses the maximization of the marginal likelihood using gradient optimization. In practice, you want to find the hyperparameters for which the observed target variables are more likely. This is faster, but it can be stuck in local minima. Usually the gradient approach is the go to method for hyperparameters optimization.
 \begin{center}
-    \includegraphics[height=60mm]{img/GaussianProcessExample.PNG}
+    \includegraphics[height=60mm]{images/GaussianProcessExample.PNG}
 \end{center}
 
 \newpage

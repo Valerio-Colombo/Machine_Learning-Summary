@@ -1,7 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{Linear models for regression}
@@ -49,7 +46,7 @@ So our inputs variables would be
 \paragraph{Note} In linear regression we can distinguish two spaces. Hypothesis space(Parameters space) and Output space(Input space)
 
 \begin{center}
-    \includegraphics[scale=0.4]{img/param_input_space.jpg}
+    \includegraphics[scale=0.4]{images/param_input_space.jpg}
 \end{center}
 
 \subsubsection{Linear regression with non-linear basis functions}
@@ -243,7 +240,7 @@ An optimal model is one that generalize well the problem and generalization is t
 \end{itemize}
 A naive way to measure the performance of our model is to look at the loss function value. A lower value corresponds to a better performance. This is true, but loss function value lacks of valuable information regarding model complexity. In fact, as we had said before, an overfitting model tries to interpolate the dataset, this will produce a loss function value that tends to zero but the model true performance is far from optimal.
 \begin{center}
-    \includegraphics[scale=0.5]{img/Under-Overfitting.png}
+    \includegraphics[scale=0.5]{images/Under-Overfitting.png}
 \end{center}
 To overcome this problem we can split the dataset in two subset,
 \begin{itemize}
@@ -257,7 +254,7 @@ A good error function for testing the complexity is
 Differently from the loss function used at training time $E_{RMS}$ is not monotonically decreasing with model complexity. It has a U shape and the minimum corresponds to the optimal model complexity.
 
 \begin{center}
-    \includegraphics[scale=0.25]{img/error_complexity.png}
+    \includegraphics[scale=0.25]{images/error_complexity.png}
 \end{center}
 
 Another indicator for poor generalization is parameters absolute value. If we have very large parameters it means that the model oscillate very rapidly. This is an evidence of overfitting.
@@ -276,7 +273,7 @@ The penalization of $L_W$ can be controlled with $\lambda$(regularization coeffi
 Furthermore we can interpret $L_W$ as a constraint. If we consider the parameters space, $L_w$ is bounding the parameters at a certain distance from the origin. The distance is imposed by $\lambda$ and $q$. In particular, $q$ modifies the shape of the boundary(constraint) in the parameters space.
 The most used value for $q$ are $1$ and $2$.
 \begin{center}
-    \includegraphics[scale=0.4]{img/Q_boundaries_regularization.PNG}
+    \includegraphics[scale=0.4]{images/Q_boundaries_regularization.PNG}
 \end{center}
 Regularization allows complex models to be trained on data sets of limited size
 without severe over-fitting, essentially by limiting the effective model complexity.
@@ -307,7 +304,7 @@ For $q=1$ we have the so called Lasso.
 Differently from ridge regression, lasso is not linear. No closed form solution exists because we have the absolute value operator in $L_W$. In contrast, a very good advantage is the capability to make some weights equal to zero for values of $\lambda$ large enough. This means that lasso leads to sparser models\footnotemark.
 \footnotetext{A model is sparse if some parameters tend to zero, eliminating some features from the model}
 \begin{center}
-    \includegraphics[scale=0.4]{img/Parameter_space_regularization.PNG}
+    \includegraphics[scale=0.4]{images/Parameter_space_regularization.PNG}
 \end{center}
 The red lines in the figure represents $\sum_{j=1}^M |w_j|^q$ respectively for $q=2$ and $q=1$.
 The blue lines are the unregularized error functions.
@@ -434,7 +431,7 @@ As a model we take
 To find the posterior distribution we use an iterative approach as follow.
 We start from a multivariate Gaussian prior $P(w) \sim \mathcal{N}(0,\tau^2 I)$ (prior). Then we take one data point and we find the parameters that make the model pass through that point, also considering data noise $\sigma^2$ (likelihood). The next step is to multiply the prior with the likelihood to find a posterior distribution in parameters space. The new posterior can be used as a prior for the next iteration. We take a new point, we find the parameters that make the model pass through that point and again we multiply together prior and likelihood. Note that at each iteration, the likelihood distribution considers only one point at the time.
 \begin{center}
-    \includegraphics[scale=0.6]{img/Bayes_sequential.PNG}
+    \includegraphics[scale=0.6]{images/Bayes_sequential.PNG}
 \end{center}
 
 \newpage
@@ -455,7 +452,7 @@ In the figure below we can observe,
 \end{itemize}
 
 \begin{center}
-    \includegraphics[scale=0.6]{img/Posterior_predictive_distribution.PNG}
+    \includegraphics[scale=0.6]{images/Posterior_predictive_distribution.PNG}
 \end{center}
 
 \end{document}

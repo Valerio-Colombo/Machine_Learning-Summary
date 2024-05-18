@@ -1,8 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section] %Delete when merging subfiles
-\newtheorem{corollary}{Corollary}[theorem]
+\documentclass[../main.tex]{subfiles}
 
 \allowdisplaybreaks
 
@@ -47,10 +43,10 @@ It's worth mentioning that the expectation is performed over different realizati
 Let's see an example
 \begin{center}
     \begin{tabular}{cc}
-        \includegraphics[width=70mm]{img/Test_function_and_noisy_data.png}        & \includegraphics[width=70mm]{img/Radial_basis_function_fit,_spread=5.png}   \\
-        (a)                                                                       & (b)                                                                         \\[6pt]
-        \includegraphics[width=70mm]{img/Radial_basis_function_fit,_spread=1.png} & \includegraphics[width=70mm]{img/Radial_basis_function_fit,_spread=0.1.png} \\
-        (c)                                                                       & (d)                                                                         \\[6pt]
+        \includegraphics[width=70mm]{images/Test_function_and_noisy_data.png}        & \includegraphics[width=70mm]{images/Radial_basis_function_fit,_spread=5.png}   \\
+        (a)                                                                          & (b)                                                                            \\[6pt]
+        \includegraphics[width=70mm]{images/Radial_basis_function_fit,_spread=1.png} & \includegraphics[width=70mm]{images/Radial_basis_function_fit,_spread=0.1.png} \\
+        (c)                                                                          & (d)                                                                            \\[6pt]
     \end{tabular}
 \end{center}
 So let's take the dataset in figure(a) where the true function is the red line. For each case we take five different realization of the dataset and we estimate a model(blue line).
@@ -62,7 +58,7 @@ In figure(d) we have a very low bias because all the models estimate the dataset
 From what we have said, we can see how model complexity can affect the estimation error. Generally speaking the bias decreases with model complexity and variance increase with model complexity.
 
 \begin{center}
-    \includegraphics[scale=1.2]{img/Bias-Variance-tradeoff.png}
+    \includegraphics[scale=1.2]{images/Bias-Variance-tradeoff.png}
 \end{center}
 \paragraph{Example (K-NN)} In the case of K-Nearest Neighbor we can derive an explicit analytical expression of the expected squared prediction error
 \begin{equation}
@@ -95,7 +91,7 @@ This is impossible to estimate directly because we would need the true model f(x
 The test error is calculated with the test set. It is very important to not mix the training set and the test set, in order to get an unbiased estimation of the prediction error.
 We use the training set to estimate the model's parameters and the test set to estimate the prediction error.
 \begin{center}
-    \includegraphics[scale=0.6]{img/prediction_error.PNG}
+    \includegraphics[scale=0.6]{images/prediction_error.PNG}
 \end{center}
 
 \newpage
@@ -152,7 +148,7 @@ k-fold cross validation is the most used, because is a good trade-off between pe
 \end{algorithm}
 
 \begin{center}
-    \includegraphics[height=40mm]{img/K-Fold.png}
+    \includegraphics[height=40mm]{images/K-Fold.png}
 \end{center}
 It's worth mentioning that sometimes the validation partition is called test. Be aware that is not the same test set used ultimately to evaluate model performance.
 
@@ -173,7 +169,7 @@ It's worth mentioning that sometimes the validation partition is called test. Be
 \end{algorithm}
 
 \begin{center}
-    \includegraphics[height=40mm]{img/LOO.png}
+    \includegraphics[height=40mm]{images/LOO.png}
 \end{center}
 To evaluate different input features set, we apply the cross validation for every model having those input features.
 LOO is almost unbiased(pessimistically) as opposed to k-fold, but from a computational point of view k-fold is far better. For example, if we have 100.000 samples and each iteration of the algorithm takes 1 seconds, computing $L_{LOO}$ will take more than a full day. If you have to do it for every permutation of the input features it will take a very long time.
@@ -196,7 +192,7 @@ We have already seen regularization approaches applied to linear models like rid
 From the figure below we can see in action the bias-variance trade-off. When $\lambda$ gets bigger we obtain simpler models, so the variance is reduced and the bias gets bigger. We need to find the optimal $\lambda$ which minimizes the MSE. Cross-validation provides a simple way to tackle this problem. We choose a grid of $\lambda$ values, and compute the cross-validation error rate for each value of $\lambda$. We then select the tuning parameter value for which the cross-validation error is smallest. Finally, the model is re-fit using all of the available observations and the selected value of the tuning parameter.
 
 \begin{center}
-    \includegraphics[width=90mm]{img/Lasso_MSE_Lambda.PNG} \\
+    \includegraphics[width=90mm]{images/Lasso_MSE_Lambda.PNG} \\
     Black: squared bias, Green: variance, Purple: MSE, Dashed: minimum possible MSE, Purple cross: ridge regression model with minimum MSE
 \end{center}
 
@@ -212,7 +208,7 @@ The approach we are going to present differs from the previous one because it do
 
 \paragraph{PCA} The most used methodology is PCA. The idea is to find a new orthogonal base in the input space, which accounts for most of the input variance. In other word, we want to find a line such that when the data is projected onto that line, it has the maximum variance. Then we find a new line, orthogonal to the first one, that has maximum projected variance. We repeat this process until we have covered a certain percentage of input variance or we have reached a given number of dimensions(lines).
 \begin{center}
-    \includegraphics[width=90mm]{img/PCA.png} \\
+    \includegraphics[width=90mm]{images/PCA.png} \\
 \end{center}
 In a more formal way, the complete process consists of,
 \begin{enumerate}
@@ -228,9 +224,9 @@ Once we have found the new PCs, we can project the data onto the new orthogonal 
 
 \begin{center}
     \begin{tabular}{c}
-        \includegraphics[width=140mm]{img/PAC_1.PNG}                                                       \\
+        \includegraphics[width=140mm]{images/PAC_1.PNG}                                                    \\
         Left: Original data, Right: Mean centered data with PCs overlayed                                  \\[6pt]
-        \includegraphics[width=140mm]{img/PAC_2.PNG}                                                       \\
+        \includegraphics[width=140mm]{images/PAC_2.PNG}                                                    \\
         Left: Original data projected into full PC space, Right: Original data reconstructed with first PC \\[6pt]
     \end{tabular}
 \end{center}
@@ -258,7 +254,7 @@ As we have said before bagging reduces the variance. We do so by averaging multi
 In order to be able to apply this method we need to find a way to generate multiple models from one dataset. To do so we use bootstrap.
 This statistical technique consists in generating samples of size B (called bootstrap samples) from an initial dataset of size N by randomly drawing with replacement B observations.
 \begin{center}
-    \includegraphics[width=110mm]{img/bootstrap.png}
+    \includegraphics[width=110mm]{images/bootstrap.png}
 \end{center}
 After boostraping we train a model for each bootstrap sample. In the prediction phase, in case of classification the result will be the majority vote on the classification results of every model, and for regression will be the average of the predicted values estimated by every model. Bagging improves performance for unstable learners which vary significantly with small changes in the data set. In practice we want to average multiple overfitting model. From what we have studied before, an overfitting model has low bias and high variance. By combining different model we reduce the variance maintaining the low bias. In practice bagging almost always helps.
 

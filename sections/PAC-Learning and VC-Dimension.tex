@@ -1,11 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section] %Delete when merging subfiles
-\newtheorem{corollary}{Corollary}[theorem]
-\newtheorem{definition}{Definition}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{PAC-Learning and VC-Dimension}
@@ -115,12 +108,12 @@ So far we have considered only finite hypothesis space. If we use the bound that
 In practice shattering means that if we split our instances set in two not overlapping subset, H shatters S if and only if for every dichotomy we can find an hypothesis which classify correctly every instances. As a reminder we are still considering only binary classification problems.
 \paragraph{Example} We consider an instances set with three example\footnotemark and an hypothesis space representing a linear classifier. In this case a dichotomy is a specific assignment of class (+) or class (-) to every point. We can have two cases, one where the examples are not aligned and one where they are. H shatters any of the two instances set? Yes, only (a) because we can always find a line that divides every possible dichotomy. In the specific dichotomy shown for (b), we can't find a linear classifier(line), that classifies correctly the three points, so H doesn't shatter (b). \footnotetext{This is still infinite because every instance can have a different "position" in the instances set}
 \begin{center}
-    \includegraphics[height=80mm]{img/VC_example.PNG}
+    \includegraphics[height=80mm]{images/VC_example.PNG}
 \end{center}
 \begin{center}
     \begin{tabular}{ccc}
-        \includegraphics[height=80mm]{img/VC_example2.PNG} & \includegraphics[height=80mm]{img/VC_example3.PNG} &
-        \includegraphics[height=80mm]{img/VC_example4.PNG}
+        \includegraphics[height=80mm]{images/VC_example2.PNG} & \includegraphics[height=80mm]{images/VC_example3.PNG} &
+        \includegraphics[height=80mm]{images/VC_example4.PNG}
     \end{tabular}
 \end{center}
 Note that for four instances, H won't shutter S.\footnotemark \footnotetext{This is the XOR problem. It's not linearly separable}

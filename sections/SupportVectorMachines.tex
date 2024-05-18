@@ -1,10 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{Support Vector Machines}
@@ -60,7 +54,7 @@ To better understand the concept consider the figure below. We want to find the 
 \end{definition}
 
 \begin{center}
-    \includegraphics[width=90mm]{img/SVM_Margin.PNG} \\
+    \includegraphics[width=90mm]{images/SVM_Margin.PNG} \\
     2-dimensional input space with two classes (+) and (-). \\
     Both red and blue line are linear separators of the two classes
 \end{center}
@@ -130,7 +124,7 @@ So we find the gradient of $L(w^*,\lambda^*) = 0$
     \end{cases}
 \end{align*}
 \begin{center}
-    \includegraphics[width=90mm]{img/Lagrange_Multiplier.png} \\
+    \includegraphics[width=90mm]{images/Lagrange_Multiplier.png} \\
     Black line are the isoline of our objective function. \\
     The blue line is our constraint. \\
     The red arrow is the gradient of the objective function
@@ -159,8 +153,8 @@ The most interesting constraint is the last one and it is called \textbf{complem
 Let's use the previous example to see the two cases
 \begin{center}
     \begin{tabular}{cc}
-        \includegraphics[width=70mm]{img/Lagrange_Multiplier_firstcase.png} & \includegraphics[width=70mm]{img/Lagrange_Multiplier_secondcase.png} \\
-        (a) Case 1                                                          & (b) Case 2
+        \includegraphics[width=70mm]{images/Lagrange_Multiplier_firstcase.png} & \includegraphics[width=70mm]{images/Lagrange_Multiplier_secondcase.png} \\
+        (a) Case 1                                                             & (b) Case 2
     \end{tabular}
 \end{center}
 \newpage
@@ -217,7 +211,7 @@ In this new formulation we don't have neither parameters nor features. It is an 
 \subsection{Prediction} It's worth recalling what SVMs are doing in the input space. SVMs are linear classifier, which operates in the space defined by the features correlated to the kernel we have chosen. This highlights even more the importance of the kernel selection, because if the feature space we are defining by the kernel is not linearly separable, SVMs will fail to generate correct predictions. Another crucial point in the SVM is the optimization of the weights $\alpha$. This process is performed by applying the Lagrangian method we have seen before on the dual problem representation. Once we have $\alpha$ we can start the prediction phase.
 As we said various time before, $\alpha$ defines which training samples become support vectors by giving each samples a weight. If the weight is zero, the training samples will be ignored in the boundary computation. This is a behaviour we want. Let's see an example to better visualize the problem.
 \begin{center}
-    \includegraphics[width=110mm]{img/SVM_Visualization.PNG} \\
+    \includegraphics[width=110mm]{images/SVM_Visualization.PNG} \\
     \textit{Blue line: Decision boundary, Dashed lines: Margin, Red circles: Support vectors}
 \end{center}
 In the figure above we can see an important result. All the samples that don't lie on the margin are not contributing to the boundary. So all the support vector must lie on the margin. Suppose to delete a (+) sample on the top left corner. Should the boundary be changed? No, because that point doesn't affect the separation between the two classes. In practice, every samples is interpreted as a constraint. If the region they define includes the solution, the constraint is not active, and so the sample can be discarded. This is what we meant before with sparser input space. We are keeping only the samples which can contribute the most to the boundary, all the others are discarded. The ratio between the support vectors number and the number of training samples can give us some information about the performance of the SVM. The less support vectors we have the better. For example, if all the samples are also support vectors the SVM is strongly overfitting. The sparsity gives SVMs more robustness to noise and outliers, because they will be ignored.
@@ -271,7 +265,7 @@ We can see how $C$ has become the upper bound of $\alpha_n$. Based on the value 
     \item $\alpha_n = C$ the point lies inside the margin, and it can be either correctly classified($0 < \xi_i \leq 1$) or misclassified($\xi_i > 1$)\footnotemark. \footnotetext{Remember that the distance between the boundary and the margin is always 1. We know that $\xi_i$ represents how much we shift the margin only for the sample $i$. If we shift it less than one, we are still correctly classifying the sample. Otherwise we are going over the boundary, and so the sample will be classified wrongly}
 \end{itemize}
 \begin{center}
-    \includegraphics[width=100mm]{img/SVM_Noisy.PNG} \\
+    \includegraphics[width=100mm]{images/SVM_Noisy.PNG} \\
     \textit{Non linear classification problem with noisy data. Green circles: Support vectors}\\
 \end{center}
 In the figure above we can see an example of non-linearly separable problem. We can notice that the two classes are pretty shuffled together. This may be due to a poor kernel choice. This is also reflected in the high ratio of support vectors.

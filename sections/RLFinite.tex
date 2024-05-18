@@ -1,11 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
-\newtheorem{proposition}{Proposition}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{RL in finite domains}
@@ -189,15 +182,15 @@ We are sure that TD is a fairly biased, but consistent estimator. The high bias 
     \item \textbf{Bias-Variance} TD has low variance, some bias. MC has high variance, zero bias. TD is more used when the problem is Markovian. MC returns in non-Markovian problems.
 \end{itemize}
 \begin{center}
-    \includegraphics[width=120mm]{img/MCvsTD.PNG} \\
+    \includegraphics[width=120mm]{images/MCvsTD.PNG} \\
     \textit{RMS error averaged over states}
 \end{center}
 From the figure above we can observe some interesting properties. TD converges faster and has better results. The learning rate influences the convergence speed. Higher values will make the estimator converge faster, but the error will be higher. In TD this is due to the introduction of bias when we rely too much on new samples. When $\alpha$ is too large we are estimating the value function of a state, with another biased estimate of another state. This can clearly introduce some problems. MC suffers as well as TD with too high learning rates. The largest problem arises because of the large variance. We can see how with $\alpha=0.04$, MC becomes very noisy.
 
-\subsubsection{TD($\lambda$)}
+\subsubsection{\texorpdfstring{TD($\lambda$)}{TD(lambda)}}
 We have seen how MC and TD have opposite characteristics in terms of bias-variance. It would be nice if we could choose which properties our algorithm should have. To do so, we can use TD($\lambda$). With the hyperparameter $\lambda \in [0,1]$, we can swing between TD with $\lambda=0$ and MC with $\lambda=1$.
 \begin{center}
-    \includegraphics[width=100mm]{img/TD-N_step.PNG} \\
+    \includegraphics[width=100mm]{images/TD-N_step.PNG} \\
     \textit{Circles are states and dots are actions}
 \end{center}
 Before introducing formally the TD($\lambda$) equation  we have to define the n-step returns that we see in the figure above.
@@ -221,7 +214,7 @@ We can use this new estimator in the TD learning formula
 \end{equation}
 
 \begin{center}
-    \includegraphics[width=60mm]{img/TDlambda.png}
+    \includegraphics[width=60mm]{images/TDlambda.png}
 \end{center}
 This approach is called \textbf{Forward-view} TD($\lambda$). We can see that for $\lambda=0$, only the 1-step return have a weight different from zero. For $\lambda=1$, only the complete episode estimate have a weight different from zero. For values in between, we can give more importance to returns with fewer steps or give more weight to n-step returns with more steps. We can manage the bias-variance tradeoff by changing $\lambda$.
 \paragraph{Note - Weights} As one can imagine, the weight formulation is very important. One of the most important property is that the weight must sum to 1. In our case, the sum of the weight is
@@ -230,7 +223,7 @@ This approach is called \textbf{Forward-view} TD($\lambda$). We can see that for
               & = \underbrace{\sum_{n=1}^{\infty} (1-\lambda) \lambda^n}_{\text{geometric series}} = 1 \\
 \end{align*}
 \begin{center}
-    \includegraphics[width=120mm]{img/WeightDecay.PNG}
+    \includegraphics[width=120mm]{images/WeightDecay.PNG}
 \end{center}
 To recap, we want to estimate the state-value function of a state. Starting from the given state, at each step, we perform an action, stretching the trajectory length. Every step, we calculate the n-step return. To estimate the starting state value function, we average over the n-step returns obtained at each step, weighted with the hyperparameter $\lambda$. With this approach(forward-view), we still need to perform every step until we reach the complete episodes, because $v_t^{\lambda}$ still need the n-step return associated to the complete episode. To solve this problem we can use the so called \textbf{Backward-view} TD($\lambda$).
 \par
@@ -247,7 +240,7 @@ The forward-view provide us some the theory necessary to approach the problem. B
           The frequency term makes the trace decay over time because $\gamma$(discount factor) and $\lambda$(TD hyperparameter) are less than one. The recency term adds one to the trace every time the state is visited.
 \end{itemize}
 \begin{center}
-    \includegraphics[width=120mm]{img/EligibilityTraces.png}
+    \includegraphics[width=120mm]{images/EligibilityTraces.png}
 \end{center}
 We have seen how the eligibility trace $e_t(s)$ measure the contribution of state s to the return. We can rewrite the state-value function including this term. For TD we had
 \begin{align*}
@@ -298,7 +291,7 @@ Using accumulating traces, frequently visited states can have eligibilities grea
     \end{cases}
 \end{equation}
 \begin{center}
-    \includegraphics[width=120mm]{img/EligibilityTracesRepleacing.png}
+    \includegraphics[width=120mm]{images/EligibilityTracesRepleacing.png}
 \end{center}
 \newpage
 
@@ -493,7 +486,7 @@ The preferred method for what we have seen before is the backward view.
 
 \paragraph{Example - SARSA($\lambda$)} Imagine to have the gridworld in the figure below
 \begin{center}
-    \includegraphics[width=120mm]{img/SARSA_Lambda_Comparison.jpg} \\
+    \includegraphics[width=120mm]{images/SARSA_Lambda_Comparison.jpg} \\
     \textit{From left to right: 1.Path taken 2.SARSA(0) 3.SARSA(0.9)}
 \end{center}
 Suppose to perform a complete episode of our MDP and we have estimated the action-value function with SARSA(0) and SARSA(0.9). The first corresponds to the TD approach. In fact, we update only the state-action pair right before the goal state, which is the only one returning a non-zero reward. All the other pairs are not updated because the goal return echoes only to the previous pair on the trajectory. On the other hand, With $\lambda=0.9$, the goal return is echoed through all the trajectory. We can also observe that the update decay over the trajectory, as we would expect.

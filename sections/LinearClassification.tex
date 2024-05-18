@@ -1,9 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{Linear models for classification}
@@ -30,11 +25,11 @@ For classification, we need to predict discrete class labels, or posterior proba
 \end{equation*}
 A naive way to perform classification with two output classes is to choose an arbitrary activation function and for output less than $0.5$ we have class 0 and viceversa class 1. We could be tricked into thinking that this classifier can predict nonlinear boundaries, but it's not the case. In fact, taken the boundary
 \begin{align*}
-    f(w_0 + x^Tw)         & = 0.5                                   \\
-    f^{-1}(f(w_0 + x^Tw)) & = f^{-1}(0.5)                           \\
-    w_0 + x^Tw            & = f^{-1}(0.5)                           \\
-    w_0^* + x^Tw          & = 0, \numberthis \label{eqn_hyperplane} \\
-    with \quad w_0^*      & = w_0 - f^{-1}(0.5)
+    f(w_0 + x^Tw)           & = 0.5                                   \\
+    f^{-1}(f(w_0 + x^Tw))   & = f^{-1}(0.5)                           \\
+    w_0 + x^Tw              & = f^{-1}(0.5)                           \\
+    w_0^* + x^Tw            & = 0, \numberthis \label{eqn_hyperplane} \\
+    \text{with} \quad w_0^* & = w_0 - f^{-1}(0.5)
 \end{align*}
 As we can see (\ref{eqn_hyperplane}) represents an hyperplane, hence the decision surfaces are linear functions of x, even if the activation function is nonlinear. As in regression we can use basis function to make the input space linearly separable. The bad thing about this approach is that the model is no longer linear in the parameters, so no closed form solution exists.
 \subsubsection{Geometric interpretation}
@@ -50,7 +45,7 @@ We can also say that $w_0$ regulates the normal distance(d) of the boundary from
 \end{align*}
 \footnotetext{We know that the projection of a vector a on another vector b is $proj_b(a) = \frac{ab}{\|b\|}$.}
 \begin{center}
-    \includegraphics[scale=0.6]{img/Linearboundary.PNG}
+    \includegraphics[scale=0.6]{images/Linearboundary.PNG}
 \end{center}
 Furthermore, we can obtain the signed distance(r) of a point x from the boundary. Let's consider the projection $x_{\perp}$ of x on the boundary. Then
 \begin{align*}
@@ -70,7 +65,7 @@ Consider the use of K-1 classifiers each of which solves a two-class problem of 
 An alternative is to introduce K(K - 1)/2 binary discriminant functions, one for every possible pair of classes. Each
 point is then classified according to a majority vote amongst the discriminant functions. However, this too runs into the problem of ambiguous regions, as illustrated in the right-hand diagram.
 \begin{center}
-    \includegraphics[scale=0.5]{img/Multiclass_classification.PNG}
+    \includegraphics[scale=0.5]{images/Multiclass_classification.PNG}
 \end{center}
 
 \newpage
@@ -121,13 +116,13 @@ To estimate the parameter we can follow what we did for the regression problem. 
 The least square approach is problematic in some cases.
 \paragraph{Outliers} Least square is very sensitive to outliers. Least square tries to find a line which is the most close to all points. It does so evaluating the square distance between the samples and the line. It means that an outlier will have a greater impact on the line position because it will be more distant with respect to the probable samples. In classification this could degrade a lot the performance, because the boundary could deviate so much that some samples, previously well classified, now lie on the other side of the boundary.
 \begin{center}
-    \includegraphics[scale=0.50]{img/LS_Outliers.PNG}
+    \includegraphics[scale=0.50]{images/LS_Outliers.PNG}
 \end{center}
 
 \paragraph{Non-Gaussian distributions}
 We recall that least squares corresponds to the maximum likelihood under the assumption of a Gaussian conditional distribution, whereas binary target vectors clearly have a distribution that is far from Gaussian. As we can see in the figure below, even though the three classes are linearly separable, least square is not able to find good boundaries.
 \begin{center}
-    \includegraphics[scale=0.40]{img/LS_nongaussian.PNG}
+    \includegraphics[scale=0.40]{images/LS_nongaussian.PNG}
 \end{center}
 
 \newpage
@@ -138,7 +133,7 @@ Illustration of the role of nonlinear basis functions in linear classification m
 ‘Gaussian’ basis functions $\Phi_1(x)$ and $\Phi_2(x)$ are defined in this space with centres shown by the green crosses
 and with contours shown by the green circles. The right-hand plot shows the corresponding feature space $(\Phi_1(x), \Phi_2(x))$ together with the linear decision boundary. This corresponds to a nonlinear decision boundary in the original input space, shown by the black curve in the left-hand plot.
 \begin{center}
-    \includegraphics[scale=0.50]{img/LS_Gaussian_Basis.PNG}
+    \includegraphics[scale=0.50]{images/LS_Gaussian_Basis.PNG}
 \end{center}
 
 \subsection{Perceptron}
@@ -197,10 +192,10 @@ To perform minimization we use stochastic gradient descent(online)
 
 \begin{center}
     \begin{tabular}{cc}
-        \includegraphics[width=65mm]{img/Perceptron_Alg1.PNG} & \includegraphics[width=65mm]{img/Perceptron_Alg2.PNG} \\
-        (a)                                                   & (b)                                                   \\[6pt]
-        \includegraphics[width=65mm]{img/Perceptron_Alg3.PNG} & \includegraphics[width=65mm]{img/Perceptron_Alg4.PNG} \\
-        (c)                                                   & (d)                                                   \\[6pt]
+        \includegraphics[width=65mm]{images/Perceptron_Alg1.PNG} & \includegraphics[width=65mm]{images/Perceptron_Alg2.PNG} \\
+        (a)                                                      & (b)                                                      \\[6pt]
+        \includegraphics[width=65mm]{images/Perceptron_Alg3.PNG} & \includegraphics[width=65mm]{images/Perceptron_Alg4.PNG} \\
+        (c)                                                      & (d)                                                      \\[6pt]
     \end{tabular}
 \end{center}
 
@@ -223,7 +218,7 @@ Logistic regression is a discriminative model so we model directly the posterior
 \paragraph{Note} Logistic regression is a classification method not a regression one.
 
 \begin{center}
-    \includegraphics[scale=0.4]{img/Sigmoid.PNG}
+    \includegraphics[scale=0.4]{images/Sigmoid.PNG}
 \end{center}
 
 \subsubsection{Maximum Likelihood for logistic regression}

@@ -1,10 +1,4 @@
-\documentclass[main.tex]{subfiles}
-\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
-
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{definition}{Definition}[section]
-
-\allowdisplaybreaks
+\documentclass[../main.tex]{subfiles}
 
 \begin{document}
 \section{Markov Decision Processes}
@@ -74,7 +68,7 @@ A Markov decision process (MDP) is a Markov reward process with decisions. It mo
 
 \paragraph{Example - MDP visualization} Suppose we want to model a student's life during an exam session.
 \begin{center}
-    \includegraphics[width=95mm]{img/MDP.PNG}\\
+    \includegraphics[width=95mm]{images/MDP.PNG}\\
     \textit{Finite MDP: circles = states, arrows/red words = actions, square = goal,}\\
     \textit{r = rewards, black dot = transition probability}
 \end{center}
@@ -153,7 +147,7 @@ It's worth mentioning that we can calculate $V^{\pi}(s)$ from $Q^{\pi}(s, a)$, b
 Practically, we are doing a marginalization\footnotemark.\footnotetext{Given a known joint distribution of two discrete random variables, say, X and Y, the marginal distribution of either variable, X for example, is the probability distribution of X when the values of Y are not taken into consideration. This can be calculated by summing the joint probability distribution over all values of Y. $P(x) = \sum_y p(y)P(x,y)$} The only difference between $V^{\pi}(s)$ and $Q^{\pi}(s, a)$ is in the first step. $V^{\pi}(s)$ follows the policy, instead $Q^{\pi}(s, a)$ takes blindly action $a$. From the second step the two value functions are the same. If we want to find $Q^{\pi}(s, a)$ from $V^{\pi}(s)$ it would be impossible, because we don't know which action $a$ we want to pursue at the beginning.
 Let's consider again the student MDP example. Suppose to have a random policy $\pi(s,a)=\frac{1}{2}$ \footnotemark\footnotetext{$\pi(s,a)=\frac{1}{2}$ because from every state we always have to choose between two actions} and a discount factor $\gamma=1$.
 \begin{center}
-    \includegraphics[width=95mm]{img/MDP_ValueFunction.PNG}
+    \includegraphics[width=95mm]{images/MDP_ValueFunction.PNG}
 \end{center}
 A really naive way to calculate the state-value functions is to enumerate all the possible trajectory from a given state, and average all the cumulative rewards. This is really inefficient, even for MDPs with few states. A possible solution is to use the \textbf{Bellman expectation equation}. The state–value function can again be decomposed into immediate reward plus discounted value of successor state,
 \begin{align*}
@@ -334,10 +328,10 @@ Policy iteration is an iterative method to find the optimal policy of an MDP. It
 The method start with a given or random policy $\pi_0$. First, we apply the policy evaluation step generating $V^{\pi_0}$. Then we apply the policy improvement using $V^{\pi_0}$ to generate a new policy $\pi_1$. We iterate this two step iteratively ($\pi_0 \rightarrow V^{\pi_0} \rightarrow \pi_1 \rightarrow V^{\pi_1} \rightarrow \dots $). The policy improvement step is done in order to obtain a new policy which satisfies $V^{\pi_i} \leq V^{\pi_{i+1}}$. This implies that at each evaluation-improvement cycle the newly generated policy is monotonically better than the previous ones. We reach the convergence when $V^{\pi_i} = V^{\pi_{i+1}}$. This means that we have found $V^*$ and the relative optimal policy $\pi^*$.
 \paragraph{Example - Grid world policy evaluation} Imagine to have a 4x4 grid. This grid represents our MDP states. From each cell we can make four actions. Go up, down, left or right. If the agent make an action which result in reaching a cell outside the grid, the state remains unchanged. The action will have deterministic results. The top left and bottom right state are absorbing states(goals). If we reach these states the episode is concluded. The immediate reward is $-1$ until an absorbing state is reached. We use $\gamma = 1$.
 \begin{center}
-    \includegraphics[width=95mm]{img/Grid_World.PNG}
+    \includegraphics[width=95mm]{images/Grid_World.PNG}
 \end{center}
 \begin{center}
-    \includegraphics[width=120mm]{img/First-Grid_World.jpg}
+    \includegraphics[width=120mm]{images/First-Grid_World.jpg}
 \end{center}
 Notice that here we are doing only policy evaluation.
 We start from our random policy $\pi_0$ and state-value function $V^{\pi_0}_0$ initialized to all zeros. This means that in every state we have an equal probability of choosing one of the four possible actions. We apply the Bellman operator to find an approximation of $V^{\pi_0}$. To update the state-value function in a state we use
@@ -363,7 +357,7 @@ Applying the Bellman operator on the random policy we are simply averaging the s
     V_2(1) = -1 + \frac{1}{4}(0 -1 -1 -1) = -1.75
 \end{equation*}
 \begin{center}
-    \includegraphics[width=120mm]{img/Second-Grid_World.jpg}
+    \includegraphics[width=120mm]{images/Second-Grid_World.jpg}
 \end{center}
 If we keep going iterating the Bellman operator, we obtain what we see in the last row of the image above. In the images above, for every iteration of the policy evaluation step we calculate the greedy policy. The \textbf{greedy policy} is the policy which choose in every state the action which leads to the most promising state. We can notice how after three steps the greedy policy is already optimal. This is due to the fact that from every state we need to perform at most three steps to reach the goal.
 \newline
