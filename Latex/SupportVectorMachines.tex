@@ -17,11 +17,11 @@ SVM are composed by three elements
 \end{enumerate}
 SVM is mainly used for classification. From now on we will consider a binary classification problem. In this case, the class prediction for a new example $x_q$ is
 \begin{align*}
-    &f(x_q) = sign\bigg( \sum_{m \in \mathcal{S}} \alpha_m t_m k(x_q,x_m) + b \bigg) \text{, where} \numberthis \\
-    &\mathcal{S} \text{ set of indices of the support vectors} \\
-    &\alpha \text{ vector of weights} \\
-    &t \text{ target vector} \\
-    &k(x_q,x_m) \text{ kernel}
+     & f(x_q) = sign\bigg( \sum_{m \in \mathcal{S}} \alpha_m t_m k(x_q,x_m) + b \bigg) \text{, where} \numberthis \\
+     & \mathcal{S} \text{ set of indices of the support vectors}                                                  \\
+     & \alpha \text{ vector of weights}                                                                           \\
+     & t \text{ target vector}                                                                                    \\
+     & k(x_q,x_m) \text{ kernel}
 \end{align*}
 We can see that the solution formulation is somewhat similar to the one of the perceptron. In fact, usually SVMs are presented as their generalization. Now we will try to explain how we can derive this solution by revisiting the perceptron.
 We know that the prediction for perceptron is define as
@@ -38,8 +38,8 @@ where the superscript indicate the iteration step. If we assume that every weigh
 \end{equation*}
 Now we can put our new formulation of $w_j$ into the perceptron function
 \begin{align*}
-    f(x_q) &= sign \bigg( \sum_{j=1}^M \bigg( \sum_{n=1}^N \alpha_n t_n \Phi_j(x_n) \bigg) \Phi_j(x_q) \bigg) \\
-    &= sign \bigg( \sum_{n=1}^N \alpha_n t_n (\Phi(x_n) \Phi(x_q)) \bigg) \numberthis
+    f(x_q) & = sign \bigg( \sum_{j=1}^M \bigg( \sum_{n=1}^N \alpha_n t_n \Phi_j(x_n) \bigg) \Phi_j(x_q) \bigg) \\
+           & = sign \bigg( \sum_{n=1}^N \alpha_n t_n (\Phi(x_n) \Phi(x_q)) \bigg) \numberthis
 \end{align*}
 We can observe that the only elements dependent on m are the features $\Phi_j$. We can rewrite the sum over m as a dot product between $\Phi(x_q)$ and $\Phi(x_n)$. Doing so, the sum over features as been rewritten as a sum over the samples. Furthermore, the feature appears only as dot product, so we can find a kernel representation for this function. What before was a parametric method, now is an instance-based method. Our prediction is now become a weighted average over the target value and the similarity between the input and the training data samples. What we are doing is like a weighted kNN.
 Now, one can argue that this method has parameter even though it is non-parametric. Non-parametric it doesn't mean that our method doesn't have parameters, but that they are related to the samples, instead of the features, as we can see in the example above.
@@ -51,12 +51,12 @@ In the learning phase of SVM we need to define three things
 \begin{itemize}
     \item \textbf{Kernel} To choose a kernel we don't have a general approach, because it is highly dependent on the problem formulation
     \item \textbf{Training subset} We will see how this is a side effect of choosing the weights. In short, if a weight relative to a sample is zero, it will be excluded from the subset
-    \item \textbf{Weights} The weights are calculated maximizing the margin. 
+    \item \textbf{Weights} The weights are calculated maximizing the margin.
 \end{itemize}
 Now we don't have a clue on what the margin is. Let's define it.
-To better understand the concept consider the figure below. We want to find the line that separate the two classes (+) and (-). We have found two decision boundaries corresponding to the red and blue lines. Which is the better solution? One can argue that the blue solution is better because is more "centered" between the two classes. In a more formal way, the blue line have a greater distance to the nearest point comparing to the red line. 
+To better understand the concept consider the figure below. We want to find the line that separate the two classes (+) and (-). We have found two decision boundaries corresponding to the red and blue lines. Which is the better solution? One can argue that the blue solution is better because is more "centered" between the two classes. In a more formal way, the blue line have a greater distance to the nearest point comparing to the red line.
 \begin{definition}[Margin]
-The margin is the minimum distance between the decision boundary hyperplane and the nearest point.
+    The margin is the minimum distance between the decision boundary hyperplane and the nearest point.
 \end{definition}
 
 \begin{center}
@@ -79,8 +79,8 @@ The direct solution computation from the formula above is very complex, because 
 
 From this considerations we can formulate the new problem. First, we can eliminate the margin from $w*$.
 \begin{align*}
-    &w^* = max \bigg( \frac{1}{\|w\|_2} \bigg), \\
-    &\text{where } t_n (w^T \Phi(x_n) + b) \geq 1
+     & w^* = max \bigg( \frac{1}{\|w\|_2} \bigg),   \\
+     & \text{where } t_n (w^T \Phi(x_n) + b) \geq 1
 \end{align*}
 For notations purposes, we switch from a maximization problem to a minimization one. We also slightly modify it to have simpler calculi later on
 \begin{equation*}
@@ -88,13 +88,13 @@ For notations purposes, we switch from a maximization problem to a minimization 
 \end{equation*}
 Finally the new problem is
 \begin{align*}
-    \textbf{Minimize} \quad &\frac{1}{2} \|w\|_2^2 \\
-    \textbf{Subject to} \quad &t_n (w^T \Phi(x_n) + b) \geq 1, \quad \forall n
+    \textbf{Minimize} \quad   & \frac{1}{2} \|w\|_2^2                           \\
+    \textbf{Subject to} \quad & t_n (w^T \Phi(x_n) + b) \geq 1, \quad \forall n
 \end{align*}
 \paragraph{Note - Constraint optimization basics}Suppose we have
 \begin{align*}
-    \textbf{Minimize} \quad &f(w) \\
-    \textbf{Subject to} \quad &h_i(w), \quad i=1,2,\dots
+    \textbf{Minimize} \quad   & f(w)                      \\
+    \textbf{Subject to} \quad & h_i(w), \quad i=1,2,\dots
 \end{align*}
 Where $f(w)$ is a convex function. If $f$ and $h_i$ are linear we can use linear programming, but in our case the function to minimize is actually quadratic. In this case, we need to use quadratic programming. To solve this we use a Lagrangian formulation using the Lagrange multiplier. We will give only an intuition of the method, because the complete formulation is outside the scope of this summary. In practice, we want to transform a constrained optimization problem into an unconstrained optimization problem, where the constraints are encoded into the objective function as follow
 \begin{equation}
@@ -106,27 +106,27 @@ The $\lambda_i$s are called Lagrange multiplier and $L(w, \lambda)$ is called La
 \end{equation*}
 We can see that now we need to find both the optimal $w$ and optimal $\lambda$. Let's see an example to better understand what's going on. Suppose we have
 \begin{align*}
-    \textbf{Minimize} \quad &\frac{1}{2}(w_1^2+w_2^2) \\
-    \textbf{Subject to} \quad &w_1+w_2=1
+    \textbf{Minimize} \quad   & \frac{1}{2}(w_1^2+w_2^2) \\
+    \textbf{Subject to} \quad & w_1+w_2=1
 \end{align*}
-The  Lagrangian function would be 
+The  Lagrangian function would be
 \begin{equation*}
     L(w,\lambda) = \frac{1}{2}(w_1^2+w_2^2) + \lambda (w_1+w_2-1)
 \end{equation*}
 So we find the gradient of $L(w^*,\lambda^*) = 0$
 \begin{align*}
-    \nabla L(w, \lambda) = 0 \rightarrow 
-    &
+    \nabla L(w, \lambda) = 0 \rightarrow
+     &
     \begin{cases}
-        \frac{\partial L}{\partial w_1} = w_1 + \lambda = 0\\
-        \frac{\partial L}{\partial w_2} = w_2 + \lambda = 0\\
-        \frac{\partial L}{\partial \lambda} = w_1 + w_2 - 1 = 0\\
+        \frac{\partial L}{\partial w_1} = w_1 + \lambda = 0     \\
+        \frac{\partial L}{\partial w_2} = w_2 + \lambda = 0     \\
+        \frac{\partial L}{\partial \lambda} = w_1 + w_2 - 1 = 0 \\
     \end{cases} \\
-    &
+     &
     \begin{cases}
-        w_1 = \frac{1}{2}\\
-        w_2 = \frac{1}{2}\\
-        \lambda = -\frac{1}{2}\\
+        w_1 = \frac{1}{2}      \\
+        w_2 = \frac{1}{2}      \\
+        \lambda = -\frac{1}{2} \\
     \end{cases}
 \end{align*}
 \begin{center}
@@ -139,17 +139,17 @@ We can notice from the figure above, that the gradient of the objective function
 \newline
 This is not exactly what we were looking for, because the constraint in the example was an equality and not an inequality as in our case. We need to expand our formulation to handle the inequalities. Suppose to have
 \begin{align*}
-    \textbf{Minimize} \quad &f(w) \\
-    \textbf{Subject to} \quad &g_i(w) \leq 0, \quad i=1,2,\dots \\
-    &h_i(w) = 0, \quad i=1,2,\dots
+    \textbf{Minimize} \quad   & f(w)                             \\
+    \textbf{Subject to} \quad & g_i(w) \leq 0, \quad i=1,2,\dots \\
+                              & h_i(w) = 0, \quad i=1,2,\dots
 \end{align*}
 We define a Lagrange multiplier $\alpha_i$ for the inequalities. To find the optimal solution we can exploit the \textbf{KKT conditions}(necessary conditions)
 \begin{align*}
-    \nabla L(w^*,\alpha^*,\lambda^*) &= 0 \\
-    h_i(w^*) &= 0 \\
-    g_i(w^*) &\leq 0 \\
-    \alpha_i &\geq 0 \\
-    \alpha_i^* g_i(w^*) &= 0
+    \nabla L(w^*,\alpha^*,\lambda^*) & = 0    \\
+    h_i(w^*)                         & = 0    \\
+    g_i(w^*)                         & \leq 0 \\
+    \alpha_i                         & \geq 0 \\
+    \alpha_i^* g_i(w^*)              & = 0
 \end{align*}
 The most interesting constraint is the last one and it is called \textbf{complementarity condition}. We can have two cases
 \begin{enumerate}
@@ -158,23 +158,23 @@ The most interesting constraint is the last one and it is called \textbf{complem
 \end{enumerate}
 Let's use the previous example to see the two cases
 \begin{center}
-\begin{tabular}{cc}
-  \includegraphics[width=70mm]{img/Lagrange_Multiplier_firstcase.png} &   \includegraphics[width=70mm]{img/Lagrange_Multiplier_secondcase.png} \\
-(a) Case 1 & (b) Case 2
-\end{tabular}
+    \begin{tabular}{cc}
+        \includegraphics[width=70mm]{img/Lagrange_Multiplier_firstcase.png} & \includegraphics[width=70mm]{img/Lagrange_Multiplier_secondcase.png} \\
+        (a) Case 1                                                          & (b) Case 2
+    \end{tabular}
 \end{center}
 \newpage
 In the first case we have
 \begin{align*}
-    \textbf{Minimize} \quad &\frac{1}{2}(w_1^2+w_2^2)=\frac{1}{2}\|w\|_2 \\
-    \textbf{Subject to} \quad &w_1+w_2 \leq 1
+    \textbf{Minimize} \quad   & \frac{1}{2}(w_1^2+w_2^2)=\frac{1}{2}\|w\|_2 \\
+    \textbf{Subject to} \quad & w_1+w_2 \leq 1
 \end{align*}
 We can see from the picture (a) above, that the solution is in the global optimum. This is due to the fact that the constraint doesn't play any role in limiting the solution. In fact, we can notice that $g(w^*) = -1$. As a consequence, we know that $\alpha = 0$, this totally make sense because the constraint is useless.
 
 In the second case we have
 \begin{align*}
-    \textbf{Minimize} \quad &\frac{1}{2}(w_1^2+w_2^2)=\frac{1}{2}\|w\|_2 \\
-    \textbf{Subject to} \quad &w_1+w_2 \geq 1
+    \textbf{Minimize} \quad   & \frac{1}{2}(w_1^2+w_2^2)=\frac{1}{2}\|w\|_2 \\
+    \textbf{Subject to} \quad & w_1+w_2 \geq 1
 \end{align*}
 Here the solution is no longer in the global optimum, but lies on the constraint. In fact, we have that $g(w^*) = 0$ and $\alpha \geq 0$.
 
@@ -182,11 +182,11 @@ When the solution lies on the constraint, it is called active constraint. When a
 \subsection{Dual representation}
 Now we have a way to solve our problem. We can observe that we have a constraint for every training sample. Now comes the very interesting part. Every sample related to a constraint with positive Lagrange multiplier will be in the support vectors set. Through weights optimization, we have found the training data subset to use for finding the solution, as we anticipated early in this section.
 
-The optimization problem we have defined so far is called the \textbf{primal}. What we have here is still a parametric method with parameters and features. 
+The optimization problem we have defined so far is called the \textbf{primal}. What we have here is still a parametric method with parameters and features.
 \begin{align*}
-    &\textbf{Primal} \\
-    \textbf{Minimize} \quad &\frac{1}{2} \|w\|_2^2 \\
-    \textbf{Subject to} \quad &t_n (w^T \Phi(x_n) + b) \geq 1, \quad \forall n
+                              & \textbf{Primal}                                 \\
+    \textbf{Minimize} \quad   & \frac{1}{2} \|w\|_2^2                           \\
+    \textbf{Subject to} \quad & t_n (w^T \Phi(x_n) + b) \geq 1, \quad \forall n
 \end{align*}
 Now our objective is to find its dual kernel representation.
 Let's consider the Lagrangian function of our primal problem\footnotemark \footnotetext{Here we have a minus sign. The sign of the summation doesn't affect the solution of the Lagrangian function}
@@ -195,25 +195,25 @@ Let's consider the Lagrangian function of our primal problem\footnotemark \footn
 \end{equation}
 \newpage
 As we did before, we put the gradient of $L$ equal to zero, with respect to $w$ and $b$ \footnotemark. \footnotetext{$\frac{\partial \|w\|_2^2}{\partial w} = \frac{\partial \sum_{n=1}^N w_n^2}{\partial w}\rightarrow
-    \frac{\partial}{\partial w_j}\sum_{k=1}^n w_k^2=\sum_{k=1}^n \underbrace{\frac{\partial}{\partial w_j}w_k^2}_{\substack{=0, \ \text{ if } j \neq k,\\=2w_j, \ \text{ else }}}= 2w_j$. It follows that $\frac{\partial \|w\|_2^2}{\partial w}=2w$} 
+    \frac{\partial}{\partial w_j}\sum_{k=1}^n w_k^2=\sum_{k=1}^n \underbrace{\frac{\partial}{\partial w_j}w_k^2}_{\substack{=0, \ \text{ if } j \neq k,\\=2w_j, \ \text{ else }}}= 2w_j$. It follows that $\frac{\partial \|w\|_2^2}{\partial w}=2w$}
 \newline
 For $w$ we have,
 \begin{align*}
-    \frac{\partial L(w,b,\alpha)}{\partial w} &= \frac{1}{2} 2w - \sum_{n=1}^N \alpha_n t_n \Phi(x_n) = 0 \\
-    w &= \sum_{n=1}^N \alpha_n t_n \Phi(x_n)
+    \frac{\partial L(w,b,\alpha)}{\partial w} & = \frac{1}{2} 2w - \sum_{n=1}^N \alpha_n t_n \Phi(x_n) = 0 \\
+    w                                         & = \sum_{n=1}^N \alpha_n t_n \Phi(x_n)
 \end{align*}
 For $b$ we have,
 \begin{align*}
-    \frac{\partial L(w,b,\alpha)}{\partial b} &= \sum_{n=1}^N \alpha_n t_n = 0
+    \frac{\partial L(w,b,\alpha)}{\partial b} & = \sum_{n=1}^N \alpha_n t_n = 0
 \end{align*}
 The formulation of $w$ is equal to what we have seen in the perceptron case at the beginning of this chapter. Now, we replace the new formulation of $w$ in $L(w,b,\alpha)$
 \begin{align*}
-    &\textbf{Dual} \\
-    \textbf{Maximize} \quad &\Tilde{L}(\alpha) = \sum_{n=1}^N \alpha_n - \frac{1}{2}\sum_{n=1}^N \sum_{m=1}^N \alpha_n \alpha_m t_n t_m k(x_n,x_m) \\
-    \textbf{Subject to} \quad &\alpha_n \geq 0, \quad \text{for } n=1, \dots, N \\
-    &\sum_{n=1}^N \alpha_n t_n = 0
+                              & \textbf{Dual}                                                                                                         \\
+    \textbf{Maximize} \quad   & \Tilde{L}(\alpha) = \sum_{n=1}^N \alpha_n - \frac{1}{2}\sum_{n=1}^N \sum_{m=1}^N \alpha_n \alpha_m t_n t_m k(x_n,x_m) \\
+    \textbf{Subject to} \quad & \alpha_n \geq 0, \quad \text{for } n=1, \dots, N                                                                      \\
+                              & \sum_{n=1}^N \alpha_n t_n = 0
 \end{align*}
-In this new formulation we don't have neither parameters nor features. It is an instance based formulation. 
+In this new formulation we don't have neither parameters nor features. It is an instance based formulation.
 \subsection{Prediction} It's worth recalling what SVMs are doing in the input space. SVMs are linear classifier, which operates in the space defined by the features correlated to the kernel we have chosen. This highlights even more the importance of the kernel selection, because if the feature space we are defining by the kernel is not linearly separable, SVMs will fail to generate correct predictions. Another crucial point in the SVM is the optimization of the weights $\alpha$. This process is performed by applying the Lagrangian method we have seen before on the dual problem representation. Once we have $\alpha$ we can start the prediction phase.
 As we said various time before, $\alpha$ defines which training samples become support vectors by giving each samples a weight. If the weight is zero, the training samples will be ignored in the boundary computation. This is a behaviour we want. Let's see an example to better visualize the problem.
 \begin{center}
@@ -251,18 +251,18 @@ Instead of calculating all the weights at the same time, we can find them in cou
 So far we have assumed that the data are always linearly separable. This assumption was encoded in the fact that the margin was always greater than one. Now we want to allow some samples to have a margin smaller than one, in some cases even negative. Obviously we want to minimize this behaviour, giving this points a penalization. At the same time we will relax our assumption in order to handle noisy data. The penalization is given by the \textbf{slack variables} $\xi_i$. Now we have to reformulate our primal problem to include the slack variables.
 \newpage
 \begin{align*}
-    &\textbf{Primal} \\
-    \textbf{Minimize} \quad &\frac{1}{2} \|w\|_2^2 + C\sum_i \xi_i \\
-    \textbf{Subject to} \quad &t_i (w^T \Phi(x_i) + b) \geq 1 - \xi_i, \quad \forall i \\
-    &\xi_i \geq 0, \quad \forall i
+                              & \textbf{Primal}                                         \\
+    \textbf{Minimize} \quad   & \frac{1}{2} \|w\|_2^2 + C\sum_i \xi_i                   \\
+    \textbf{Subject to} \quad & t_i (w^T \Phi(x_i) + b) \geq 1 - \xi_i, \quad \forall i \\
+                              & \xi_i \geq 0, \quad \forall i
 \end{align*}
 In practice $\xi_i$ shift the margin relative to a sample $x_i$ in order to respect the constraint. But $\xi_i$ also appears in the minimization formula, in order to limit the exploitation of the margin shift. The term $C$ is a coefficient that influences how much the slack variables will penalize the objective function. If we put $C$ close to zero, we are probably making a lot of mistake, because the misclassification are not penalized. This will produce simpler models with a lot of bias and little variance. Practically we are underfitting. If $C$ tends to infinity, we are not allowed to violate the constraints. The risk is that no solution can be found, because the problem is not linearly separable. In practice, we can control the bias-variance tradeoff by manipulating this coefficient. We can find the value of $C$ with cross-validation.
 As we did before we can find the dual representation
 \begin{align*}
-    &\textbf{Dual} \\
-    \textbf{Maximize} \quad &\Tilde{L}(\alpha) = \sum_{n=1}^N \alpha_n - \frac{1}{2}\sum_{n=1}^N \sum_{m=1}^N \alpha_n \alpha_m t_n t_m k(x_n,x_m) \\
-    \textbf{Subject to} \quad &0 \leq \alpha_n \leq C, \quad \text{for } n=1, \dots, N \\
-    &\sum_{n=1}^N \alpha_n t_n = 0
+                              & \textbf{Dual}                                                                                                         \\
+    \textbf{Maximize} \quad   & \Tilde{L}(\alpha) = \sum_{n=1}^N \alpha_n - \frac{1}{2}\sum_{n=1}^N \sum_{m=1}^N \alpha_n \alpha_m t_n t_m k(x_n,x_m) \\
+    \textbf{Subject to} \quad & 0 \leq \alpha_n \leq C, \quad \text{for } n=1, \dots, N                                                               \\
+                              & \sum_{n=1}^N \alpha_n t_n = 0
 \end{align*}
 We can see how $C$ has become the upper bound of $\alpha_n$. Based on the value of $\alpha_n$ we can have three cases
 \begin{itemize}
@@ -286,4 +286,4 @@ In the figure above we can see an example of non-linearly separable problem. We 
 
 \newpage
 
-\end{document} 
+\end{document}

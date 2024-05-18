@@ -54,68 +54,68 @@ The averaging of the returns can be performed in two ways
 \end{itemize}
 \paragraph{Example - MC prediction} Suppose to have the following episodes with $\gamma = 1$
 \begin{center}
-\begin{tikzpicture}[scale=0.2]
-\tikzstyle{every node}+=[inner sep=0pt]
-\draw [black] (7.6,-17.2) circle (3);
-\draw (7.6,-17.2) node {$S_1$};
-\draw [black] (23.5,-17.2) circle (3);
-\draw (23.5,-17.2) node {$S_3$};
-\draw [black] (39.6,-17.2) circle (3);
-\draw (39.6,-17.2) node {$S_4$};
-\draw [black] (56.3,-17.2) circle (3);
-\draw (56.3,-17.2) node {$S_1$};
-\draw [black] (73.7,-17.2) circle (3);
-\draw (73.7,-17.2) node {$S_5$};
-\draw [black] (73.7,-17.2) circle (2.4);
-\draw [black] (7.6,-30) circle (3);
-\draw (7.6,-30) node {$S_2$};
-\draw [black] (23.5,-30) circle (3);
-\draw (23.5,-30) node {$S_3$};
-\draw [black] (39.6,-30) circle (3);
-\draw (39.6,-30) node {$S_1$};
-\draw [black] (56.3,-30) circle (3);
-\draw (56.3,-30) node {$S_4$};
-\draw [black] (73.7,-30) circle (3);
-\draw (73.7,-30) node {$S_5$};
-\draw [black] (73.7,-30) circle (2.4);
-\draw [black] (10.6,-17.2) -- (20.5,-17.2);
-\fill [black] (20.5,-17.2) -- (19.7,-16.7) -- (19.7,-17.7);
-\draw (15.55,-17.7) node [below] {$+1$};
-\draw [black] (26.5,-17.2) -- (36.6,-17.2);
-\fill [black] (36.6,-17.2) -- (35.8,-16.7) -- (35.8,-17.7);
-\draw (31.55,-17.7) node [below] {$-1$};
-\draw [black] (42.6,-17.2) -- (53.3,-17.2);
-\fill [black] (53.3,-17.2) -- (52.5,-16.7) -- (52.5,-17.7);
-\draw (47.95,-17.7) node [below] {$+2$};
-\draw [black] (59.3,-17.2) -- (70.7,-17.2);
-\fill [black] (70.7,-17.2) -- (69.9,-16.7) -- (69.9,-17.7);
-\draw (65,-17.7) node [below] {$-2$};
-\draw [black] (10.6,-30) -- (20.5,-30);
-\fill [black] (20.5,-30) -- (19.7,-29.5) -- (19.7,-30.5);
-\draw (15.55,-30.5) node [below] {$-1$};
-\draw [black] (26.5,-30) -- (36.6,-30);
-\fill [black] (36.6,-30) -- (35.8,-29.5) -- (35.8,-30.5);
-\draw (31.55,-30.5) node [below] {$+1$};
-\draw [black] (42.6,-30) -- (53.3,-30);
-\fill [black] (53.3,-30) -- (52.5,-29.5) -- (52.5,-30.5);
-\draw (47.95,-30.5) node [below] {$-2$};
-\draw [black] (59.3,-30) -- (70.7,-30);
-\fill [black] (70.7,-30) -- (69.9,-29.5) -- (69.9,-30.5);
-\draw (65,-30.5) node [below] {$+2$};
-\end{tikzpicture}
+    \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (7.6,-17.2) circle (3);
+        \draw (7.6,-17.2) node {$S_1$};
+        \draw [black] (23.5,-17.2) circle (3);
+        \draw (23.5,-17.2) node {$S_3$};
+        \draw [black] (39.6,-17.2) circle (3);
+        \draw (39.6,-17.2) node {$S_4$};
+        \draw [black] (56.3,-17.2) circle (3);
+        \draw (56.3,-17.2) node {$S_1$};
+        \draw [black] (73.7,-17.2) circle (3);
+        \draw (73.7,-17.2) node {$S_5$};
+        \draw [black] (73.7,-17.2) circle (2.4);
+        \draw [black] (7.6,-30) circle (3);
+        \draw (7.6,-30) node {$S_2$};
+        \draw [black] (23.5,-30) circle (3);
+        \draw (23.5,-30) node {$S_3$};
+        \draw [black] (39.6,-30) circle (3);
+        \draw (39.6,-30) node {$S_1$};
+        \draw [black] (56.3,-30) circle (3);
+        \draw (56.3,-30) node {$S_4$};
+        \draw [black] (73.7,-30) circle (3);
+        \draw (73.7,-30) node {$S_5$};
+        \draw [black] (73.7,-30) circle (2.4);
+        \draw [black] (10.6,-17.2) -- (20.5,-17.2);
+        \fill [black] (20.5,-17.2) -- (19.7,-16.7) -- (19.7,-17.7);
+        \draw (15.55,-17.7) node [below] {$+1$};
+        \draw [black] (26.5,-17.2) -- (36.6,-17.2);
+        \fill [black] (36.6,-17.2) -- (35.8,-16.7) -- (35.8,-17.7);
+        \draw (31.55,-17.7) node [below] {$-1$};
+        \draw [black] (42.6,-17.2) -- (53.3,-17.2);
+        \fill [black] (53.3,-17.2) -- (52.5,-16.7) -- (52.5,-17.7);
+        \draw (47.95,-17.7) node [below] {$+2$};
+        \draw [black] (59.3,-17.2) -- (70.7,-17.2);
+        \fill [black] (70.7,-17.2) -- (69.9,-16.7) -- (69.9,-17.7);
+        \draw (65,-17.7) node [below] {$-2$};
+        \draw [black] (10.6,-30) -- (20.5,-30);
+        \fill [black] (20.5,-30) -- (19.7,-29.5) -- (19.7,-30.5);
+        \draw (15.55,-30.5) node [below] {$-1$};
+        \draw [black] (26.5,-30) -- (36.6,-30);
+        \fill [black] (36.6,-30) -- (35.8,-29.5) -- (35.8,-30.5);
+        \draw (31.55,-30.5) node [below] {$+1$};
+        \draw [black] (42.6,-30) -- (53.3,-30);
+        \fill [black] (53.3,-30) -- (52.5,-29.5) -- (52.5,-30.5);
+        \draw (47.95,-30.5) node [below] {$-2$};
+        \draw [black] (59.3,-30) -- (70.7,-30);
+        \fill [black] (70.7,-30) -- (69.9,-29.5) -- (69.9,-30.5);
+        \draw (65,-30.5) node [below] {$+2$};
+    \end{tikzpicture}
 \end{center}
 We want to estimate the value-state function of $s_1$ using first visit
 \begin{align*}
-    \hat{V}^{\pi}_1(s_1) &= 1 - 1 + 2 - 2 = 0 \\
-    \hat{V}^{\pi}_2(s_1) &= -2 + 2 = 0 \\
-    \hat{V}^{\pi}(s_1) &= \frac{0 + 0}{2} = 0
+    \hat{V}^{\pi}_1(s_1) & = 1 - 1 + 2 - 2 = 0   \\
+    \hat{V}^{\pi}_2(s_1) & = -2 + 2 = 0          \\
+    \hat{V}^{\pi}(s_1)   & = \frac{0 + 0}{2} = 0
 \end{align*}
 Using every visit, we consider all the occurrences of $s_1$
 \begin{align*}
-    \hat{V}^{\pi}_{11}(s_1) &= 1 -1 +2 -2 = 0 \\
-    \hat{V}^{\pi}_{12}(s_1) &= -2 \\
-    \hat{V}^{\pi}_{21}(s_1) &= -2 + 2 = 0 \\
-    \hat{V}^{\pi}(s_1) &= \frac{(0) + (-2) + (0)}{3} = -\frac{2}{3}
+    \hat{V}^{\pi}_{11}(s_1) & = 1 -1 +2 -2 = 0                            \\
+    \hat{V}^{\pi}_{12}(s_1) & = -2                                        \\
+    \hat{V}^{\pi}_{21}(s_1) & = -2 + 2 = 0                                \\
+    \hat{V}^{\pi}(s_1)      & = \frac{(0) + (-2) + (0)}{3} = -\frac{2}{3}
 \end{align*}
 \newline
 \par
@@ -124,10 +124,10 @@ This two methods have different properties. First visit is unbiased. We know for
 From a computational point of view, it would be nice if we could calculate incrementally the empirical mean of the return. If we observe a new episode, we can update the mean without recalculating it from scratch.
 \newpage
 \begin{align*}
-    \hat{\mu}_k &= \frac{1}{k} \sum_{j=1}^k x_j \\
-    &=\frac{1}{k} \bigg( x_k + \sum_{j=1}^{k-1} x_j \bigg) \\
-    &=\frac{1}{k} \bigg( x_k + (k-1) \hat{\mu}_{k-1} \bigg) \\
-    &=\hat{\mu}_{k-1} + \frac{1}{k}(x_k - \hat{\mu}_{k-1}) \numberthis \label{eqn-incremental_mean}
+    \hat{\mu}_k & = \frac{1}{k} \sum_{j=1}^k x_j                                                                 \\
+                & =\frac{1}{k} \bigg( x_k + \sum_{j=1}^{k-1} x_j \bigg)                                          \\
+                & =\frac{1}{k} \bigg( x_k + (k-1) \hat{\mu}_{k-1} \bigg)                                         \\
+                & =\hat{\mu}_{k-1} + \frac{1}{k}(x_k - \hat{\mu}_{k-1}) \numberthis \label{eqn-incremental_mean}
 \end{align*}
 In the MC case, using (\ref{eqn-incremental_mean}) we have
 \begin{equation}
@@ -150,14 +150,14 @@ where $\alpha$ is a learning rate between zero and one. This has the result to w
 \subsubsection{Temporal difference learning (TD(0))}
 Before explaining this new algorithm, it's worth recalling a very important learning rate property.
 \begin{proposition}
-Let $X$ be a random variable in $[0, 1]$ with mean $\mu = E[X]$. Let $x_i \sim X$, $i=1,\dots,n$ be n i.i.d. realizations of $X$.
-Consider the following exponential estimator
-\begin{equation*}
-    \mu_i = (1-\alpha_i) \mu_{i-1} + \alpha x_i
-\end{equation*}
-with $\mu_i=x_1$ and $\alpha_i$'s are learning rates.
-\newline
-If $\sum_i \alpha_i = \infty$ and $\sum_i \alpha_i^2 < \infty$, then $\hat{\mu}_n \overset{a.s.}{\rightarrow} \mu$. The estimator is consistent.
+    Let $X$ be a random variable in $[0, 1]$ with mean $\mu = E[X]$. Let $x_i \sim X$, $i=1,\dots,n$ be n i.i.d. realizations of $X$.
+    Consider the following exponential estimator
+    \begin{equation*}
+        \mu_i = (1-\alpha_i) \mu_{i-1} + \alpha x_i
+    \end{equation*}
+    with $\mu_i=x_1$ and $\alpha_i$'s are learning rates.
+    \newline
+    If $\sum_i \alpha_i = \infty$ and $\sum_i \alpha_i^2 < \infty$, then $\hat{\mu}_n \overset{a.s.}{\rightarrow} \mu$. The estimator is consistent.
 \end{proposition}
 For example $\frac{1}{i}$ satisfies the above condition, and so produces a consistent estimator.
 The very good thing about the estimator above is that, manipulating the learning rate, we can interpolate between the previous estimator value and the new sample. With $\alpha_i=0$ we are ignoring new sample and we keep unaltered our estimate. With $\alpha_i = 1$ we forget the previous estimate and we fully rely on the new sample. With $\alpha_i$ between zero and one we can decide how much we want to rely on the past or on the new sample. Keep in mind this concept, because it will be used for the temporal difference approach.
@@ -173,9 +173,9 @@ Doing so, we can use partial rollout of an episodes, because we don't need the e
 \paragraph{Note - MC \& TD rewriting} We can observe that the MC and TD value function updates can be rewritten as we have seen in proposition 1.1.
 For example for MC
 \begin{align*}
-    V(s_t) &\leftarrow V(s_t) + \alpha(v_t-V(s_t)) \\
-    & \leftarrow V(s_t) + \alpha v_t- \alpha V(s_t) \\
-    & \leftarrow (1-\alpha)V(s_t) + \alpha v_t
+    V(s_t) & \leftarrow V(s_t) + \alpha(v_t-V(s_t))        \\
+           & \leftarrow V(s_t) + \alpha v_t- \alpha V(s_t) \\
+           & \leftarrow (1-\alpha)V(s_t) + \alpha v_t
 \end{align*}
 As we have seen before, $\alpha$ balances the importance of new data versus old estimations.
 \newline
@@ -217,17 +217,17 @@ In practice, we perform a weighted average called $\lambda$-return $v_t^{\lambda
 \end{equation}
 We can use this new estimator in the TD learning formula
 \begin{equation}
-     V(s_t) \leftarrow V(s_t) + \alpha(v_t^{\lambda}-V(s_t))
+    V(s_t) \leftarrow V(s_t) + \alpha(v_t^{\lambda}-V(s_t))
 \end{equation}
 
 \begin{center}
     \includegraphics[width=60mm]{img/TDlambda.png}
 \end{center}
-This approach is called \textbf{Forward-view} TD($\lambda$). We can see that for $\lambda=0$, only the 1-step return have a weight different from zero. For $\lambda=1$, only the complete episode estimate have a weight different from zero. For values in between, we can give more importance to returns with fewer steps or give more weight to n-step returns with more steps. We can manage the bias-variance tradeoff by changing $\lambda$. 
+This approach is called \textbf{Forward-view} TD($\lambda$). We can see that for $\lambda=0$, only the 1-step return have a weight different from zero. For $\lambda=1$, only the complete episode estimate have a weight different from zero. For values in between, we can give more importance to returns with fewer steps or give more weight to n-step returns with more steps. We can manage the bias-variance tradeoff by changing $\lambda$.
 \paragraph{Note - Weights} As one can imagine, the weight formulation is very important. One of the most important property is that the weight must sum to 1. In our case, the sum of the weight is
 \begin{align*}
-    WeightSum &= (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1} \\
-    &= \underbrace{\sum_{n=1}^{\infty} (1-\lambda) \lambda^n}_{\text{geometric series}} = 1\\
+    WeightSum & = (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1}                                        \\
+              & = \underbrace{\sum_{n=1}^{\infty} (1-\lambda) \lambda^n}_{\text{geometric series}} = 1 \\
 \end{align*}
 \begin{center}
     \includegraphics[width=120mm]{img/WeightDecay.PNG}
@@ -240,20 +240,20 @@ The forward-view provide us some the theory necessary to approach the problem. B
     \item \textbf{Frequency heuristics} We assign credits to the most frequent state
     \item \textbf{Recency heuristics} We assign credit to the most recent states
     \item \textbf{Eligibility traces} We combine the frequency and recency heuristic\footnotemark \footnotetext{$+1(s=s_t)$ means that we add one only if the current state $s$ is equal to $s_t$}
-    \begin{equation}
-        e_{t+1}(s) = \underbrace{\gamma \lambda e_t(s)}_{\text{recency term}} + \underbrace{1(s=s_t)}_{\text{frequency term}}
-    \end{equation}
-    The eligibility trace is calculated in every state, and is update at each step.
-    The frequency term makes the trace decay over time because $\gamma$(discount factor) and $\lambda$(TD hyperparameter) are less than one. The recency term adds one to the trace every time the state is visited. 
+          \begin{equation}
+              e_{t+1}(s) = \underbrace{\gamma \lambda e_t(s)}_{\text{recency term}} + \underbrace{1(s=s_t)}_{\text{frequency term}}
+          \end{equation}
+          The eligibility trace is calculated in every state, and is update at each step.
+          The frequency term makes the trace decay over time because $\gamma$(discount factor) and $\lambda$(TD hyperparameter) are less than one. The recency term adds one to the trace every time the state is visited.
 \end{itemize}
 \begin{center}
     \includegraphics[width=120mm]{img/EligibilityTraces.png}
 \end{center}
-We have seen how the eligibility trace $e_t(s)$ measure the contribution of state s to the return. We can rewrite the state-value function including this term. For TD we had 
+We have seen how the eligibility trace $e_t(s)$ measure the contribution of state s to the return. We can rewrite the state-value function including this term. For TD we had
 \begin{align*}
-    V(s_t) &\leftarrow V(s_t) + \alpha(r_{t+1} + \gamma V(s_{t+1})-V(s_t)) & \text{TD}\\
-    &\leftarrow V(s_t) + \alpha(\delta_t) \\
-    V(s_t) &\leftarrow V(s_t) + \alpha(\delta_t e_t(s)) &TD(\lambda)Backward-view
+    V(s_t) & \leftarrow V(s_t) + \alpha(r_{t+1} + \gamma V(s_{t+1})-V(s_t)) & \text{TD}                \\
+           & \leftarrow V(s_t) + \alpha(\delta_t)                                                      \\
+    V(s_t) & \leftarrow V(s_t) + \alpha(\delta_t e_t(s))                    & TD(\lambda)Backward-view
 \end{align*}
 TD($\lambda$) uses the eligibility traces to give more importance to the most recently or more frequently visited states. The states with high eligibility trace will rely more on newly seen data, by giving a boost to the learning rate.
 \par
@@ -261,40 +261,40 @@ TD($\lambda$) uses the eligibility traces to give more importance to the most re
 Here we have the algorithm for backward-view TD($\lambda$)
 \newline
 \begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\SetKwInOut{Initialize}{Initialize}
+    \SetAlgoLined
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwInOut{Initialize}{Initialize}
 
 
-\Output{$V^{\pi}$}
-\Input{S, A, $\pi$, $\gamma$, $\lambda$}
-\Initialize{V(s) arbitrarily}
-\For{all episodes}{
-$e(s) \leftarrow 0$, $\forall s \in S$ \\
-$s \leftarrow$ starting state \\
-\Repeat{s is terminal}{
-      $a \leftarrow$ action given by $\pi$ for $s$ \\
-      Take action $a$, observe $r$, and next state $s'$ \\
-      $\delta \leftarrow r + \gamma V(s') - V(s)$ \\
-      $e(s) \leftarrow e(s) + 1$ \\
-      \For{all $s \in S$}{
-      $V(s) \leftarrow V(s) + \alpha \delta e(s)$ \\
-      $e(s) \leftarrow \gamma \lambda e(s)$
-      }
-      $s \leftarrow s'$
+    \Output{$V^{\pi}$}
+    \Input{S, A, $\pi$, $\gamma$, $\lambda$}
+    \Initialize{V(s) arbitrarily}
+    \For{all episodes}{
+        $e(s) \leftarrow 0$, $\forall s \in S$ \\
+        $s \leftarrow$ starting state \\
+        \Repeat{s is terminal}{
+            $a \leftarrow$ action given by $\pi$ for $s$ \\
+            Take action $a$, observe $r$, and next state $s'$ \\
+            $\delta \leftarrow r + \gamma V(s') - V(s)$ \\
+            $e(s) \leftarrow e(s) + 1$ \\
+            \For{all $s \in S$}{
+                $V(s) \leftarrow V(s) + \alpha \delta e(s)$ \\
+                $e(s) \leftarrow \gamma \lambda e(s)$
+            }
+            $s \leftarrow s'$
+        }
     }
-}
-\caption{backward-view TD($\lambda$)}
+    \caption{backward-view TD($\lambda$)}
 \end{algorithm}
 \par
 \noindent
 Using accumulating traces, frequently visited states can have eligibilities greater than one. This can be a problem for convergence. \textbf{Replacing traces}, instead of adding 1 when you visit a state, set that trace to 1.
 \begin{equation}
-    e_t(s) = 
+    e_t(s) =
     \begin{cases}
-        \gamma \lambda e_{t-1}(s),& \text{if }s \neq s_t\\
-        1,& \text{if }s=s_t
+        \gamma \lambda e_{t-1}(s), & \text{if }s \neq s_t \\
+        1,                         & \text{if }s=s_t
     \end{cases}
 \end{equation}
 \begin{center}
@@ -322,22 +322,22 @@ In this way, we don't need anymore the transition model, because the greedy poli
 \noindent
 One of the easiest way to produce non-deterministic policies during the policy improvement step, is to use \textbf{$\mathbf{\epsilon}$ greedy exploration}. The policy will be calculated as follow
 \begin{equation}
-    \pi(s,a) = 
+    \pi(s,a) =
     \begin{cases}
         \frac{\epsilon}{m}+1-\epsilon & \text{if }a^*=\underset{a \in A}{argmax} \{ Q(s,a) \} \\
-        \frac{\epsilon}{m} & \text{otherwise}
+        \frac{\epsilon}{m}            & \text{otherwise}
     \end{cases}
 \end{equation}
 Simplest idea for ensuring continual exploration. All the $m$ actions have non-zero probability of being chosen. The greedy action have a large probability of being chosen. $\epsilon$ manages the exploration-exploitation dilemma. Larger values of $\epsilon$ will generate policies which explore more, because it gives more probability to the non-greedy actions. The very good thing about $\epsilon$-greedy policy is its theoretical guarantees
 \begin{theorem}[$\epsilon$-greedy policy improvement]
-For any $\epsilon$-greedy policy $\pi$, the $\epsilon$-greedy policy $\pi'$ with respect to $Q^{\pi}$ is an improvement
-\begin{align*}
-    Q^{\pi}(s,\pi'(s)) &= \sum_{a \in A} \pi'(a|s) Q^{\pi}(s,a) \\
-    &= \frac{\epsilon}{m} \sum_{a \in A} \big( Q^{\pi}(s,a) \big) + (1-\epsilon) \max_{a \in A} Q^{\pi}(s,a) \\
-    &\geq \frac{\epsilon}{m} \sum_{a \in A} \big( Q^{\pi}(s,a) \big) + (1-\epsilon) \sum_{a \in A} \frac{\pi(a|s) - \frac{1}{\epsilon}}{1 - \epsilon} Q^{\pi}(s,a) \\
-    &= \sum_{a \in A} \pi(a|s) Q^{\pi}(s,a) = V^{\pi}(s)
-\end{align*}
-Therefore from policy improvement theorem, $V^{\pi'}(s) \geq V^{\pi}(s)$
+    For any $\epsilon$-greedy policy $\pi$, the $\epsilon$-greedy policy $\pi'$ with respect to $Q^{\pi}$ is an improvement
+    \begin{align*}
+        Q^{\pi}(s,\pi'(s)) & = \sum_{a \in A} \pi'(a|s) Q^{\pi}(s,a)                                                                                                                       \\
+                           & = \frac{\epsilon}{m} \sum_{a \in A} \big( Q^{\pi}(s,a) \big) + (1-\epsilon) \max_{a \in A} Q^{\pi}(s,a)                                                       \\
+                           & \geq \frac{\epsilon}{m} \sum_{a \in A} \big( Q^{\pi}(s,a) \big) + (1-\epsilon) \sum_{a \in A} \frac{\pi(a|s) - \frac{1}{\epsilon}}{1 - \epsilon} Q^{\pi}(s,a) \\
+                           & = \sum_{a \in A} \pi(a|s) Q^{\pi}(s,a) = V^{\pi}(s)
+    \end{align*}
+    Therefore from policy improvement theorem, $V^{\pi'}(s) \geq V^{\pi}(s)$
 \end{theorem}
 \par
 \noindent
@@ -353,23 +353,23 @@ As we have seen for DP policy iteration we don't need to calculate the true valu
 \end{itemize}
 To completely define on-policy MC control, we still need some definitions.
 \begin{definition}[GLIE]
-We say that an exploration strategy is Greedy in the Limit of Infinite Exploration(GLIE) if
-\begin{itemize}
-    \item All state-action pair are explored infinitely many times
-    \begin{equation*}
-        \lim_{k \rightarrow \infty} N_k(s,a) = \infty, \quad \forall(s,a)
-    \end{equation*}
-    \item The policy converges on a greedy policy
-    \begin{equation*}
-        \lim_{k \rightarrow \infty} \pi_k(a|s) = \mathbf{1}(a = \underset{a' \in a}{argmax}\{ Q_k(s',a') \})
-    \end{equation*}
-\end{itemize}
+    We say that an exploration strategy is Greedy in the Limit of Infinite Exploration(GLIE) if
+    \begin{itemize}
+        \item All state-action pair are explored infinitely many times
+              \begin{equation*}
+                  \lim_{k \rightarrow \infty} N_k(s,a) = \infty, \quad \forall(s,a)
+              \end{equation*}
+        \item The policy converges on a greedy policy
+              \begin{equation*}
+                  \lim_{k \rightarrow \infty} \pi_k(a|s) = \mathbf{1}(a = \underset{a' \in a}{argmax}\{ Q_k(s',a') \})
+              \end{equation*}
+    \end{itemize}
 \end{definition}
 \par\noindent
 In GLIE MC control we have. Given sample $k^{th}$ episode using $\pi:\{ s_1,a_1,r_1,\dots,s_T \} \sim \pi$, for each state and action in the episode we have
 \begin{align*}
-    N(s_t,a_t) &\leftarrow N(s_t,a_t) + 1 \\
-    Q(s_t, a_T) &\leftarrow Q(s_t,a_t) + \frac{1}{N(s_T,a_t)}(v_t - Q(s_t,a_t))
+    N(s_t,a_t)  & \leftarrow N(s_t,a_t) + 1                                      \\
+    Q(s_t, a_T) & \leftarrow Q(s_t,a_t) + \frac{1}{N(s_T,a_t)}(v_t - Q(s_t,a_t))
 \end{align*}
 The policy improvement step based on the new action-value function will use
 \begin{gather*}
@@ -377,7 +377,7 @@ The policy improvement step based on the new action-value function will use
     \pi \leftarrow \epsilon-greedy(Q)
 \end{gather*}
 \begin{theorem}[GLIE Monte-Carlo]
-GLIE Monte-Carlo converges to the optimal action-value function, $Q(s,a) \rightarrow Q^*(s,a)$
+    GLIE Monte-Carlo converges to the optimal action-value function, $Q(s,a) \rightarrow Q^*(s,a)$
 \end{theorem}
 Now we have a way to find the optimal policy with a model-free approach.
 \par\noindent
@@ -409,85 +409,85 @@ At each time-step we perform
 \end{itemize}
 
 \begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\SetKwInOut{Initialize}{Initialize}
-\SetKwRepeat{Do}{do}{while}
+    \SetAlgoLined
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwInOut{Initialize}{Initialize}
+    \SetKwRepeat{Do}{do}{while}
 
-\Output{$Q^*$}
-\Input{S, A, $\pi_0$, $\gamma$, $\epsilon$}
-\Initialize{$Q(s,a)$ arbitrarily \\
-$\pi \leftarrow \pi_0$}
+    \Output{$Q^*$}
+    \Input{S, A, $\pi_0$, $\gamma$, $\epsilon$}
+    \Initialize{$Q(s,a)$ arbitrarily \\
+        $\pi \leftarrow \pi_0$}
 
-\Do{convergence}{
-$s \leftarrow$ starting state \\
-$a \leftarrow$ action given by $\pi$ for $s$ \\
-\Repeat{$s$ is terminal}{
-Take action a, observe r, s'\\
-$a' \leftarrow$action given by $\pi$ for $s'$ \\
-$Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma Q(s',a') - Q(s,a)]$ \\
-$s \leftarrow s'$ \\
-$a \leftarrow a'$ \\
-$\pi \leftarrow \epsilon$-greedy$(\pi)$
-}
-}
-\caption{SARSA On-Policy control}
+    \Do{convergence}{
+        $s \leftarrow$ starting state \\
+        $a \leftarrow$ action given by $\pi$ for $s$ \\
+        \Repeat{$s$ is terminal}{
+            Take action a, observe r, s'\\
+            $a' \leftarrow$action given by $\pi$ for $s'$ \\
+            $Q(s,a) \leftarrow Q(s,a) + \alpha[r + \gamma Q(s',a') - Q(s,a)]$ \\
+            $s \leftarrow s'$ \\
+            $a \leftarrow a'$ \\
+            $\pi \leftarrow \epsilon$-greedy$(\pi)$
+        }
+    }
+    \caption{SARSA On-Policy control}
 \end{algorithm}
 \par
 \noindent
 To ensure that the SARSA algorithm converges to the optimal solution, we have to check if some conditions are respected
 \newpage
 \begin{theorem}
-SARSA converges to the optimal action-value function, $Q(s,a) \rightarrow Q^*(s,a)$, under the following conditions
-\begin{itemize}
-    \item GLIE exploration strategy(sequence of policies $\pi_t(s,a)$)
-    \item Robbins-Monro sequence of step-sizes $\alpha_t$
-    \begin{gather*}
-        \sum_{t=1}^{\infty} \frac{1}{\alpha_t} = \infty \\
-        \sum_{t=1}^{\infty} \frac{1}{\alpha_t^2} \leq \infty
-    \end{gather*}
-\end{itemize}
+    SARSA converges to the optimal action-value function, $Q(s,a) \rightarrow Q^*(s,a)$, under the following conditions
+    \begin{itemize}
+        \item GLIE exploration strategy(sequence of policies $\pi_t(s,a)$)
+        \item Robbins-Monro sequence of step-sizes $\alpha_t$
+              \begin{gather*}
+                  \sum_{t=1}^{\infty} \frac{1}{\alpha_t} = \infty \\
+                  \sum_{t=1}^{\infty} \frac{1}{\alpha_t^2} \leq \infty
+              \end{gather*}
+    \end{itemize}
 \end{theorem}
 We can see that for SARSA we are using TD(0), because we are bootstrapping after a single step. As we did before for the prediction problem, we can define a procedure which can swing across MC and TD with a parameter $\lambda$. This procedure is called SARSA($\lambda$)
 \begin{itemize}
     \item \textbf{Forward view} update action–value $Q(s,a)$ to $\lambda$-return $v_t^{\lambda}$
     \item \textbf{Backward view} use eligibility traces for each state-action pairs.
-    \begin{equation*}
-        e_t(s,a) = \gamma \lambda e_{t-1}(s,a) + \mathbf{1}((s_t,a_t) = (s,a))
-    \end{equation*}
+          \begin{equation*}
+              e_t(s,a) = \gamma \lambda e_{t-1}(s,a) + \mathbf{1}((s_t,a_t) = (s,a))
+          \end{equation*}
 \end{itemize}
 
 \begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\SetKwInOut{Initialize}{Initialize}
-\SetKwRepeat{Do}{do}{while}
+    \SetAlgoLined
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwInOut{Initialize}{Initialize}
+    \SetKwRepeat{Do}{do}{while}
 
-\Output{$Q^*$}
-\Input{S, A, $\pi_0$, $\gamma$, $\lambda$, $\epsilon$}
-\Initialize{Q(s,a) arbitrarily \\
-$\pi \leftarrow \pi_0$}
-\Do{convergence}{
-$e(s,a) \leftarrow 0$, $\forall s,a$ \\
-$s \leftarrow$ starting state \\
-$a \leftarrow$ action given by $\pi$ for $s$ \\
-\Repeat{s is terminal}{
-      Take action $a$, observe $r$, and next state $s'$ \\
-      $a' \leftarrow$ action given by $\pi$ for $s'$ \\
-      $\delta \leftarrow r + \gamma Q(s',a') - Q(s,a)$ \\
-      $e(s,a) \leftarrow e(s,a) + 1$ \\
-      \For{all $s,a$}{
-      $Q(s,a) \leftarrow Q(s,a) + \alpha \delta e(s,a)$ \\
-      $e(s,a) \leftarrow \gamma \lambda e(s,a)$
-      }
-      $s \leftarrow s'$ \\
-      $a \leftarrow a'$ \\
-      $\pi \leftarrow \epsilon$-greedy$(\pi)$
+    \Output{$Q^*$}
+    \Input{S, A, $\pi_0$, $\gamma$, $\lambda$, $\epsilon$}
+    \Initialize{Q(s,a) arbitrarily \\
+        $\pi \leftarrow \pi_0$}
+    \Do{convergence}{
+        $e(s,a) \leftarrow 0$, $\forall s,a$ \\
+        $s \leftarrow$ starting state \\
+        $a \leftarrow$ action given by $\pi$ for $s$ \\
+        \Repeat{s is terminal}{
+            Take action $a$, observe $r$, and next state $s'$ \\
+            $a' \leftarrow$ action given by $\pi$ for $s'$ \\
+            $\delta \leftarrow r + \gamma Q(s',a') - Q(s,a)$ \\
+            $e(s,a) \leftarrow e(s,a) + 1$ \\
+            \For{all $s,a$}{
+                $Q(s,a) \leftarrow Q(s,a) + \alpha \delta e(s,a)$ \\
+                $e(s,a) \leftarrow \gamma \lambda e(s,a)$
+            }
+            $s \leftarrow s'$ \\
+            $a \leftarrow a'$ \\
+            $\pi \leftarrow \epsilon$-greedy$(\pi)$
+        }
     }
-}
-\caption{Backward-view SARSA($\lambda$)}
+    \caption{Backward-view SARSA($\lambda$)}
 \end{algorithm}
 The preferred method for what we have seen before is the backward view.
 
@@ -501,9 +501,9 @@ Suppose to perform a complete episode of our MDP and we have estimated the actio
 \subsubsection{Off-Policy learning}
 Off-policy methodologies try to estimate a policy that is different from the one generating the data. The estimated policy is called \textbf{target policy} $\pi(a|s)$, while the data generating one is called \textbf{behavior policy} $\Bar{\pi}(a|s)$. This could seem counter intuitive, but it can bring a lot of advantages to our learning phase. For example, splitting the two policy can give us an advantage when learning from observing humans or other agents, or reuse experience generated from old policies($\pi_1,\dots,\pi_{t-1}$). How can we estimate a policy from another one? We can use the concept of \textbf{importance sampling}. This method is used in general to estimate the expectation of a different distribution w.r.t. the distribution used to draw samples. Imagine to have a generic function $f(x)$. We sample $f(x)$ using a distribution $p$\footnotemark\footnotetext{Note that $f(x)$ is simply a generic function, for which we want to find the expected value. We want to estimate the expected value through sampling. To sample from the input space(x), we must use a probability distribution, in our case $p$}. To denote that the samples $x$ are drawn from $p$ we use $x \sim p$. The expected value of $f(x)$ can be written as $E_{x \sim p}[f(x)]$. Our objective is to find $E_{x \sim p}[f(x)]$ by sampling $x$ with another distribution $q$. We can manipulate the expected value to achieve this.
 \begin{align*}
-    E_{x \sim p}[f(x)] &= \int p(x)f(x) dx \\
-    &= \int q(x) \bigg( \frac{p(x)}{q(x)}f(x) \bigg) dx \\
-    &=E_{x \sim q}\bigg[ \frac{p(x)}{q(x)}f(x) \bigg]
+    E_{x \sim p}[f(x)] & = \int p(x)f(x) dx                                 \\
+                       & = \int q(x) \bigg( \frac{p(x)}{q(x)}f(x) \bigg) dx \\
+                       & =E_{x \sim q}\bigg[ \frac{p(x)}{q(x)}f(x) \bigg]
 \end{align*}
 We can see in the second line of the procedure, that we can consider as a new generic function $\frac{p(x)}{q(x)}f(x)$. Seeing that, we have an integral of a function, multiplied by a distribution $q$. This is by definition an expected value, with the samples drawn from $q$. In this way we can estimate the expected value of $f(x)$, by sampling from another distribution. The ratio $\frac{p(x)}{q(x)}$ is also called \textbf{importance weight} $W(x)$. We can guess that this ratio weights the importance of the given sample. When $p$ gives a big importance to a region, and $q$ doesn't, we must amplify the sample, if we have taken it from $q$. In $p$ we sample frequently a given region. In $q$ we sample rarely, but when applying importance sampling every sample from that region have a large weight to compensate. In fact when $p(x)$ is large and $q(x)$ is small $W(x)$ becomes bigger. Importance sampling is like doing a weighted average, where the samples are weighted according to their importance.
 
@@ -533,28 +533,28 @@ Q-learning is the most used RL algorithm. It's very similar to SARSA,
 We can see how the only difference is the usage of the max operator in the TD target. This little difference makes a lot of difference. First of all, the algorithm becomes off-policy, because the next action $a'$ in the TD target is decided using the greedy policy in the current state, and not using the policy $\pi$. Most importantly, we can demonstrate that Q-learning converges to the optimal $Q^*$ even when the GLIE condition is not respected. This means that we don't have to stop exploring in order to converge to the optimal solution. The algorithm is so solid that, even if we use always the random policy the algorithm will converge to the optimal solution. As SARSA can be seen as the model-free version of policy iteration, Q-learning can be seen as the model-free version of value iteration. In fact, we can see how Q-learning uses the optimal Bellman operator over the single step. Note that, to choose the actual action $a$ in a given state we use the policy $\pi$ derived from the $\epsilon$-greedy improvement. To estimate the next action $a'$ we use the greedy policy of $\pi$.
 
 \begin{algorithm}[H]
-\SetAlgoLined
-\SetKwInOut{Input}{Input}
-\SetKwInOut{Output}{Output}
-\SetKwInOut{Initialize}{Initialize}
-\SetKwRepeat{Do}{do}{while}
+    \SetAlgoLined
+    \SetKwInOut{Input}{Input}
+    \SetKwInOut{Output}{Output}
+    \SetKwInOut{Initialize}{Initialize}
+    \SetKwRepeat{Do}{do}{while}
 
-\Output{$Q^*$}
-\Input{S, A, $\pi_0$, $\gamma$, $\epsilon$}
-\Initialize{Q(s,a) arbitrarily \\
-$\pi \leftarrow \pi_0$}
-\Do{convergence}{
-$s \leftarrow$ starting state \\
-\Repeat{s is terminal}{
-      $a \leftarrow$ action given by $\pi$ for $s$ \\
-      Take action $a$, observe $r$, and next state $s'$ \\
-      $Q(s,a) \leftarrow Q(s,a) + \alpha(r + \gamma \max_{a' \in A}\{ Q(s',a') \} - Q(s,a))$ \\
-      
-      $s \leftarrow s'$ \\
-      $\pi \leftarrow \epsilon$-greedy$(\pi)$
+    \Output{$Q^*$}
+    \Input{S, A, $\pi_0$, $\gamma$, $\epsilon$}
+    \Initialize{Q(s,a) arbitrarily \\
+        $\pi \leftarrow \pi_0$}
+    \Do{convergence}{
+        $s \leftarrow$ starting state \\
+        \Repeat{s is terminal}{
+            $a \leftarrow$ action given by $\pi$ for $s$ \\
+            Take action $a$, observe $r$, and next state $s'$ \\
+            $Q(s,a) \leftarrow Q(s,a) + \alpha(r + \gamma \max_{a' \in A}\{ Q(s',a') \} - Q(s,a))$ \\
+
+            $s \leftarrow s'$ \\
+            $\pi \leftarrow \epsilon$-greedy$(\pi)$
+        }
     }
-}
-\caption{Q-learning}
+    \caption{Q-learning}
 \end{algorithm}
 
 \newpage

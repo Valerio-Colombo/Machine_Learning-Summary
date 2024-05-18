@@ -24,25 +24,25 @@ This balance is influenced by many factor. One of these is the time-horizon of o
 \paragraph{Example - Dilemma on real application} To better visualize the exploration-exploitation dilemma, we can make some more examples.
 \begin{itemize}
     \item Clinical Trial
-        \begin{itemize}
-            \item Exploration: Try new treatments
-            \item Exploitation: Choose the treatment that provides the best results
-        \end{itemize}
+          \begin{itemize}
+              \item Exploration: Try new treatments
+              \item Exploitation: Choose the treatment that provides the best results
+          \end{itemize}
     \item Slot machine (a.k.a. one-armed bandit) selection
-        \begin{itemize}
-            \item Exploration: Try all the available slot machines
-            \item Exploitation: Pull the one which provided you the highest payoff so far
-        \end{itemize}
+          \begin{itemize}
+              \item Exploration: Try all the available slot machines
+              \item Exploitation: Pull the one which provided you the highest payoff so far
+          \end{itemize}
     \item Game Playing
-        \begin{itemize}
-            \item Exploration: Play an unexpected move
-            \item Exploitation: Play the move you think is the best
-        \end{itemize}
+          \begin{itemize}
+              \item Exploration: Play an unexpected move
+              \item Exploitation: Play the move you think is the best
+          \end{itemize}
     \item Oil Drilling
-        \begin{itemize}
-            \item Exploration: Drill at an unexplored location
-            \item Exploitation: Drill at the best known location
-        \end{itemize}
+          \begin{itemize}
+              \item Exploration: Drill at an unexplored location
+              \item Exploitation: Drill at the best known location
+          \end{itemize}
 \end{itemize}
 
 \subsection{MAB problem}
@@ -50,9 +50,9 @@ There are different types of MAB. They are fully characterized by the type of \t
 \begin{itemize}
     \item \textbf{Deterministic} we have a single value for the reward for each arm(We get the same reward from the same type of beer)
     \item \textbf{Stochastic} the reward of an arm is drawn from a distribution which is
-stationary over time(We get different rewards from the same type of beer)
+          stationary over time(We get different rewards from the same type of beer)
     \item \textbf{Adversarial} an adversary chooses the reward we get from an arm at a
-specific round, knowing the algorithm we are using to solve the problem
+          specific round, knowing the algorithm we are using to solve the problem
 \end{itemize}
 We have seen in the previous chapters, how we can use MDPs to model a problem. It would be nice if we could map a MAB problem to a MDP. It turns out that we can see the Multi-Armed Bandit setting as a specific case of an MDP where
 \begin{itemize}
@@ -67,8 +67,8 @@ In our case we have all the ingredients to build a MDP representation, except th
 \begin{equation}
     \pi(a_i|s)=
     \begin{cases}
-    1-\epsilon &\text{if }\Hat{Q}(a_i|s) = \max_{a \in A}\Hat{Q}(s|s) \\
-    \frac{\epsilon}{|A|-1} &\text{otherwise}
+        1-\epsilon             & \text{if }\Hat{Q}(a_i|s) = \max_{a \in A}\Hat{Q}(s|s) \\
+        \frac{\epsilon}{|A|-1} & \text{otherwise}
     \end{cases}
 \end{equation}
 We perform the greedy action with probability $1-\epsilon$, and a random action between the others with probability $\frac{\epsilon}{|A|-1}$.
@@ -87,7 +87,7 @@ The definition of MAB problems with MDP is useful but is not the only one. A Mul
     \item $\mathcal{R}$ is an set of unknown random variable $\mathcal{R}(a_i)$, where $E[\mathcal{R}(a_i)]=R(a_i)$
 \end{itemize}
 The process we consider is the following. At each round t the agent selects a single arms $a_{i_t}$. Then the environment generates a reward $r_{i_t}$ drawn from $\mathcal{R}(a_{i_t})$. Finally the agent updates its information by means of a history $h_t$(pulled arm
-and received reward). 
+and received reward).
 
 The final objective of the agent is to maximize the cumulative reward over a
 given time horizon T
@@ -105,9 +105,9 @@ At a given time step $t$, we select the action $a_{i_t}$, and we incur in a loss
 This difference can be called \textbf{regret}.
 We want to minimize the expected regret suffered over a finite time horizon of $T$ rounds
 \begin{definition}[Expected pseudo regret]
-\begin{equation*}
-    L_T = TR^* - E \bigg[ \sum_{t=1}^T R(a_{i_t}) \bigg]
-\end{equation*}
+    \begin{equation*}
+        L_T = TR^* - E \bigg[ \sum_{t=1}^T R(a_{i_t}) \bigg]
+    \end{equation*}
 \end{definition}
 \par \noindent
 The expected value is taken w.r.t. the stochasticity of the reward function and the randomness of the used algorithm. Note that the maximization of the cumulative reward is equivalent to the minimization of the cumulative regret.
@@ -115,19 +115,19 @@ The expected value is taken w.r.t. the stochasticity of the reward function and 
 We can reformulate the cumulative regret in another way.
 We define the average difference in reward between a generic arm $a_i$ and the optimal one $a^*$ as $\Delta_i := R^*-R(a_i)$. Then we define the number of times an arm $a_i$ has been pulled after a total of $t$ time steps as $N_t(a_i)$.
 \begin{align*}
-    L_T &= TR^* - E \bigg[ \sum_{t=1}^T R(a_{i_t}) \bigg] \\
-    &= E \bigg[ \sum_{t=1}^T R^* - R(a_{i_t}) \bigg] \\
-    &= \sum_{a \in A} E[N_t(a_i)](R^* - R(a_{i_t})) \\
-    &= \sum_{a \in A} E[N_t(a_i)] \Delta_i
+    L_T & = TR^* - E \bigg[ \sum_{t=1}^T R(a_{i_t}) \bigg] \\
+        & = E \bigg[ \sum_{t=1}^T R^* - R(a_{i_t}) \bigg]  \\
+        & = \sum_{a \in A} E[N_t(a_i)](R^* - R(a_{i_t}))   \\
+        & = \sum_{a \in A} E[N_t(a_i)] \Delta_i
 \end{align*}
 Note how we rewrote the summation over time to a summation over arms. At each time step we choose an arm. If we choose the arm $a_i$ $N_t(a_i)$ times we have that $T= N_t(a_1) + \dots + N_t(a_N)$. Looking at formula we can see that to minimize the regret we want to minimize the number of times we select a sub-optimal arm.
 
 We can find a lower bound of the regret
 \begin{theorem}
-Given a MAB stochastic problem, any algorithm satisfies
-\begin{equation}
-    \lim_{T \rightarrow \infty} L_T \geq log(T) \sum_{a_i|\Delta_i>0} \frac{\Delta_i}{KL(R(a_i),R(a^*))}
-\end{equation}
+    Given a MAB stochastic problem, any algorithm satisfies
+    \begin{equation}
+        \lim_{T \rightarrow \infty} L_T \geq log(T) \sum_{a_i|\Delta_i>0} \frac{\Delta_i}{KL(R(a_i),R(a^*))}
+    \end{equation}
 \end{theorem}
 \par \noindent
 where $KL(R(a_i),R(a^*))$ is the Kullback-Leibler divergence between the two Bernoulli distributions $\mathcal{R}(a_i)$ and $\mathcal{R}(a^*)$. The important thing to notice is that the cumulative regret depends on the time horizon T. So we can't have a constant regret over all time steps. We can show that the Kullback-Leibler divergence is proportional to $\Delta^2$. This means that the argument of the summation on the right hand side is proportional to $\frac{1}{\Delta_i}$. If we have a small $\Delta_i$ we have a higher lower bound and vice versa. This can explained by the fact that, if all the arms are very close to the optimal action, it will be difficult to choose which of the arm is the best.
@@ -155,10 +155,10 @@ with high probability. The bound length $B_t(a_i)$ depends on how much informati
 Small $N_t(a_i) \rightarrow$ large $U(a_i)$ (the estimated value $\Hat{R}_t(a_i)$ is uncertain). Large $N_t(a_i) \rightarrow$ small $U(a_i)$ (the estimated value $\Hat{R}_t(a_i)$ is accurate).
 In order to set the upper bound we resort to a classical concentration inequality
 \begin{definition}[Hoeffding Bound]
-Let $X_1,\dots,X_t$ be i.i.d. random variables with support in $[0, 1]$ and identical mean $E[X_i] =: X$ and let $\Bar{X}_t=\frac{\sum_{i=1}^t X_i}{t}$ be the sample mean. Then
-\begin{equation*}
-    P(X > \Bar{X}_t + u) \leq e^{-2tu^2}
-\end{equation*}
+    Let $X_1,\dots,X_t$ be i.i.d. random variables with support in $[0, 1]$ and identical mean $E[X_i] =: X$ and let $\Bar{X}_t=\frac{\sum_{i=1}^t X_i}{t}$ be the sample mean. Then
+    \begin{equation*}
+        P(X > \Bar{X}_t + u) \leq e^{-2tu^2}
+    \end{equation*}
 \end{definition}
 \par \noindent
 We will apply this inequality to the upper bounds corresponding to each arm
@@ -182,25 +182,25 @@ This ensures to select the optimal action as the number of samples increases. $\
 This algorithm is called UCB1. For each time step $t$ we do three steps.
 \begin{enumerate}
     \item Compute
-\begin{equation*}
-    \Hat{R}_t(a_i) = \frac{\sum_{i=1}^t r_{i,t} \mathbf{1}(a_i=a_{i_t})}{N_t}, \quad \forall a_i
-\end{equation*}
+          \begin{equation*}
+              \Hat{R}_t(a_i) = \frac{\sum_{i=1}^t r_{i,t} \mathbf{1}(a_i=a_{i_t})}{N_t}, \quad \forall a_i
+          \end{equation*}
     \item Compute
-\begin{equation*}
-    B_t(a_i) = \sqrt{\frac{2log(t)}{N_t(a_i)}}, \quad \forall a_i
-\end{equation*}
+          \begin{equation*}
+              B_t(a_i) = \sqrt{\frac{2log(t)}{N_t(a_i)}}, \quad \forall a_i
+          \end{equation*}
     \item Play arm
-\begin{equation*}
-    a_{i_t} = \underset{a_i \in A}{argmax}\bigg( \Hat{R}_t(a_i) + B_t(a_i) \bigg)
-\end{equation*}
+          \begin{equation*}
+              a_{i_t} = \underset{a_i \in A}{argmax}\bigg( \Hat{R}_t(a_i) + B_t(a_i) \bigg)
+          \end{equation*}
 \end{enumerate}
 From that we can derive the specific upper bound of UCB1
 \begin{theorem}[UCB1 Upper Bound, Auer \& Cesa-Bianchi 2002]
-At finite time T, the expected total regret of the UCB1 algorithm applied to a
-stochastic MAB problem is
-\begin{equation*}
-    L_T \leq 8log(T) \sum_{i|\Delta_i > 0} \frac{1}{\Delta_i} + \bigg( 1+ \frac{\pi^2}{3} \bigg) \sum_{i|\Delta_i > 0} \Delta_i
-\end{equation*}
+    At finite time T, the expected total regret of the UCB1 algorithm applied to a
+    stochastic MAB problem is
+    \begin{equation*}
+        L_T \leq 8log(T) \sum_{i|\Delta_i > 0} \frac{1}{\Delta_i} + \bigg( 1+ \frac{\pi^2}{3} \bigg) \sum_{i|\Delta_i > 0} \Delta_i
+    \end{equation*}
 \end{theorem}
 \par \noindent
 Remember that the lower bound we have found before is general for all the algorithms. Instead, for the upper bound, every algorithm has a different one. For UCB we have that the the two bounds depends on the same order, $log(T)$. This is very nice, the upper bound is good.
@@ -215,11 +215,11 @@ Let's see in more detail this algorithm. The prior conjugate distributions are $
 \end{itemize}
 The upper bound of the algorithm is
 \begin{theorem}[Thompson Sampling Upper Bound, Kaufmann \& Munos 2012]
-At time T, the expected total regret of Thompson Sampling algorithm applied
-to a stochastic MAB problem is
-\begin{equation*}
-    L_T \leq O \Bigg( \sum_{i|\Delta_i > 0} \frac{\Delta_i}{KL(\mathcal{R}(a_i),\mathcal{R}(a^*))} (log(T) + log(log(T))) \Bigg)
-\end{equation*}
+    At time T, the expected total regret of Thompson Sampling algorithm applied
+    to a stochastic MAB problem is
+    \begin{equation*}
+        L_T \leq O \Bigg( \sum_{i|\Delta_i > 0} \frac{\Delta_i}{KL(\mathcal{R}(a_i),\mathcal{R}(a^*))} (log(T) + log(log(T))) \Bigg)
+    \end{equation*}
 \end{theorem}
 Note that this upper bound have the same order and constant of the lower bound. This means that we can't build a better bound.
 
@@ -235,24 +235,24 @@ The process we consider is the following
     \item At the same time the adversary chooses rewards $r_{i,t}$
     \item The agent gets reward $r_{i,t}$
     \item The final objective of the agent is to maximize the cumulative reward over a time horizon T
-    \begin{equation*}
-        \sum_{t=1}^T r_{i_t,t}
-    \end{equation*}
+          \begin{equation*}
+              \sum_{t=1}^T r_{i_t,t}
+          \end{equation*}
 \end{itemize}
 We cannot compare the accumulated regret we gained with the optimal one. Moreover, the fact that there is an adversary choosing the regret does not allow to use deterministic algorithms(e.g., UCB). This is due to the fact that, the return is no longer characterized by a random variable, and so it's not stochastic. Instead, we can use the \textbf{weak regret}.
 \begin{definition}[Weak regret]
-\begin{equation*}
-    L_T = \max_i \bigg( \sum_{t=1}^T r_{i,t} \bigg) - \sum_{t=1}^T r_{i_t,t}
-\end{equation*}
+    \begin{equation*}
+        L_T = \max_i \bigg( \sum_{t=1}^T r_{i,t} \bigg) - \sum_{t=1}^T r_{i_t,t}
+    \end{equation*}
 \end{definition}
 We are comparing the policy with the best constant action.
 As we did before, we can construct a lower bound for all the algorithms
 \begin{theorem}[Minimax Lower Bound]
-Let sup be the supremum over all distribution of rewards such that, for $i \in \{ 1, \dots, N \}$ the rewards $r_{i,1}, \dots, r_{i,T}$ and $r_{i,j}$ are i.i.d. and let inf be the infimum over all forecasters. Then
-\begin{equation*}
-    inf\text{ }sup\text{ }E[L_T] \geq \frac{1}{20}\sqrt{TN}
-\end{equation*}
-where the expectation is taken with respect to both the random generation rewards and the internal randomization of the forecaster
+    Let sup be the supremum over all distribution of rewards such that, for $i \in \{ 1, \dots, N \}$ the rewards $r_{i,1}, \dots, r_{i,T}$ and $r_{i,j}$ are i.i.d. and let inf be the infimum over all forecasters. Then
+    \begin{equation*}
+        inf\text{ }sup\text{ }E[L_T] \geq \frac{1}{20}\sqrt{TN}
+    \end{equation*}
+    where the expectation is taken with respect to both the random generation rewards and the internal randomization of the forecaster
 \end{theorem}
 The first non-deterministic algorithm we see is \textbf{EXP3}.
 This algorithm derives from the softmax algorithm.
@@ -264,19 +264,19 @@ where $w$ is a weight calculated as
 \begin{equation*}
     w_{t+1}(a_i) =
     \begin{cases}
-    w_t(a_i)e^{\eta \frac{r_{i,t}}{\pi_t(a_i)}} & \text{if $a_i$ has been pulled} \\
-    w_t(a_i) & \text{otherwise}
+        w_t(a_i)e^{\eta \frac{r_{i,t}}{\pi_t(a_i)}} & \text{if $a_i$ has been pulled} \\
+        w_t(a_i)                                    & \text{otherwise}
     \end{cases}
 \end{equation*}
 and $\beta$ is a constant term.
 \par \noindent
 For this algorithm, the upper bound is
 \begin{theorem}[EXP3 Upper Bound]
-At time T, the expected weak regret of EXP3 algorithm applied to an adversarial MAB problem with $\beta = \eta = \sqrt{\frac{Nlog(N)}{(e-1)T}}$ is
-\begin{equation*}
-    E(L_T) \leq O\big( \sqrt{TNlog(N)} \big)
-\end{equation*}
-where the expectation is taken with respect to both the random generation rewards and the internal randomization of the forecaster
+    At time T, the expected weak regret of EXP3 algorithm applied to an adversarial MAB problem with $\beta = \eta = \sqrt{\frac{Nlog(N)}{(e-1)T}}$ is
+    \begin{equation*}
+        E(L_T) \leq O\big( \sqrt{TNlog(N)} \big)
+    \end{equation*}
+    where the expectation is taken with respect to both the random generation rewards and the internal randomization of the forecaster
 \end{theorem}
 
 \subsection{Generalized MAB problem}

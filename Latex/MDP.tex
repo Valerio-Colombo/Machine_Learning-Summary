@@ -15,7 +15,7 @@ Each example is a description of a situation together with a specification—the
 A good way to understand reinforcement learning is to consider some of the examples and possible applications that have guided its development.
 \begin{itemize}
     \item A master chess player makes a move. The choice is informed both by
-    planning or anticipating possible replies and counterreplies—and by immediate, intuitive judgments of the desirability of particular positions and moves.
+          planning or anticipating possible replies and counterreplies—and by immediate, intuitive judgments of the desirability of particular positions and moves.
     \item A mobile robot decides whether it should enter a new room in search of more trash to collect or start trying to find its way back to its battery recharging station. It makes its decision based on the current charge level of its battery and how quickly and easily it has been able to find the recharger in the past.
     \item A gazelle calf struggles to its feet minutes after being born. Half an hour later it is running at 30 kilometers per hour.
 \end{itemize}
@@ -40,17 +40,17 @@ As we can see, the state is a function of the history, but it may not be equal.
 \newline
 We can distinguish between two states. The \textbf{environment state} $s_t^e$ is the environment's private representation. It's used to produce the next observation/reward based on agent action. It's worth mentioning, that in many real applications the environment state is usually not visible. The non-observability of the real state greatly increases the difficulty of the problem.
 The \textbf{agent state} $s_t^a$ is the agent internal representation. It's used by the agent to select the next action. It's build upon the observation coming from the environment and can be any function of the history($s_t^a = f(h_t)$). Ideally, the observation are enough to build a correct agent state, which can be used to behave efficiently in the environment. From now on we will make a very important and limiting assumption. The observations that the environment provides to the agent are its internal state at a given time t, $o_t = s_t^e$. As a consequence the state of the agent is the same of the environment, $s_t^a = s_t^e$, when this happens we have a \textbf{fully observable environment}. In practice the environment doesn't have hidden information. For example, chess is fully observable, because all the pieces and squares can be seen by both players. Poker is not, because a player don't know the cards of the other players.
-\paragraph{Note - When RL is useful?} The goal of RL in many cases is to build a controller which can perform some task in an environment. RL is useful when the dynamic of the environment is unknown or difficult to be modelled. This is a different approach compared to the classic control theory. Historically, we build manually a model that describe the environment and the effect of an agent in it. RL tries to learn the environment from the experience, without the need of formalizing from the beginning how the environment behaves. Another advantage of RL compared to classical control theory is the ability of generating approximate, but yet efficient, solutions. For example, if we want to learn a controller to make a humanoid robot walk, an exact solution using control theory would be very complex, due to the shear amount of degree of freedom and sensors. 
+\paragraph{Note - When RL is useful?} The goal of RL in many cases is to build a controller which can perform some task in an environment. RL is useful when the dynamic of the environment is unknown or difficult to be modelled. This is a different approach compared to the classic control theory. Historically, we build manually a model that describe the environment and the effect of an agent in it. RL tries to learn the environment from the experience, without the need of formalizing from the beginning how the environment behaves. Another advantage of RL compared to classical control theory is the ability of generating approximate, but yet efficient, solutions. For example, if we want to learn a controller to make a humanoid robot walk, an exact solution using control theory would be very complex, due to the shear amount of degree of freedom and sensors.
 
 \subsection{MDP}
 \subsubsection{MDP model}
 In this chapter we introduce the formal problem of finite \textbf{Markov decision processes}, or finite MDPs. MDPs are a mathematically idealized form of the reinforcement learning problem, for which precise theoretical statements can be made. MDPs are constructed on two principles. The problem is \textbf{fully observable} and \textbf{Markovian}.
 \begin{definition}[Markov assumption]
-A stochastic process $X_t$\footnotemark is said to be Markovian if and only if \footnotetext{A stochastic or random process can be defined as a collection of random variables that, in our case, is indexed by time. We can see it as a sequential observation of a time series or model}
-\begin{equation*}
-    P(X_{t+1}|X_t=k_t,X_{t-1}=k_{t-1}, \dots, X_0=k_0) = P(X_{t+1}|X_{t}=k_t)
-\end{equation*}
-This means that the future is independent of the past given the present.
+    A stochastic process $X_t$\footnotemark is said to be Markovian if and only if \footnotetext{A stochastic or random process can be defined as a collection of random variables that, in our case, is indexed by time. We can see it as a sequential observation of a time series or model}
+    \begin{equation*}
+        P(X_{t+1}|X_t=k_t,X_{t-1}=k_{t-1}, \dots, X_0=k_0) = P(X_{t+1}|X_{t}=k_t)
+    \end{equation*}
+    This means that the future is independent of the past given the present.
 \end{definition}
 \paragraph{Example - Markovian problem} A practical example of a Markovian problem is chess. To make the next move, is the current state of the board enough or we need also the previous move/states to take a decision? The current state is more than enough, because how we reached it doesn't affect the states itself an so the next moves. An example of non-Markovian problem is black jack. Knowing only the card in your hand is not enough, because the cards previously drawn affect which cards will appear in the next rounds.
 \newline
@@ -61,15 +61,15 @@ Let's define formally what Discrete-time Markov Decision Processes are.
 A Markov decision process (MDP) is a Markov reward process with decisions. It models an environment in which all states are Markovian and time is divided into stages.
 \newpage
 \begin{definition}[Finite MDP]
-A Markov process is a tuple $\langle S, A, P, R, \gamma, \mu \rangle$
-\begin{itemize}
-    \item S, finite set of states
-    \item A, finite set of actions
-    \item P, state transition probability matrix $P(s'|s,a)$. Describe the probability of arrive in state $s'$ taking action $a$ from starting state $s$
-    \item R, reward function $R(s,a)$. The reward in performing action $a$ in $s$ 
-    \item $\gamma$, discount factor. Weights how important are future rewards. $\gamma \in [0,1]$
-    \item $\mu$, set of initial probability. Describe the probability for every state to be the starting state
-\end{itemize}
+    A Markov process is a tuple $\langle S, A, P, R, \gamma, \mu \rangle$
+    \begin{itemize}
+        \item S, finite set of states
+        \item A, finite set of actions
+        \item P, state transition probability matrix $P(s'|s,a)$. Describe the probability of arrive in state $s'$ taking action $a$ from starting state $s$
+        \item R, reward function $R(s,a)$. The reward in performing action $a$ in $s$
+        \item $\gamma$, discount factor. Weights how important are future rewards. $\gamma \in [0,1]$
+        \item $\mu$, set of initial probability. Describe the probability for every state to be the starting state
+    \end{itemize}
 \end{definition}
 
 \paragraph{Example - MDP visualization} Suppose we want to model a student's life during an exam session.
@@ -83,8 +83,8 @@ We can represent a MDP with a directed graph. We can see how taking an action so
 \newline
 A very important phase of every reinforcement problem is goal definition. When we use MDPs the goal can be encoded in the reward definitions. In particular we have
 \begin{definition}[Sutton hypothesis]
-All of what we mean by goals and purposes can be well thought of as the maximization of the cumulative sum of a received scalar reward.
-\end{definition} 
+    All of what we mean by goals and purposes can be well thought of as the maximization of the cumulative sum of a received scalar reward.
+\end{definition}
 Sutton hypothesis is not universally correct, but so simple and flexible we have to disprove it before considering anything more complicated for our problem.
 A goal must be shaped so to specify what we want to achieve, not how we want to
 achieve it. This is very important, because how we achieve a given goal is not dependent on the goal itself, but depends on the environment where we are operating. Furthermore, goal definition must be outside the agent’s direct control. From a practical point of view, a goal can be defined with many different reward functions. For example, if we consider the previous student example, if we multiply by a coefficient every rewards, the optimal behaviour and the goal would remain the same. The success of a reward function depends on how frequently the agent receive feedback and on how much the reward function is shaped\footnotemark. \footnotetext{Shaped means that the reward are different from zero. Shaped reward functions lead to faster learning}
@@ -93,25 +93,25 @@ achieve it. This is very important, because how we achieve a given goal is not d
 As we have said the goal of a problem can be encoded in the reward function. What we are interested in is to maximize the \textbf{return}. The return describe the expected cumulative reward we will get from a given time t to the end of the episode. We need two ingredients to define our return,
 \begin{itemize}
     \item \textbf{Time horizon} The time horizon define how many step we will make until we stop an episode.
-    \begin{itemize}
-        \item \textbf{Finite} We perform a finite and fixed number of steps
-        \item \textbf{Indefinite} We don't know how many steps will take to reach the goal. We stop when a stopping criteria is met
-        \item \textbf{Infinite} We will perform an infinite number of steps
-    \end{itemize}
+          \begin{itemize}
+              \item \textbf{Finite} We perform a finite and fixed number of steps
+              \item \textbf{Indefinite} We don't know how many steps will take to reach the goal. We stop when a stopping criteria is met
+              \item \textbf{Infinite} We will perform an infinite number of steps
+          \end{itemize}
     \item \textbf{Cumulative reward} Define how we aggregate all the rewards from each step.
-    \begin{itemize}
-        \item \textbf{Total reward} $V = \sum_{i=1}^{\infty} r_i$
-        \item \textbf{Average reward} $V = \underset{n \rightarrow \infty}{lim} \frac{r_1 + \dots + r_n}{n}$
-        \item \textbf{Discounted reward} $V = \sum_{i=1}^{\infty} \gamma^{i-1} r_i$
-        \item \textbf{Mean-variance reward}
-    \end{itemize}
+          \begin{itemize}
+              \item \textbf{Total reward} $V = \sum_{i=1}^{\infty} r_i$
+              \item \textbf{Average reward} $V = \underset{n \rightarrow \infty}{lim} \frac{r_1 + \dots + r_n}{n}$
+              \item \textbf{Discounted reward} $V = \sum_{i=1}^{\infty} \gamma^{i-1} r_i$
+              \item \textbf{Mean-variance reward}
+          \end{itemize}
 \end{itemize}
 The most used cumulative reward is the discounted reward. We make use of the discount factor $\gamma$ to penalize future rewards. We can give a definition of the infinite–horizon discounted return
 \begin{definition}
-The return $v_t$ is the total discounted reward from time–step t.
-\begin{equation}
-    v_t = r_{t+1} + \gamma r_{t+2} + \gamma^2 r_{t+3} + \dots = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
-\end{equation}
+    The return $v_t$ is the total discounted reward from time–step t.
+    \begin{equation}
+        v_t = r_{t+1} + \gamma r_{t+2} + \gamma^2 r_{t+3} + \dots = \sum_{k=0}^{\infty} \gamma^k r_{t+k+1}
+    \end{equation}
 \end{definition}
 We know that $\gamma \in [0,1]$. $\gamma^k$ can be interpret as a measure of the importance of a reward at time $t+k+1$. The discount factor will penalize more the rewards far in the future because it is monotonically decreasing. If $\gamma$ is close to zero we will prefer immediate rewards, on the other side if $\gamma$ is close to 1 we will equally evaluate immediate and future rewards. Ideally, $\gamma$ equal to one will represents the true problem, but it makes the learning process very complex from a computational point of view. Sometimes, it's worth simplifying the problem reducing $\gamma$, in order to find an optimal solution of a simplified version of the true problem. Another way to interpret $\gamma$ is from a probabilistic point of view. $\gamma$ could represents the probability that the process will go on, so that we will play another step. We invest in future rewards, only if we are confident that we will play future steps. The discount factor has many advantages. It is mathematically convenient to discount rewards and avoids infinite returns in cyclic or infinite Markov processes. From a model point of view, we can model uncertainty about the future easily. For example, we can represents animal/human behavior preference for immediate reward.
 
@@ -123,28 +123,28 @@ We know that $\gamma \in [0,1]$. $\gamma^k$ can be interpret as a measure of the
 \end{itemize}
 From now on, we will focus on stationary stochastic Markovian policies. More formally we have
 \begin{definition}[Stationary Stochastic Markovian policies]
-A policy $\pi$ is a distribution of actions over the state
-\begin{equation*}
-    \pi(a|s) = P(a|s)
-\end{equation*}
-In few words, $\pi$ describes the probability of doing action $a$ in $s$.
+    A policy $\pi$ is a distribution of actions over the state
+    \begin{equation*}
+        \pi(a|s) = P(a|s)
+    \end{equation*}
+    In few words, $\pi$ describes the probability of doing action $a$ in $s$.
 \end{definition}
 
 \subsubsection{Value functions}
 Given a policy $\pi$, it is possible to define the utility of each state by doing a \textbf{policy evaluation}. We want to find the expected return for each state. This is very handy when trying to understand which are the optimal actions, and so policy. The utility can be formalized as
 \begin{definition}[State-Value function]
-The state-value function $V^{\pi}(s)$ of an MDP is the expected return starting from state $s$, and then following policy $\pi$
-\begin{equation*}
-    V^{\pi}(s) = E_{\pi}[v_t|s_t=s]
-\end{equation*}
+    The state-value function $V^{\pi}(s)$ of an MDP is the expected return starting from state $s$, and then following policy $\pi$
+    \begin{equation*}
+        V^{\pi}(s) = E_{\pi}[v_t|s_t=s]
+    \end{equation*}
 \end{definition}
 For control purposes, rather than the value of each state, it is easier to consider the value of each action in each state
 \begin{definition}[Action-Value function]
-The action–value function $Q^\pi(s, a)$ is the expected return starting from state $s$, taking action $a$,
-and then following policy $\pi$
-\begin{equation*}
-    Q^{\pi}(s,a) = E_{\pi}[v_t|s_t=s, a_t=a]
-\end{equation*}
+    The action–value function $Q^\pi(s, a)$ is the expected return starting from state $s$, taking action $a$,
+    and then following policy $\pi$
+    \begin{equation*}
+        Q^{\pi}(s,a) = E_{\pi}[v_t|s_t=s, a_t=a]
+    \end{equation*}
 \end{definition}
 It's worth mentioning that we can calculate $V^{\pi}(s)$ from $Q^{\pi}(s, a)$, but not vice versa. We have that
 \begin{equation}
@@ -157,16 +157,16 @@ Let's consider again the student MDP example. Suppose to have a random policy $\
 \end{center}
 A really naive way to calculate the state-value functions is to enumerate all the possible trajectory from a given state, and average all the cumulative rewards. This is really inefficient, even for MDPs with few states. A possible solution is to use the \textbf{Bellman expectation equation}. The state–value function can again be decomposed into immediate reward plus discounted value of successor state,
 \begin{align*}
-    V^{\pi}(s) &= E_{\pi}[r_{t+1} + \gamma V^{\pi}(s_{t+1})|s_t=s] \\
-    &= \sum_{a\in A} \pi(a|s)(R(s,a) + \gamma \sum_{s' \in S}P(s'|s,a)V^{\pi}(s'))
+    V^{\pi}(s) & = E_{\pi}[r_{t+1} + \gamma V^{\pi}(s_{t+1})|s_t=s]                            \\
+               & = \sum_{a\in A} \pi(a|s)(R(s,a) + \gamma \sum_{s' \in S}P(s'|s,a)V^{\pi}(s'))
 \end{align*}
-$R(s,a)$ is the immediate reward of taking action $a$ in $s$. $\gamma \sum_{s' \in S} P(s'|s,a)V^{\pi}(s')$ is the discounted value of the successor of $s$. 
+$R(s,a)$ is the immediate reward of taking action $a$ in $s$. $\gamma \sum_{s' \in S} P(s'|s,a)V^{\pi}(s')$ is the discounted value of the successor of $s$.
 We can see that the Bellman equation is recursive, because $V^{\pi}(s)$ appears both on the left and right side of the equation\footnotemark.\footnotetext{On the right hand side we have $\sum_{s' \in S} P(s'|s,a)V^{\pi}(s')$. In this sum, we iterate over all the states, included the state $s$ for which we are calculating the value function}
 Our goal is to calculate the value function for every states. If we build a system of equations with all the value functions, we will have a system with $|S|$ equations. Every equation will have $|S|$ unknowns. Furthermore, the unknowns are linear. This means that if the equations are linearly independent, we can find the solution of the system in closed form. Knowing that it would be nice to have a matrix notation for that.
 We can start by rewriting the equation condensing some terms together.
 \begin{align*}
-    R^{\pi}(s) &= \sum_{a\in A} \pi(a|s)R(s,a) \\
-    P^{\pi}(s'|s) &= \sum_{a\in A} \pi(a|s)P(s'|s,a)
+    R^{\pi}(s)    & = \sum_{a\in A} \pi(a|s)R(s,a)    \\
+    P^{\pi}(s'|s) & = \sum_{a\in A} \pi(a|s)P(s'|s,a)
 \end{align*}
 $R^{\pi}(s)$ can be seen as the immediate reward we expect following $\pi(a|s)$ from $s$. $P^{\pi}(s)$ is interpretable as the probability of reaching $s'$ from $s$ in one step, following $\pi(a|s)$.
 Bellman equation can be rewritten as
@@ -175,13 +175,13 @@ Bellman equation can be rewritten as
 \end{equation*}
 For every term of the Bellman equation, we can define its matrix version
 \begin{align*}
-    V^{\pi} &= \begin{bmatrix} V^{\pi}(s_1) & \dots & V^{\pi}(s_{|S|}) \end{bmatrix}^T \quad [|S|\text{x}1] \\
-    R^{\pi} &= \begin{bmatrix} R^{\pi}(s_1) & \dots & R^{\pi}(s_{|S|}) \end{bmatrix}^T \quad [|S|\text{x}1] \\
-    P^{\pi} &= \begin{bmatrix}
-    P^{\pi}(s_1,s_1) & \dots & P^{\pi}(s_1,s_{|S|}) \\
-    \vdots & \ddots & \vdots \\
-    P^{\pi}(s_{|S|},s_1) & \dots & P^{\pi}(s_{|S|},s_{|S|})
-    \end{bmatrix} \quad [|S|\text{x}|S|]
+    V^{\pi} & = \begin{bmatrix} V^{\pi}(s_1) & \dots & V^{\pi}(s_{|S|}) \end{bmatrix}^T \quad [|S|\text{x}1] \\
+    R^{\pi} & = \begin{bmatrix} R^{\pi}(s_1) & \dots & R^{\pi}(s_{|S|}) \end{bmatrix}^T \quad [|S|\text{x}1] \\
+    P^{\pi} & = \begin{bmatrix}
+                    P^{\pi}(s_1,s_1)     & \dots  & P^{\pi}(s_1,s_{|S|})     \\
+                    \vdots               & \ddots & \vdots                   \\
+                    P^{\pi}(s_{|S|},s_1) & \dots  & P^{\pi}(s_{|S|},s_{|S|})
+                \end{bmatrix} \quad [|S|\text{x}|S|]
 \end{align*}
 In matrix notation we can rewrite the system of Bellman equation as
 \begin{equation}
@@ -189,9 +189,9 @@ In matrix notation we can rewrite the system of Bellman equation as
 \end{equation}
 To solve the system we can isolate $V^{\pi}$
 \begin{align*}
-    V^{\pi} &= R^{\pi} + \gamma P^{\pi} V^{\pi} \\
-    V^{\pi} &- \gamma P^{\pi} V^{\pi} = R^{\pi} \\
-    V^{\pi} &= (I - \gamma P^{\pi})^{-1} R^{\pi} \label{eqn_V-pi} \numberthis
+    V^{\pi} & = R^{\pi} + \gamma P^{\pi} V^{\pi}                               \\
+    V^{\pi} & - \gamma P^{\pi} V^{\pi} = R^{\pi}                               \\
+    V^{\pi} & = (I - \gamma P^{\pi})^{-1} R^{\pi} \label{eqn_V-pi} \numberthis
 \end{align*}
 This is our solution to the policy evaluation problem. Given a policy $\pi$ we can evaluate the value of every state.
 \paragraph{Note - $V^{\pi}$ solution} To calculate $V^{\pi}$ we need to perform a matrix inversion. Is the inversion always possible? Luckily yes, but under the condition that $\gamma<1$. $P^{\pi}$ is a stochastic matrix, it means that every row sums up to 1. This can be justify by the fact that each rows represents the probabilities of going from a fixed state $s$ to every state in $S$. The stochasticity of the matrix ensures that its eigen values are between $-1$ and $1$. If we define $A = I - \gamma P^{\pi}$, the eigen values of A will be $\lambda_i^A = 1 - \gamma \lambda_i^{P^{\pi}}$. If $\gamma$ is less than 1 we are sure that $\lambda_i^A > 0$, $\forall i$. This implies that the matrix is positive-definite and so invertible.
@@ -199,22 +199,22 @@ This is our solution to the policy evaluation problem. Given a policy $\pi$ we c
 \newline
 As we did before, we can define the Bellman equation using the action-value function
 \begin{align*}
-    Q^{\pi}(s,a) &= E_{\pi}[r_{t+1} + \gamma Q^{\pi}(s_{t+1},a_{t+1})|s_t=s,a_t=a] \\
-    &= R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^{\pi}(s') \\
-    &= R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \sum_{a' \in A} \pi(a'|s')Q^{\pi}(s',a')
+    Q^{\pi}(s,a) & = E_{\pi}[r_{t+1} + \gamma Q^{\pi}(s_{t+1},a_{t+1})|s_t=s,a_t=a]                     \\
+                 & = R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^{\pi}(s')                               \\
+                 & = R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \sum_{a' \in A} \pi(a'|s')Q^{\pi}(s',a')
 \end{align*}
 The expression of $V^{\pi}$ can be compacted even more using the \textbf{Bellman operator}.
 First, we introduce its definition. Don't worry if its concept seems too abstract or not clear. We will better explain it in a moment
 \begin{definition}
-The Bellman operator $T^{\pi}$ for $V^{\pi}$ is defined as $T^{\pi}:\mathbb{R}^{|S|} \rightarrow \mathbb{R}^{|S|}$. This operator takes as an argument a value function and it returns a value function \footnotemark \footnotetext{The Bellman operator can also be defined as\\
-$(T^{\pi}V^{\pi})(s) = \sum_{a\in A} \pi(a|s)(R(s,a) + \gamma \sum_{s' \in S}P(s'|s,a)V^{\pi}(s'))$. I found this definition very unintuitive. In the professor slides, this is the used notation}
-\begin{equation*}
-    T^{\pi}(V) = R^{\pi} + \gamma P^{\pi} V
-\end{equation*}
+    The Bellman operator $T^{\pi}$ for $V^{\pi}$ is defined as $T^{\pi}:\mathbb{R}^{|S|} \rightarrow \mathbb{R}^{|S|}$. This operator takes as an argument a value function and it returns a value function \footnotemark \footnotetext{The Bellman operator can also be defined as\\
+    $(T^{\pi}V^{\pi})(s) = \sum_{a\in A} \pi(a|s)(R(s,a) + \gamma \sum_{s' \in S}P(s'|s,a)V^{\pi}(s'))$. I found this definition very unintuitive. In the professor slides, this is the used notation}
+    \begin{equation*}
+        T^{\pi}(V) = R^{\pi} + \gamma P^{\pi} V
+    \end{equation*}
 \end{definition}
 This definition alone is not enough to understand the Bellman operator. Let's go deeper. Consider the space of all possible value functions. In our case a value function is defined by the values given to each state of our MDP. Our value function can be represented as vector of length $|S|$ ($V \in \mathbb{R}^{|S|}$). As we can see from the definition, the Bellman operator maps a value function to another value function, so it is a vector operator, because $V^{\pi}$ can be seen as a vector. We can demonstrate that
 \begin{equation}
-T^{\pi}(V^{\pi}) = V^{\pi}
+    T^{\pi}(V^{\pi}) = V^{\pi}
 \end{equation}
 We can say that $V^{\pi}$ is the only fixed point\footnotemark \footnotetext{Fixed point it means that, if we apply the operator to the input, the result will be the same as the input} of the operator $T^{\pi}$. This implies that if we apply the Bellman operator to $V \neq V^{\pi}$, we have $T^{\pi}(V) \neq V$. Furthermore, we can say that applying the Bellman operator to $V$ produces a new value function which is closer to $V^{\pi}$. This is a great news, because we can approximate the value function $V^{\pi}$ by applying iteratively $T^{\pi}$. Formally we have
 \begin{equation}
@@ -225,89 +225,89 @@ Be aware that (\ref{eqn_V-pi}) produces an exact solution, on the other hand (\r
 \newline
 We have seen how the value function "measures" the value of each state. The values are influenced by the policy we have chosen. We would like to find the policy which leads to the maximum possible value in each state. This value function is called \textbf{optimal value function}.
 \begin{definition}[Optimal state-value function]
-The optimal state–value function $V^*(s)$ is the maximum value function over all policies
-\begin{equation}
-    V^*(s) = \underset{\pi}{max} V^{\pi}(s)
-\end{equation}
+    The optimal state–value function $V^*(s)$ is the maximum value function over all policies
+    \begin{equation}
+        V^*(s) = \underset{\pi}{max} V^{\pi}(s)
+    \end{equation}
 \end{definition}
 \begin{definition}[Optimal action-value function]
-The optimal action–value function $Q^*(s,a)$ is the maximum value function over all policies
-\begin{equation}
-    Q^*(s,a) = \underset{\pi}{max} Q^{\pi}(s,a)
-\end{equation}
+    The optimal action–value function $Q^*(s,a)$ is the maximum value function over all policies
+    \begin{equation}
+        Q^*(s,a) = \underset{\pi}{max} Q^{\pi}(s,a)
+    \end{equation}
 \end{definition}
 We can say that we have solved the MDP when we have found the optimal value function. From the value functions, we can define a partial ordering over policies. It means that we can evaluate how good a policy is compared to another one, by looking at the relative value functions ($\pi \geq \pi'$ if $V^{\pi}(s) \geq V^{\pi'}(s)$, $\forall s \in S$).
 The value function and policies in a MDP have very special properties
 \begin{theorem}[MDP optimality]
-For any Markov Decision Process
-\begin{enumerate}
-    \item There exists an optimal policy $\pi^*$ that is better than or equal to all other policies, $\pi^* \geq \pi$, $\forall \pi$
-    \item All optimal policies achieve the optimal state-value function, $V^{\pi^*}(s) = V^*(s)$, $\forall s \in S$
-    \item All optimal policies achieve the optimal action-value function, $Q^{\pi^*}(s,a) = Q^*(s,a)$, $\forall s \in S$ , $\forall a \in A$.
-    \item There is always a deterministic optimal policy for any MDP
-\end{enumerate}
+    For any Markov Decision Process
+    \begin{enumerate}
+        \item There exists an optimal policy $\pi^*$ that is better than or equal to all other policies, $\pi^* \geq \pi$, $\forall \pi$
+        \item All optimal policies achieve the optimal state-value function, $V^{\pi^*}(s) = V^*(s)$, $\forall s \in S$
+        \item All optimal policies achieve the optimal action-value function, $Q^{\pi^*}(s,a) = Q^*(s,a)$, $\forall s \in S$ , $\forall a \in A$.
+        \item There is always a deterministic optimal policy for any MDP
+    \end{enumerate}
 \end{theorem}
 The most interesting property is the last one. It means that they may exist multiple optimal policies. Between them, surely exists at least one which is stationary, deterministic, and Markovian. A deterministic policy can be found by maximizing over $Q^*(s,a)$
 \begin{equation}
-    \pi^*(a|s) = 
+    \pi^*(a|s) =
     \begin{cases}
-        1,& \text{if } a = \underset{a \in A}{argmax} \big(Q^*(s,a)\big)\\
-        0,& \text{otherwise}
+        1, & \text{if } a = \underset{a \in A}{argmax} \big(Q^*(s,a)\big) \\
+        0, & \text{otherwise}
     \end{cases}
 \end{equation}
 For every state, we give probability 1 to the action $a$ that leads to the best action-value function in the given state $s$. This naive approach is unfeasible, because to find the optimal policy we would need to check a number of policies which is exponential in the number of states.
 To find the optimal policy, we can use the optimal value function. To find it we can use the \textbf{Bellman optimality equation}.
 \begin{definition}[Bellman optimality equation for $V^*$]
-\begin{align*}
-    V^*(s) &= \underset{a}{max} \{ Q^*(s,a) \} \\
-    &= \underset{a}{max} \bigg\{ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^*(s') \bigg\} \numberthis
-\end{align*}
+    \begin{align*}
+        V^*(s) & = \underset{a}{max} \{ Q^*(s,a) \}                                                               \\
+               & = \underset{a}{max} \bigg\{ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^*(s') \bigg\} \numberthis
+    \end{align*}
 \end{definition}
 
 \begin{definition}[Bellman optimality equation for $Q^*$]
-\begin{align*}
-    Q^*(s,a) &= R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^*(s') \\
-    &= R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \max_{a'} Q^*(s',a') \numberthis
-\end{align*}
+    \begin{align*}
+        Q^*(s,a) & = R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V^*(s')                           \\
+                 & = R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \max_{a'} Q^*(s',a') \numberthis
+    \end{align*}
 \end{definition}
 If we compare the Bellman operator to the Bellman optimality equation we can notice that the summation over all the action has been substituted with a max operator. This implies that our equation is no longer linear and so no closed form solution exists. As we did before, we can use the Bellman operator to create an iterative method for computing $V^*$. this new operator is called \textbf{Bellman optimality operator}
 \begin{definition}[Bellman optimality operator for $V^*$]
-The Bellman operator $T^*$ for $V^*$ is defined as $T^*:\mathbb{R}^{|S|} \rightarrow \mathbb{R}^{|S|}$\footnotemark.\footnotetext{$(T^*V^*)(s)$ means that we apply $T^*$ to $V^*(s)$. We can't use the previous matrix notation because equation is no longer linear}
-\begin{equation}
-    (T^*V^*)(s) = \max_{a \in A} \bigg( R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) V^*(s') \bigg)
-\end{equation}
+    The Bellman operator $T^*$ for $V^*$ is defined as $T^*:\mathbb{R}^{|S|} \rightarrow \mathbb{R}^{|S|}$\footnotemark.\footnotetext{$(T^*V^*)(s)$ means that we apply $T^*$ to $V^*(s)$. We can't use the previous matrix notation because equation is no longer linear}
+    \begin{equation}
+        (T^*V^*)(s) = \max_{a \in A} \bigg( R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) V^*(s') \bigg)
+    \end{equation}
 \end{definition}
 
 \begin{definition}[Bellman optimality operator for $Q^*$]
-The Bellman operator $T^*$ for $Q^*$ is defined as $T^*:\mathbb{R}^{|S|\text{x}|A|} \rightarrow \mathbb{R}^{|S|\text{x}|A|}$.
-\begin{equation}
-    (T^*Q^*)(s,a) =  R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \max_{a'} Q^*(s',a')
-\end{equation}
+    The Bellman operator $T^*$ for $Q^*$ is defined as $T^*:\mathbb{R}^{|S|\text{x}|A|} \rightarrow \mathbb{R}^{|S|\text{x}|A|}$.
+    \begin{equation}
+        (T^*Q^*)(s,a) =  R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a) \max_{a'} Q^*(s',a')
+    \end{equation}
 \end{definition}
 The Bellman optimality operator have the same properties as the Bellman operator. If applied to a starting value function, it will produce an increasingly precise approximation of the true optimal value function.
 
 \paragraph{Note - Bellman operators properties} Here we recap the Bellman operators properties.
 \begin{itemize}
     \item \textbf{Monotonicity} If $V_1 < V_2$ component-wise.
-    \begin{align*}
-        T^{\pi}(V_1) \leq T^{\pi}(V_2) \\
-        T^*(V_1) \leq T^*(V_2)
-    \end{align*}
+          \begin{align*}
+              T^{\pi}(V_1) \leq T^{\pi}(V_2) \\
+              T^*(V_1) \leq T^*(V_2)
+          \end{align*}
     \item \textbf{Max-Norm contraction} For two value functions $V_1$ and $V_2$ \footnotemark \footnotetext{$\|V_1 - V_2\|_{\infty} = \max_s |V_1(s) - V_2(s)|$}
-    \begin{align*}
-        \|T^{\pi}(V_1) - T^{\pi}(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty} \\
-        \|T^*(V_1) - T^*(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty}
-    \end{align*}
+          \begin{align*}
+              \|T^{\pi}(V_1) - T^{\pi}(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty} \\
+              \|T^*(V_1) - T^*(V_2)\|_{\infty} \leq \gamma \|V_1 - V_2\|_{\infty}
+          \end{align*}
     \item \textbf{Fixed point uniqueness} $V^{\pi}$ is the unique fixed point of $T^{\pi}$. $V^*$ is the unique fixed point of $T^*$
-    \begin{align*}
-        T^{\pi}(V^{\pi}) = V^{\pi} \\
-        T^*(V^*) = V^*
-    \end{align*}
+          \begin{align*}
+              T^{\pi}(V^{\pi}) = V^{\pi} \\
+              T^*(V^*) = V^*
+          \end{align*}
     \item \textbf{True value function convergence} For any value function $V$ and any policy $\pi$
-    \begin{align*}
-        \lim_{k \rightarrow \infty} (T^{\pi})^k V = V^{\pi} \\
-        \lim_{k \rightarrow \infty} (T^*)^k V = V^*
-    \end{align*}
+          \begin{align*}
+              \lim_{k \rightarrow \infty} (T^{\pi})^k V = V^{\pi} \\
+              \lim_{k \rightarrow \infty} (T^*)^k V = V^*
+          \end{align*}
 \end{itemize}
 \par
 \noindent
@@ -348,15 +348,15 @@ To declutter the notation we remove the policy superscript on $V_k$.
 In practice, using synchronous backups at each iteration $k+1$, for all state $s \in S$, we update $V_{k+1}$(s) from $V_k(s')$.
 For example let's take state $5$. We know that for every action $\pi^0(a|5) = \frac{1}{4}$
 \begin{equation*}
-V_1(5) = \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \underbrace{\gamma \sum_{s' \in S} P(s'|s,a)V_0(s')}_{V_0(s')=0} \bigg] = -1
+    V_1(5) = \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \underbrace{\gamma \sum_{s' \in S} P(s'|s,a)V_0(s')}_{V_0(s')=0} \bigg] = -1
 \end{equation*}
 This holds true for every state, excluded the absorbing state where the state-value function is always zero.
-For $k=2$ we have. 
+For $k=2$ we have.
 \begin{align*}
-    V_2(5) &= \sum_{a \in A} \pi(a|s) \bigg[ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V_1(s') \bigg] \\
-    &= \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \sum_{s' \in S} P(s'|s,a) (-1) \bigg] \\
-    &= \sum_{a \in A} \frac{1}{4} \bigg[ -1 -1 \bigg] \\
-    &= -2
+    V_2(5) & = \sum_{a \in A} \pi(a|s) \bigg[ R(s,a) + \gamma \sum_{s' \in S} P(s'|s,a)V_1(s') \bigg] \\
+           & = \sum_{a \in A} \frac{1}{4} \bigg[ -1 + \sum_{s' \in S} P(s'|s,a) (-1) \bigg]           \\
+           & = \sum_{a \in A} \frac{1}{4} \bigg[ -1 -1 \bigg]                                         \\
+           & = -2
 \end{align*}
 Applying the Bellman operator on the random policy we are simply averaging the state-value function of the neighbours and adding the immediate reward.
 \begin{equation*}
@@ -379,22 +379,22 @@ This improves the value from any state s over one step
 \end{equation*}
 
 \begin{theorem}[Policy improvement theorem]
-Let $\pi$ and $\pi'$ be any pair of deterministic policies such that
-\begin{equation*}
-    Q^{\pi}(s, \pi'(s)) \geq V^{\pi}(s), \quad \forall s \in S
-\end{equation*}
-Then the policy $\pi'$ must be as good as, or better than $\pi$
-\begin{equation*}
-    V^{\pi'}(s) \geq V^{\pi}(s), \quad \forall s \in s
-\end{equation*}
+    Let $\pi$ and $\pi'$ be any pair of deterministic policies such that
+    \begin{equation*}
+        Q^{\pi}(s, \pi'(s)) \geq V^{\pi}(s), \quad \forall s \in S
+    \end{equation*}
+    Then the policy $\pi'$ must be as good as, or better than $\pi$
+    \begin{equation*}
+        V^{\pi'}(s) \geq V^{\pi}(s), \quad \forall s \in s
+    \end{equation*}
 \end{theorem}
 \begin{proof}
-\begin{align*}
-    V^{\pi}(s) &\leq Q^{\pi}(s,\pi'(s)) = E_{\pi'}[r_{t+1} + \gamma V^{\pi}(s_{t+1})|s_t=s] \\
-    &\leq E_{\pi'}[r_{t+1} + \gamma Q^{\pi}(s_{t+1}, \pi'(s_{t+1}))|s_t=s] \\
-    &\leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \gamma^2 Q^{\pi}(s_{t+2}, \pi'(s_{t+2}))|s_t=s] \\
-    &\leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \dots|s_t=s] = V^{\pi'}(s)
-\end{align*}
+    \begin{align*}
+        V^{\pi}(s) & \leq Q^{\pi}(s,\pi'(s)) = E_{\pi'}[r_{t+1} + \gamma V^{\pi}(s_{t+1})|s_t=s]              \\
+                   & \leq E_{\pi'}[r_{t+1} + \gamma Q^{\pi}(s_{t+1}, \pi'(s_{t+1}))|s_t=s]                    \\
+                   & \leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \gamma^2 Q^{\pi}(s_{t+2}, \pi'(s_{t+2}))|s_t=s] \\
+                   & \leq E_{\pi'}[r_{t+1} + \gamma r_{t+2} + \dots|s_t=s] = V^{\pi'}(s)
+    \end{align*}
 \end{proof}
 \par
 \noindent

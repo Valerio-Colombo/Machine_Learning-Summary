@@ -13,8 +13,8 @@ With non-parametric methods we have no explicit parameters. %in fact they are so
 In parametric methods the training set is used in the training phase to learn the parameters. Then for the prediction phase the training set is not used because all the relevant information are encoded in the learned model. In non-parametric methods the training set is used also in the prediction phase because the model is implicitly encoded in the dataset.
 \paragraph{Example - KNN} A very famous example of non-parametric method is the k-nearest neighbour\footnotemark. This method is used for classification. In practice when we have a new sample, we search for the k nearest training data samples in the training data. Then we assign a class to the new sample equal to the most frequent class between the k nearest training samples. Once classified, the new sample becomes part of the training data. \footnotetext{It worth mentioning that k-nearest neighbour is not a kernel method. It's used only as an example for non-parametric methods}
 
-K-nearest neighbour doesn't utilize parameters, but introduce the concept of "distance" for evaluating the new samples. The distance, more formally, is called \textbf{metric}. As in parametric method we need to define the features, in non-parametric methods we need to define a metric. 
-We can notice that in the k-nearest neighbour example we have no training time because we haven't a model. But this comes with a price, in fact we have a time penalty during the prediction phase because we need to review each training data to make our assumption, instead of just use our model. 
+K-nearest neighbour doesn't utilize parameters, but introduce the concept of "distance" for evaluating the new samples. The distance, more formally, is called \textbf{metric}. As in parametric method we need to define the features, in non-parametric methods we need to define a metric.
+We can notice that in the k-nearest neighbour example we have no training time because we haven't a model. But this comes with a price, in fact we have a time penalty during the prediction phase because we need to review each training data to make our assumption, instead of just use our model.
 \begin{itemize}
     \item Parametric: long training time, short prediction time
     \item Non-parametric: short training time, long prediction time
@@ -54,13 +54,13 @@ This kernel function is the metric of our non-parametric method and it measure t
 There are different type of kernel
 \begin{itemize}
     \item \textbf{Stationary kernel}: Function of difference between arguments. It is called stationary kernel since invariant to translation in space
-    \begin{equation*}
-        k(x,x') = k(x-x')
-    \end{equation*}
+          \begin{equation*}
+              k(x,x') = k(x-x')
+          \end{equation*}
     \item \textbf{Homogeneous kernel}: Known as radial basis functions, it depends only on the magnitude of the distance between arguments
-    \begin{equation*}
-        k(x,x') = k(\|x-x'\|)
-    \end{equation*}
+          \begin{equation*}
+              k(x,x') = k(\|x-x'\|)
+          \end{equation*}
 \end{itemize}
 
 \subsubsection{Dual representation}
@@ -71,46 +71,46 @@ We recall that the loss function for ridge regression is
 \end{equation*}
 and its gradient is
 \begin{align*}
-    \overset{w}{\nabla}L &= \frac{1}{2} 2 \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T + \frac{\lambda}{2}2 w^T \\
-    &= \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T + \lambda w^T
+    \overset{w}{\nabla}L & = \frac{1}{2} 2 \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T + \frac{\lambda}{2}2 w^T \\
+                         & = \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T + \lambda w^T
 \end{align*}
 Putting $\overset{w}{\nabla}L = 0$ we have
 \begin{align*}
-    -\lambda w^T &= \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T \\
-    w^T &= -\frac{1}{\lambda} \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T \\
-    & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1x1]\\
-    &= \sum_{n=1}^N a_n \Phi(x_n)^T \\
-    w &= \bigg( \sum_{n=1}^N a_n \Phi(x_n)^T \bigg)^T \\
-    &= \sum_{n=1}^N (a_n \Phi(x_n)^T)^T \\
-    &= \sum_{n=1}^N (\Phi(x_n) a_n) \\
-    & \text{Define } \Phi = \begin{bmatrix}\begin{bmatrix}\Phi^T(x_1)\end{bmatrix}\\ \vdots \\ \begin{bmatrix} \Phi^T(x_N)\end{bmatrix}\end{bmatrix} \text{, and } a=\begin{bmatrix}a_1 \\ \vdots \\ a_N\end{bmatrix}\\
-    &= \Phi^T a \quad [Mx1]
+    -\lambda w^T & = \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                                      \\
+    w^T          & = -\frac{1}{\lambda} \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                   \\
+                 & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1x1]                                                                                                             \\
+                 & = \sum_{n=1}^N a_n \Phi(x_n)^T                                                                                                                                                       \\
+    w            & = \bigg( \sum_{n=1}^N a_n \Phi(x_n)^T \bigg)^T                                                                                                                                       \\
+                 & = \sum_{n=1}^N (a_n \Phi(x_n)^T)^T                                                                                                                                                   \\
+                 & = \sum_{n=1}^N (\Phi(x_n) a_n)                                                                                                                                                       \\
+                 & \text{Define } \Phi = \begin{bmatrix}\begin{bmatrix}\Phi^T(x_1)\end{bmatrix}\\ \vdots \\ \begin{bmatrix} \Phi^T(x_N)\end{bmatrix}\end{bmatrix} \text{, and } a=\begin{bmatrix}a_1 \\ \vdots \\ a_N\end{bmatrix} \\
+                 & = \Phi^T a \quad [Mx1]
 \end{align*}
 Now we can substitute w in the loss function. To make the computation simpler, we switch to full matrix notation
 \begin{align*}
-    L_w &= \frac{1}{2}(\Phi w - t)^T(\Phi w - t)+\frac{\lambda}{2}w^T w \\
-    &= \frac{1}{2}(\Phi \Phi^T a - t)^T(\Phi \Phi^T a - t)+\frac{\lambda}{2}(\Phi^T a)^T \Phi^T a \\
-    &= \frac{1}{2}(\Phi \Phi^T a - t)^T(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a \\
-    &= \frac{1}{2}((\Phi \Phi^T a)^T - t^T)(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a \\
-    &= \frac{1}{2}(a^T \Phi \Phi^T - t^T)(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a \\
-    &= \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t -\frac{1}{2} a^T \Phi \Phi^T t -\frac{1}{2} t^T \Phi \Phi^T a +\frac{\lambda}{2} a^T \Phi \Phi^T a \\
-    &= \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t - a^T \Phi \Phi^T t +\frac{\lambda}{2} a^T \Phi \Phi^T a
+    L_w & = \frac{1}{2}(\Phi w - t)^T(\Phi w - t)+\frac{\lambda}{2}w^T w                                                                                                     \\
+        & = \frac{1}{2}(\Phi \Phi^T a - t)^T(\Phi \Phi^T a - t)+\frac{\lambda}{2}(\Phi^T a)^T \Phi^T a                                                                       \\
+        & = \frac{1}{2}(\Phi \Phi^T a - t)^T(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a                                                                          \\
+        & = \frac{1}{2}((\Phi \Phi^T a)^T - t^T)(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a                                                                      \\
+        & = \frac{1}{2}(a^T \Phi \Phi^T - t^T)(\Phi \Phi^T a - t)+\frac{\lambda}{2} a^T \Phi \Phi^T a                                                                        \\
+        & = \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t -\frac{1}{2} a^T \Phi \Phi^T t -\frac{1}{2} t^T \Phi \Phi^T a +\frac{\lambda}{2} a^T \Phi \Phi^T a \\
+        & = \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t - a^T \Phi \Phi^T t +\frac{\lambda}{2} a^T \Phi \Phi^T a
 \end{align*}
-We can observe how $\Phi$ is present only when multiplied by its transpose. In this way we can use the kernels we have define before to substitute the features. In order to have a simpler notation, we can observe that the kernel function is a Gram matrix\footnotemark $K=\Phi\Phi^T$ [NxN], where each element is 
+We can observe how $\Phi$ is present only when multiplied by its transpose. In this way we can use the kernels we have define before to substitute the features. In order to have a simpler notation, we can observe that the kernel function is a Gram matrix\footnotemark $K=\Phi\Phi^T$ [NxN], where each element is
 \begin{equation*}
     K_{nm} = \Phi(x_n)^T \Phi(x_m) = k(x_n,x_m)
 \end{equation*}
 \begin{equation}
     K =
     \begin{bmatrix}
-    k(x_1,x_1) & \dots & k(x_1,x_N) \\ 
-    \vdots & \ddots & \vdots \\
-    k(x_N,x_1) & \dots & k(x_N,x_N)
+        k(x_1,x_1) & \dots  & k(x_1,x_N) \\
+        \vdots     & \ddots & \vdots     \\
+        k(x_N,x_1) & \dots  & k(x_N,x_N)
     \end{bmatrix}
 \end{equation}
 \footnotetext{Given N vectors, the Gram Matrix is the matrix of all inner products. A matrix by its transpose is always a Gram matrix}
 
-\paragraph{Notes} 
+\paragraph{Notes}
 \begin{itemize}
     \item $\Phi$ [NxM] and $K$ [NxN]
     \item K is a matrix of similarities of pairs of samples(metric)
@@ -129,15 +129,15 @@ which we can recover original formulation in terms of parameters $w$. This means
 
 When we make a prediction for a new x we have our linear regression model. If we substitute $w=\Phi^Ta$.
 \begin{align*}
-    y(x) &= w^T\Phi(x) \\
-    &= a^T\Phi \Phi(x) \\
-    &\text{Define }k(x)=
+    y(x) & = w^T\Phi(x)                      \\
+         & = a^T\Phi \Phi(x)                 \\
+         & \text{Define }k(x)=
     \begin{bmatrix}
-    k(x,x_1) \\
-    \vdots \\
-    k(x,x_N)
-    \end{bmatrix} \\
-    &= k(x)^T (K + \lambda I_N)^{-1} t
+        k(x,x_1) \\
+        \vdots   \\
+        k(x,x_N)
+    \end{bmatrix}                           \\
+         & = k(x)^T (K + \lambda I_N)^{-1} t
 \end{align*}
 As we can see, the prediction is a linear combination of the target values from the training set. We can get a very nice intuition of this. Making a linear combination of the target values is like taking a weighted average over the target samples, based on the similarity between the new samples and the target samples in the training data. In this way, we have completely eliminated the parameters, so we have found a dual representation of the parametric model eliminating the need of parameters and features, for describing the model, by using kernels. So the "model" is now implicit in the data.
 This approach have several advantages
@@ -160,11 +160,11 @@ It exist a second and much more interesting method to construct kernels. We can 
 \paragraph{Example - Kernel construction}Suppose to have the kernel function $k(x, z) = (x^T z)^2$.
 To be a valid kernel we need to find a features expansion that is able to provide the same result as the initial kernel definition. Suppose we are in two dimensional space.
 \begin{align*}
-    k(x,z) &= (x^T z)^2 \\
-    &= (x_1z_1 + x_2z_2)^2 \\
-    &= x_1^2z_1^2 + 2x_1z_1x_2z_2 + x_2^2z_2^2 \\
-    &= \begin{bmatrix} x_1^2 & \sqrt{2}x_1x_2 & x_2^2\end{bmatrix}\begin{bmatrix} z_1^2 & \sqrt{2}z_1z_2 & z_2^2\end{bmatrix}^T \\
-    &= \Phi(x)^T \Phi(z)
+    k(x,z) & = (x^T z)^2                                                                                                                \\
+           & = (x_1z_1 + x_2z_2)^2                                                                                                      \\
+           & = x_1^2z_1^2 + 2x_1z_1x_2z_2 + x_2^2z_2^2                                                                                  \\
+           & = \begin{bmatrix} x_1^2 & \sqrt{2}x_1x_2 & x_2^2\end{bmatrix}\begin{bmatrix} z_1^2 & \sqrt{2}z_1z_2 & z_2^2\end{bmatrix}^T \\
+           & = \Phi(x)^T \Phi(z)
 \end{align*}
 So what's the point? We have checked if $k(x,z)$ is a valid kernel by finding a feature expansion whose inner product is equal to the kernel. Furthermore we can notice that the feature mapping takes the form $\begin{bmatrix} x_1^2 & \sqrt{2}x_1x_2 & x_2^2\end{bmatrix}$, comprising all second order terms with a specific weighting. The very nice thing about this is that we can avoid to compute $\Phi$ and then perform the scalar product, because we can directly estimate the kernel function(metric). Computing directly the kernel is way cheaper than computing $\Phi$.
 In this case we have
@@ -184,10 +184,10 @@ Now we can define more formally how we can demonstrate that a given kernel is va
 Necessary and sufficient condition for a function $k(x, x')$ to be a kernel is that the gram matrix $K$, whose elements are given by $k(x_n, x_m)$, is positive semi-definite\footnotemark for all possible choices of the set $\{x_n\}$.
 \footnotetext{Positive semi-definite means that $x^T K x \geq 0,$ $\forall x:x_i\in \mathbb{R}^+$}
 \begin{theorem}[Mercer’s theorem]
-Any continuous, symmetric, positive semi-definite kernel function $k(x, y)$ can be expressed as a dot product in a high-dimensional space
+    Any continuous, symmetric, positive semi-definite kernel function $k(x, y)$ can be expressed as a dot product in a high-dimensional space
 \end{theorem}
 New kernels can be constructed from simpler kernels as building blocks.
-Be aware that a really meaningful kernel is the one that define a good metric for representing the similarity between two inputs. 
+Be aware that a really meaningful kernel is the one that define a good metric for representing the similarity between two inputs.
 So given kernels $k_1(x,x')$ and $k_2(x,x')$, the following new kernels will be
 valid
 \begin{enumerate}
@@ -208,18 +208,18 @@ valid
 \end{equation}
 Being an homogeneous kernel, it's based on a distance metric. In particular $\|x-x'\|^2$ represent the euclidean distance between $x$ and $x'$.
 \begin{proof}[Gaussian kernel validity]
-We can demonstrate its validity through kernel composition.
-We can expand the square as
-\begin{equation*}
-    \|x-x'\|^2 = x^Tx + x'^Tx' -2x^Tx'
-\end{equation*}
-To give
-\begin{align*}
-    k(x,x') &= exp(-\frac{1}{2\sigma^2} k_1(x,x')), \quad \text{where} \\
-    k_1(x,x') &= x^Tx + x'^Tx' - 2x^Tx'
-\end{align*}
-We know that the exponential of a valid kernel is still valid(4) so we need to demonstrate that $-\frac{1}{2\sigma^2}k_1(x,x')$ is valid.
-For composition (1) we need to demonstrate that $k_1(x,x')$ is valid because $\frac{1}{2\sigma^2}$ is only a coefficient. We also know that for (5) the sum of valid kernel is still valid, so we need to verify the components of $k_1(x,x')$. All three components are just linear kernels with some coefficient(1), so they are valid.
+    We can demonstrate its validity through kernel composition.
+    We can expand the square as
+    \begin{equation*}
+        \|x-x'\|^2 = x^Tx + x'^Tx' -2x^Tx'
+    \end{equation*}
+    To give
+    \begin{align*}
+        k(x,x')   & = exp(-\frac{1}{2\sigma^2} k_1(x,x')), \quad \text{where} \\
+        k_1(x,x') & = x^Tx + x'^Tx' - 2x^Tx'
+    \end{align*}
+    We know that the exponential of a valid kernel is still valid(4) so we need to demonstrate that $-\frac{1}{2\sigma^2}k_1(x,x')$ is valid.
+    For composition (1) we need to demonstrate that $k_1(x,x')$ is valid because $\frac{1}{2\sigma^2}$ is only a coefficient. We also know that for (5) the sum of valid kernel is still valid, so we need to verify the components of $k_1(x,x')$. All three components are just linear kernels with some coefficient(1), so they are valid.
 \end{proof}
 Here we can appreciate the power of kernel composition. In fact, we don't know which is the feature expansion of the Gaussian kernel, but we are sure that it exists. This is once more a demonstration of how kernel methods don't need to define the features. Still, they correspond to the dual representation of a parametric model, where, in the case of Gaussian kernel, the number of features is infinite.
 
@@ -250,15 +250,15 @@ If we recall that Gaussian processes are actually kernel method we can make sens
 With parametric method the function(model) is defined by its parameters, which decide the "shape" and characteristics of the function.
 In non-parametric method, the function is defined by the samples. Now we can observe that to define a function with samples, we would need a infinite amount of them. So what Gaussian processes are doing is considering an infinite collection of variables, one for each input point, and considering them as jointly distributed as a infinite-dimensional Gaussian distribution. OK, don't panic now we will see some graph and it will be clearer.
 \paragraph{Example - Gaussian processes intuition}
-We plot a function. To define the function we should consider infinite points. For this example we only consider two points $x_1$ and $x_2$. For each point we define $p(t|x)$ as a Gaussian distribution. Then, we join the two points distribution in a multivariate Gaussian. 
+We plot a function. To define the function we should consider infinite points. For this example we only consider two points $x_1$ and $x_2$. For each point we define $p(t|x)$ as a Gaussian distribution. Then, we join the two points distribution in a multivariate Gaussian.
 This distribution describe the values of our function based on the inputs x. Note that the variables are not independent, because the value of consequent inputs are likely to have similar values.
 \newpage
 \begin{center}
-\begin{tabular}{cc}
-    \includegraphics[width=80mm]{img/GaussianProcesses.jpg} &
-    \includegraphics[width=80mm]{img/MultivariateGaussian.jpg} \\
-(a) Function we want to estimate & (b) Multivariate Gaussian over t
-\end{tabular}
+    \begin{tabular}{cc}
+        \includegraphics[width=80mm]{img/GaussianProcesses.jpg} &
+        \includegraphics[width=80mm]{img/MultivariateGaussian.jpg}                                 \\
+        (a) Function we want to estimate                        & (b) Multivariate Gaussian over t
+    \end{tabular}
 \end{center}
 If we draw a sample from the multivariate Gaussian we would define a new function. In fact, picking a sample is the same as picking an infinite sequence of points in the $(x,t)$ system. So our goal is to define a multivariate Gaussian which describe as well as possible the values of every point of our original function. The white dot in figure (b) is a sample of the multivariate Gaussian representing a guess on the original function.
 \begin{center}
@@ -277,9 +277,9 @@ In the case of ridge regression we have that the prior over w is
 \end{equation*}
 So how is y distributed?\footnotemark \footnotetext{As $p(w)$ is the prior for liner Bayesian regression, $p(y)$ is the prior for Gaussian processes} We know that the linear combination of Gaussian is still Gaussian. So knowing that y is a linear combination of w, we are sure that it is distributed as a Gaussian. Now we can calculate its mean and variance.
 \begin{align*}
-    E[y] &= \Phi E[w] = 0 \\
-    Cov[y] &= E[yy^T] = \Phi E[ww^T] \Phi^T = \tau \Phi \Phi^T = K, \text{ Gram matrix}\\
-    K_{nm} &= k(x_n, x_m) = \tau\Phi(x_n)^T\Phi(x_m)
+    E[y]   & = \Phi E[w] = 0                                                             \\
+    Cov[y] & = E[yy^T] = \Phi E[ww^T] \Phi^T = \tau \Phi \Phi^T = K, \text{ Gram matrix} \\
+    K_{nm} & = k(x_n, x_m) = \tau\Phi(x_n)^T\Phi(x_m)
 \end{align*}
 So we have
 \begin{equation}
@@ -288,7 +288,7 @@ So we have
 To justify why K is the covariance matrix of y, we can observe that the Gram matrix components are the kernel function values of input pairs. We have said that the kernel function measure the similarity between two inputs. So K measure the similarity between all inputs pairs and so the correlation of the outputs y.
 Now we can define a more formal and organized definition of Gaussian processes.
 \begin{definition}[Gaussian process]
-A Gaussian process is defined as a probability distribution over function y(x), such that the set of values of y(x), evaluated at an arbitrary set of point $\{x_1, \dots, x_N\}$, jointly have a Gaussian distribution
+    A Gaussian process is defined as a probability distribution over function y(x), such that the set of values of y(x), evaluated at an arbitrary set of point $\{x_1, \dots, x_N\}$, jointly have a Gaussian distribution
 \end{definition}
 Being a Gaussian, the distribution can be completely specified by the mean and covariance.
 \paragraph{Note - Fitting} As for every kernel method, the choice of the kernel is very important, because it defines how the inputs are correlated. A hyperparameter which control the under-overfitting of the method is the bandwidth of the Gaussian ($\sigma$). A narrow bandwidth means that inputs near each other will be highly correlated and the correlation between inputs will decrease very fast as we increase the "distance" between the inputs. On the other hand, for wider bandwidth even slightly far away inputs will be correlated. In case of overfitting we would like to use wider bandwidth because the sample will be less correlated locally, thus decreasing the probability of fitting the noise. From another point of view, if we increase the bandwidth every inputs will "see" more inputs ,and so it will have more samples to estimate the function value. In the same way, if we are underfitting we can have narrower bandwidth.
@@ -313,14 +313,14 @@ Since $p(y)=\mathcal{N}(0, K)$, we can compute the marginal distribution $p(t)$
 Now suppose we want to make a prediction $t_{N+1}$ for a new data input $x_{N+1}$, given the training data. Our goal is to evaluate the predictive distribution $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$\footnotemark \footnotetext{$t^{(N)}$ is the $t$ vector when we have N sample. The professor in the lecture uses $\pmb{t}_N$ but I found it a little misleading, because the difference between the bold character and the normal one can be easily missed. Also putting the number of sample as a superscript reminds of the iterations count in other notation}
 We can calculate that
 \begin{align*}
-    p(t^{(N+1)}) &= \mathcal{N}(t^{(N+1)}|0,C^{(N+1)}), \text{ where} \\
-    C^{(N+1)} &= 
-    \begin{bmatrix} 
-    C^{(N)} & k \\
-    k^T & c
-    \end{bmatrix}, \quad [(N+1) x (N+1)] \\
-    k &= \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [Nx1] \\
-    c &= k(x_{N+1},x_{N+1}), \quad [1x1]
+    p(t^{(N+1)}) & = \mathcal{N}(t^{(N+1)}|0,C^{(N+1)}), \text{ where}                                      \\
+    C^{(N+1)}    & =
+    \begin{bmatrix}
+        C^{(N)} & k \\
+        k^T     & c
+    \end{bmatrix}, \quad [(N+1) x (N+1)]                                                                    \\
+    k            & = \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [Nx1] \\
+    c            & = k(x_{N+1},x_{N+1}), \quad [1x1]
 \end{align*}
 We can observe that for the Gaussian distribution properties, the predictive distribution is still a Gaussian. From that, we can apply the properties over conditional Gaussian distribution to obtain $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$.
 \begin{equation}
@@ -330,7 +330,7 @@ We can observe two things. The mean and the variance depend on $x_{N+1}$. More i
 We see that to calculate our prediction we need to invert C. This operation is always possible because by definition K is a Gram matrix and so its semi-definite positive. If we add to K $\sigma^2 I$, we are sure that C is positive definite and so it is for sure invertible.
 \paragraph{Note - computational cost} As usual, inverting a matrix is the most intensive operation of the solution. In our case, the complexity of inverting C will be $\mathcal{O}(N^3)$. Luckily we need to compute this only one once for the given training set. We can also observe that the complexity depends only on the number of samples, as it should be for kernel methods. When we obtain a new sample, we can use the already calculated ${C^{(N)}}^{-1}$ to simplify the complexity of calculating the mean and variance of the predictive distribution. Indeed, we have that the computational cost of the mean is $\mathcal{O}(N)$ and of the variance is $\mathcal{O}(N^2)$. For large dataset is very expensive to calculate exactly the result, so we resort to approximated methods like random sampling and clustering.
 
-\paragraph{Example - Prediction} Suppose to have a regression problem we want to solve with Gaussian processes. For simplicity we assume that our function is described by $t_1$ and $t_2$, which are the function value for $x_1$ and $x_2$. 
+\paragraph{Example - Prediction} Suppose to have a regression problem we want to solve with Gaussian processes. For simplicity we assume that our function is described by $t_1$ and $t_2$, which are the function value for $x_1$ and $x_2$.
 First, we construct our prior p(t) (red ellipses). We assume a zero mean distribution, where the shape of the multivariate Gaussian prior depends on the covariance matrix, and so on the kernel we choose. Now we haven't observed any data, so our best guess for both $t_1$ and $t_2$ is zero. Now we observe in $x_1$ a value for $t_1$(blue dot). We know that $t_1$ and $t_2$ are correlated, so observing $t_1$ will give us some information about $t_2$. We know that the predictive distribution $p(t_2|t_1, x_1, x_2)$(green Gaussian) is a Gaussian. In the prior plot below we can visualize this distribution through cutting the prior $p(t)$ parallel to $t_2$ through $t_1$(blue line). This slice of $p(t)$ will be $p(t_2|t_1, x_1, x_2)$. Now we can take the mean to estimate $t_2$(green point).
 
 As we have said before, like we need to define features in the parametric world, we need to define a kernel in the non-parametric case. In some cases, the kernel have some hyperparameters. How can we find the optimal values for this hyperparameters?
