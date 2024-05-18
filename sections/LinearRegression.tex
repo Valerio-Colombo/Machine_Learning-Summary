@@ -106,21 +106,21 @@ Given N samples and M parameters, we construct $\Phi=\begin{bmatrix}\Phi(x_1) & 
 We can rewrite the SSE in matrix notation
 \begin{equation}
     %L(w) = \frac{1}{2}RSS(w)=\frac{1}{2}\underset{1x1}{\underset{(Nx1)^T}{(\underset{Nx1}{t}-\underset{NxM*Mx1}{\Phi w})^T}\underset{Nx1}{(\underset{Nx1}{t}-\underset{NxM*Mx1}{\Phi w})}}
-    L(w) = \frac{1}{2}RSS(w)=\frac{1}{2}(t-\Phi w)^T(t-\Phi w) \quad [1x1]\footnotemark
+    L(w) = \frac{1}{2}RSS(w)=\frac{1}{2}(t-\Phi w)^T(t-\Phi w) \quad [1 \times 1]\footnotemark
 \end{equation}
 
-\paragraph{Note} $\Phi[NxM]$, $w[Mx1]$, $t[Nx1]$
+\paragraph{Note} $\Phi[N \times M]$, $w[M \times 1]$, $t[N \times 1]$
 \footnotetext{The [ ] next to the equations indicates result dimensions}
 \newline
 To minimize L(w) we have to calculate the first and the second derivative
 \begin{equation}
-    \frac{\partial L(w)}{\partial w}=\frac{\partial(\frac{1}{2}(t-\Phi w)^T(t-\Phi w))}{\partial w} = -\Phi^T(t-\Phi w) \quad[Mx1]
+    \frac{\partial L(w)}{\partial w}=\frac{\partial(\frac{1}{2}(t-\Phi w)^T(t-\Phi w))}{\partial w} = -\Phi^T(t-\Phi w) \quad[M \times 1]
 \end{equation}
 
 \paragraph{Note} $\frac{\partial L(w)}{\partial w}$ are the directions of every $w_i$ to minimize $L(w)$
 
 \begin{equation}
-    \frac{\partial L(w)}{\partial w \partial w^T}=\Phi^T\Phi \quad [MxM]
+    \frac{\partial L(w)}{\partial w \partial w^T}=\Phi^T\Phi \quad [M \times M]
 \end{equation}
 
 \paragraph{Note} $\frac{\partial L(w)}{\partial w \partial w^T}$ is a semi-definite positive matrix\footnotemark, so all eigen values$\geq0$. It also means that for $\frac{\partial L(w)}{\partial w}=0$ we find the minimum of $L(w)$
@@ -130,11 +130,11 @@ To minimize L(w) we have to calculate the first and the second derivative
 Now we have to find $w$ imposing the first derivative to zero
 
 \begin{align*}
-    \frac{\partial L(w)}{\partial w} & =0                                                \\
-    -\Phi^T(t-\Phi w)                & =0                                                \\
-    -\Phi^Tt+\Phi^T\Phi w            & =0                                                \\
-    \Phi^T\Phi w                     & =\Phi^Tt                                          \\
-    \hat{w}                          & =(\Phi^T\Phi)^{-1}\Phi^Tt \quad [Mx1] \numberthis
+    \frac{\partial L(w)}{\partial w} & =0                                                       \\
+    -\Phi^T(t-\Phi w)                & =0                                                       \\
+    -\Phi^Tt+\Phi^T\Phi w            & =0                                                       \\
+    \Phi^T\Phi w                     & =\Phi^Tt                                                 \\
+    \hat{w}                          & =(\Phi^T\Phi)^{-1}\Phi^Tt \quad [M \times 1] \numberthis
 \end{align*}
 
 Second derivative can give us some infos about features(basis functions) importance. If we have some eigen values close to zero we could have the following situations
@@ -197,13 +197,13 @@ To find the maximum likelihood, we equal the gradient of $ln(p(t|X,w,\sigma^2))=
                                              & = \bigg( \bigg( \sum_{n=1}^N \Phi(x_n)\Phi^T(x_n) \bigg)^{-1} \bigg)^T \bigg( \sum_{n=1}^N t_n\Phi^T(x_n) \bigg)^T \\
                                              & = \bigg( \sum_{n=1}^N \Phi(x_n)\Phi^T(x_n) \bigg)^{-1} \sum_{n=1}^N \Phi(x_n)t_n
     \quad \quad having \quad \Phi=\begin{bmatrix} \begin{bmatrix} \Phi^T(x_1) \end{bmatrix} \\ \vdots \\ \begin{bmatrix} \Phi^T(x_N) \end{bmatrix} \end{bmatrix}                                \\
-                                             & = (\Phi^T \Phi)^{-1} \Phi^T t \quad [Mx1]\numberthis{} \label{ML_result}
+                                             & = (\Phi^T \Phi)^{-1} \Phi^T t \quad [M \times 1] \numberthis \label{ML_result}
 \end{align*}
 
 \newpage
 As we can see both OLS and ML give the same result (\ref{ML_result}).
 
-\paragraph{W variance estimation} As we said before for ML calculation we made some assumptions. The most important for calculating the variance are
+\paragraph{W variance estimation} As we said before for ML calculation we made some assumptions. The most important for calculating the variance are:
 \begin{itemize}
     \item the observations $t_i$ are uncorrelated and have constant variance $\sigma^2$
     \item $x_i$ are fixed(non-random)
@@ -217,11 +217,12 @@ We can achieve variance reduction by gathering more samples for our estimation.
 
 \paragraph{Multiple outputs} To solve a regression problem with multiple outputs we could use different sets of basis function for each output, having independents problems. Usually, a single set of basis function is used
 \begin{equation}
-    \hat{W}_{ML}=\underbrace{(\Phi^T\Phi)^{-1}\Phi^T}_{\Phi^{\dagger} \text{Pseudo-inverse}} T\quad [MxK],\quad where \quad T \quad [NxK]
+    \hat{W}_{ML}=\underbrace{(\Phi^T\Phi)^{-1}\Phi^T}_{\Phi^{\dagger} \text{Pseudo-inverse}} T\quad [M \times K],\quad where \quad T \quad [N \times K]
 \end{equation}
 
 \subsubsection{Gradient optimization (Open form)}
-Closed form solutions are not practical with large datasets because they are computationally too complex. To overcome this problem we can use iterative approaches which make sequential(online) updates of the parameters instead of calculating them directly. An example is stochastic\footnotemark gradient descent. \footnotetext{Stochastic means that we won't use all data at once to update the parameters, but we can update them from smaller subsets of the dataset. This is done to reduce the complexity.}
+Closed-form solutions are not practical with large datasets because they are computationally too complex. To overcome this problem, we can use iterative approaches which make sequential (online) updates of the parameters instead of calculating them directly. An example is stochastic\footnotemark{} gradient descent.
+\footnotetext{Stochastic means that we won't use all data at once to update the parameters, but we can update them from smaller subsets of the dataset. This is done to reduce the complexity.}
 If the loss function can be represented as a sum over samples ($L(x)=\sum_nL(x_n)$) this iterative approach is applicable. This is the case for least squares.
 \begin{align}
     w^{\overset{\text{iteration}}{(k+1)}}=w^{(k)}-\underset{\text{learning rate}}{\alpha^{(k)}} \nabla L(x_n)
@@ -380,8 +381,8 @@ The Gaussian family is conjugate to itself (or self-conjugate) with respect to a
     P(w) \sim \mathcal{N} (w|w_0, S_0)
 \end{equation}
 \begin{itemize}
-    \item $w_0$ [MX1] Mean of the distribution. We guess that $w$ is equal to $w_0$ in the parameter space.
-    \item $S_0$ [MxM] Covariance matrix of the distribution. The matrix is diagonal because we assume i.i.d. parameters.
+    \item $w_0$ $[M \times 1]$ Mean of the distribution. We guess that $w$ is equal to $w_0$ in the parameter space.
+    \item $S_0$ $[M \times M]$ Covariance matrix of the distribution. The matrix is diagonal because we assume i.i.d. parameters.
 \end{itemize}
 So P(w) is a multivariate\footnotemark Gaussian.
 \footnotetext{In probability theory and statistics, the multivariate normal distribution or multivariate Gaussian distribution is a generalization of the one-dimensional (univariate) normal distribution to higher dimensions.}
