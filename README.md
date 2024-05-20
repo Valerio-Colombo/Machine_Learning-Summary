@@ -4,9 +4,10 @@ This is a summary of the most important topics regarding machine learning.
 The work is based on the course "MACHINE LEARNING" held by Prof. Marcello Restelli at Politecnico di Milano and you may consider it as a collection of notes taken during the course with the material provided by the professor.
 
 ## License
+
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-    <img alt="Creative Commons License" style="float: right; vertical-align: middle;" src="images/by-nc-sa.svg"/>
-</a>
+    <img alt="Creative Commons License" src="images/by-nc-sa.svg"/>
+</a><br>
 This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License</a>. In few words, you are free to expand, modify, and distribute this work as you like, as long you don't make money with it, you cite the original author, and you share your work with the same license.
 
 I hope this summary will help you with whatever you are doing in your life.
