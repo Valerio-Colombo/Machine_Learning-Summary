@@ -72,13 +72,13 @@ Putting $\overset{w}{\nabla}L = 0$ we have
 \begin{align*}
     -\lambda w^T & = \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                                      \\
     w^T          & = -\frac{1}{\lambda} \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                   \\
-                 & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1x1]                                                                                                             \\
+                 & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1 \times 1]                                                                                                             \\
                  & = \sum_{n=1}^N a_n \Phi(x_n)^T                                                                                                                                                       \\
     w            & = \bigg( \sum_{n=1}^N a_n \Phi(x_n)^T \bigg)^T                                                                                                                                       \\
                  & = \sum_{n=1}^N (a_n \Phi(x_n)^T)^T                                                                                                                                                   \\
                  & = \sum_{n=1}^N (\Phi(x_n) a_n)                                                                                                                                                       \\
                  & \text{Define } \Phi = \begin{bmatrix}\begin{bmatrix}\Phi^T(x_1)\end{bmatrix}\\ \vdots \\ \begin{bmatrix} \Phi^T(x_N)\end{bmatrix}\end{bmatrix} \text{, and } a=\begin{bmatrix}a_1 \\ \vdots \\ a_N\end{bmatrix} \\
-                 & = \Phi^T a \quad [Mx1]
+                 & = \Phi^T a \quad [M \times 1]
 \end{align*}
 Now we can substitute w in the loss function. To make the computation simpler, we switch to full matrix notation
 \begin{align*}
@@ -90,7 +90,7 @@ Now we can substitute w in the loss function. To make the computation simpler, w
         & = \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t -\frac{1}{2} a^T \Phi \Phi^T t -\frac{1}{2} t^T \Phi \Phi^T a +\frac{\lambda}{2} a^T \Phi \Phi^T a \\
         & = \frac{1}{2}(a^T \Phi \Phi^T \Phi \Phi^T a) + \frac{1}{2}t^T t - a^T \Phi \Phi^T t +\frac{\lambda}{2} a^T \Phi \Phi^T a
 \end{align*}
-We can observe how $\Phi$ is present only when multiplied by its transpose. In this way we can use the kernels we have define before to substitute the features. In order to have a simpler notation, we can observe that the kernel function is a Gram matrix\footnotemark $K=\Phi\Phi^T$ [NxN], where each element is
+We can observe how $\Phi$ is present only when multiplied by its transpose. In this way we can use the kernels we have define before to substitute the features. In order to have a simpler notation, we can observe that the kernel function is a Gram matrix\footnotemark $K=\Phi\Phi^T$ $[N \times N]$, where each element is
 \begin{equation*}
     K_{nm} = \Phi(x_n)^T \Phi(x_m) = k(x_n,x_m)
 \end{equation*}
@@ -106,7 +106,7 @@ We can observe how $\Phi$ is present only when multiplied by its transpose. In t
 
 \paragraph{Notes}
 \begin{itemize}
-    \item $\Phi$ [NxM] and $K$ [NxN]
+    \item $\Phi$ $[N \times M]$ and $K$ $[N \times N]$
     \item K is a matrix of similarities of pairs of samples(metric)
     \item K is symmetric
 \end{itemize}
@@ -116,10 +116,11 @@ Now we can substitute $\Phi^T \Phi$ with $K$. We write $L_w$ as $L_a$ because w 
 \end{equation*}
 Solving for $a$ by combining $w=\Phi^T a$ and $a_n=-\frac{1}{\lambda}(w^T \Phi(x_n)-t_n)$
 \begin{equation}
-    a = (K + \lambda I_N)^{-1} t \quad [Nx1]
+    a = (K + \lambda I_N)^{-1} t \quad [N \times 1]
 \end{equation} \label{eqn_a}
 Solution for $a$ can be expressed as a linear combination of elements of $\Phi$, whose coefficients are entirely in terms of kernel $k(x,x')$, from
-which we can recover original formulation in terms of parameters $w$. This means that the loss function is convex thus it has only one global minimum. We can observe how all the element in equation (\ref{eqn_a}) have dimension dependent only on the number of samples. This is exactly what we were looking for, because we have said that the complexity of kernel methods depends on the number of samples and not features. It practically means that now we have to invert a [NxN] matrix instead of a [MxM].
+which we can recover original formulation in terms of parameters $w$. This means that the loss function is convex thus it has only one global minimum. We can observe how all the element in equation (\ref{eqn_a}) have dimension dependent only on the number of samples. This is exactly what we were looking for, because we have said that the complexity of kernel methods depends on the number of samples and not features. It practically means that now we have to invert a $[N \times N]$
+ matrix instead of a $[M \times M]$.
 
 When we make a prediction for a new x we have our linear regression model. If we substitute $w=\Phi^Ta$.
 \begin{align*}
@@ -137,7 +138,7 @@ As we can see, the prediction is a linear combination of the target values from 
 This approach have several advantages
 \begin{itemize}
     \item Solution for a is entirely described in terms of kernel functions. Once we get $a$ we can recover $w$ as a linear combination of $\Phi$ using $w = \Phi^T a$
-    \item When computing the solution we need to invert a [NxN] matrix and not a [MxM] matrix. This is good when the number of features is very high
+    \item When computing the solution we need to invert a $[N \times N]$ matrix and not a $[M \times M]$ matrix. This is good when the number of features is very high
     \item The true advantage is that for some kernel, we don't even need to compute $\Phi$. Doing so we resolve a lot of issues revolving around the high number of features. We will see how we can work even with infinite features.
     \item Kernel functions can be defined not only over simply vectors of real numbers, but also over objects as diverse as graphs, sets, string, and text documents
 \end{itemize}
@@ -313,8 +314,8 @@ We can calculate that
         C^{(N)} & k \\
         k^T     & c
     \end{bmatrix}, \quad [(N+1) x (N+1)]                                                                    \\
-    k            & = \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [Nx1] \\
-    c            & = k(x_{N+1},x_{N+1}), \quad [1x1]
+    k            & = \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [N \times 1] \\
+    c            & = k(x_{N+1},x_{N+1}), \quad [1 \times 1]
 \end{align*}
 We can observe that for the Gaussian distribution properties, the predictive distribution is still a Gaussian. From that, we can apply the properties over conditional Gaussian distribution to obtain $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$.
 \begin{equation}

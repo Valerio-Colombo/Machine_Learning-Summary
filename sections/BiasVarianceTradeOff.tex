@@ -217,9 +217,9 @@ In a more formal way, the complete process consists of,
     \item Get the eigen values $\lambda_i$ and eigen vector $e_i$ of $S$
     \item Select the first k largest eigen values. The relative eigen vector are the PCA components. $\frac{\lambda_i}{\sum_i \lambda_i}$ is the percentage of variance captured by the $i^{th}$ principal component(PC)
 \end{enumerate}
-Once we have found the new PCs, we can project the data onto the new orthogonal base $E_k = \begin{bmatrix} e_1 & \dots & e_k \end{bmatrix}$ [Mxk].
+Once we have found the new PCs, we can project the data onto the new orthogonal base $E_k = \begin{bmatrix} e_1 & \dots & e_k \end{bmatrix}$ $[M \times k]$.
 \begin{equation}
-    X'=XE_k, \quad [Nxk]
+    X'=XE_k, \quad [N \times k]
 \end{equation}
 
 \begin{center}

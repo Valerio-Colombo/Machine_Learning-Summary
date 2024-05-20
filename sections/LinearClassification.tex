@@ -266,7 +266,7 @@ Logistic regression can be expanded to multiclass classification. Before startin
 \begin{equation}
     P(C_k|\Phi) = y_k(\Phi|w) = \frac{exp(w_k^T \Phi)}{\sum_{j=1}^K exp(w_j^T \Phi)}
 \end{equation}
-Given $T$, a [NxK] matrix containing all output vector $t_n$ [Kx1]
+Given $T$, a $[N \times K]$ matrix containing all output vector $t_n$ $[K \times 1]$
 \begin{align*}
     P(T|\Phi) & = \prod_{n=1}^N \underbrace{\bigg( \prod_{k=1}^K P(C_k|\Phi(x_n))^{t_{nk}}\bigg)}_{\substack{\text{Only one term corresponding} \\ \text{to correct class}}} \\
               & = \prod_{n=1}^N \bigg( \prod_{k=1}^K y_{nk}^{t_{nk}}\bigg)
