@@ -1,6 +1,5 @@
 # Ignore everything in the folder
-output/*
-sections/output
+**/output/*
 
 # But don't ignore the main PDF file
 !output/main.pdf
