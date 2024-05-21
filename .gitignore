@@ -1,0 +1,14 @@
+# Ignore everything in the folder
+**/output/*
+
+# But don't ignore the main PDF file
+!output/main.pdf
+
+# Ignore Mac related files
+**/.DS_Store
+
+# Ignore pdf created from .eps file
+images/by-nc-sa-eps-converted-to.pdf
+
+# Ignore log files
+**/*.log
