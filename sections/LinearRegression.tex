@@ -148,7 +148,7 @@ Simplified expression:
     \frac{\partial L(w)}{\partial w} = -\Phi^T (t - \Phi w) \quad[M \times 1]
 \end{equation}
 
-\paragraph{Note} $\frac{\partial L(w)}{\partial w}$ are the directions of every $w_i$ to minimize $L(w)$
+\paragraph{Note} $\frac{\partial L(w)}{\partial w}$ are the directions of every $w_i$ to minimize $L(w)$.
 
 Next, we find the second derivative of \(L(w)\):
 
@@ -171,11 +171,11 @@ Thus, the second derivative (Hessian) is:
     \frac{\partial^2 L(w)}{\partial w \partial w^T} = \Phi^T \Phi \quad [M \times M]
 \end{equation}
 
-\paragraph{Note} $\frac{\partial L(w)}{\partial w \partial w^T}$ is a semi-definite positive matrix\footnotemark, so all eigen values$\geq0$. It also means that for $\frac{\partial L(w)}{\partial w}=0$ we find the minimum of $L(w)$
+\paragraph{Note} $\frac{\partial L(w)}{\partial w \partial w^T}$ is a semi-definite positive matrix\footnotemark, so all eigen values$\geq0$. It also means that for $\frac{\partial L(w)}{\partial w}=0$ we find the minimum of $L(w)$.
 
 \footnotetext{$x^T\Phi^T \Phi x\geq0,\quad \forall x\in \mathbb{R} \setminus \emptyset$}
 
-Now we have to find $w$ imposing the first derivative to zero
+Now we have to find $w$ imposing the first derivative to zero:
 
 \begin{align*}
     \frac{\partial L(w)}{\partial w} & =0                                                       \\
