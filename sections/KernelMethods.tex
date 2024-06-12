@@ -45,7 +45,7 @@ A kernel is a function which takes as input two data samples, and performs the s
 This kernel function is the metric of our non-parametric method and it measure the similarity between the points $x$ and $x'$. A good consequence of being a scalar product is symmetry($k(x,x') = k(x',x)$)
 \paragraph{Example - Linear kernel} Let's consider the simplest kernel possible. The linear kernel correspond to the identity, in fact $\Phi(x) = x$. Given this k(x,x') will be simply the scalar product\footnotemark between the two original samples. The result of the scalar product is maximum when the two vector are pointing in the same direction. \footnotetext{$x \cdot x' = \|x\| \|x'\| \cos{\theta}$, where $\theta$ is the angle between $x$ and $x'$}
 \newline
-There are different type of kernel
+Besides the linear kernel, there are other type of kernel, commonly used in practice:
 \begin{itemize}
     \item \textbf{Stationary kernel}: Function of difference between arguments. It is called stationary kernel since invariant to translation in space
           \begin{equation*}
@@ -72,7 +72,7 @@ Putting $\overset{w}{\nabla}L = 0$ we have
 \begin{align*}
     -\lambda w^T & = \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                                      \\
     w^T          & = -\frac{1}{\lambda} \sum_{n=1}^N (w^T\Phi(x_n) - t_n) \Phi(x_n)^T                                                                                                                   \\
-                 & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1 \times 1]                                                                                                             \\
+                 & \text{Define } a_n = -\frac{1}{\lambda} (w^T\Phi(x_n) - t_n) \quad [1 \times 1]                                                                                                      \\
                  & = \sum_{n=1}^N a_n \Phi(x_n)^T                                                                                                                                                       \\
     w            & = \bigg( \sum_{n=1}^N a_n \Phi(x_n)^T \bigg)^T                                                                                                                                       \\
                  & = \sum_{n=1}^N (a_n \Phi(x_n)^T)^T                                                                                                                                                   \\
@@ -120,7 +120,7 @@ Solving for $a$ by combining $w=\Phi^T a$ and $a_n=-\frac{1}{\lambda}(w^T \Phi(x
 \end{equation} \label{eqn_a}
 Solution for $a$ can be expressed as a linear combination of elements of $\Phi$, whose coefficients are entirely in terms of kernel $k(x,x')$, from
 which we can recover original formulation in terms of parameters $w$. This means that the loss function is convex thus it has only one global minimum. We can observe how all the element in equation (\ref{eqn_a}) have dimension dependent only on the number of samples. This is exactly what we were looking for, because we have said that the complexity of kernel methods depends on the number of samples and not features. It practically means that now we have to invert a $[N \times N]$
- matrix instead of a $[M \times M]$.
+matrix instead of a $[M \times M]$.
 
 When we make a prediction for a new x we have our linear regression model. If we substitute $w=\Phi^Ta$.
 \begin{align*}
@@ -308,12 +308,12 @@ Since $p(y)=\mathcal{N}(0, K)$, we can compute the marginal distribution $p(t)$
 Now suppose we want to make a prediction $t_{N+1}$ for a new data input $x_{N+1}$, given the training data. Our goal is to evaluate the predictive distribution $p(t_{N+1}|t^{(N)},x_1,\dots,x_{N+1})$\footnotemark \footnotetext{$t^{(N)}$ is the $t$ vector when we have N sample. The professor in the lecture uses $\pmb{t}_N$ but I found it a little misleading, because the difference between the bold character and the normal one can be easily missed. Also putting the number of sample as a superscript reminds of the iterations count in other notation}
 We can calculate that
 \begin{align*}
-    p(t^{(N+1)}) & = \mathcal{N}(t^{(N+1)}|0,C^{(N+1)}), \text{ where}                                      \\
+    p(t^{(N+1)}) & = \mathcal{N}(t^{(N+1)}|0,C^{(N+1)}), \text{ where}                                             \\
     C^{(N+1)}    & =
     \begin{bmatrix}
         C^{(N)} & k \\
         k^T     & c
-    \end{bmatrix}, \quad [(N+1) x (N+1)]                                                                    \\
+    \end{bmatrix}, \quad [(N+1) x (N+1)]                                                                           \\
     k            & = \begin{bmatrix} k(x_1, x_{N+1}) & \dots & k(x_N, x_{N+1}) \end{bmatrix}^T, \quad [N \times 1] \\
     c            & = k(x_{N+1},x_{N+1}), \quad [1 \times 1]
 \end{align*}
