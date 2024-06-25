@@ -84,6 +84,12 @@ Convexity and linearity of the discriminant functions imply that
     f_k(\lambda x_A + (1-\lambda)x_B) > f_j(\lambda x_A + (1-\lambda)x_B), \quad \forall j \in [1, K] \setminus k
 \end{equation*}
 
+A simple example with three classes in a 2-dimensional space:
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.8]{images/lda_decision_boundaries.png}
+\end{figure}
+
 \subsection{Least square for classification}
 Consider a general classification problem with K classes, with a one-hot encoding for the target vector t. One justification for using least squares in such a context is that it approximates the conditional expectation $E[t|x]$ of the target values given the input vector.
 Each class is described by its own linear model
@@ -148,7 +154,7 @@ The perceptron is an algorithm for online\footnotemark supervised learning of bi
 \end{align*}
 Target values are +1 for $C_1$ and -1 for $C_2$. The algorithm finds the separating hyperplane by minimizing the distance of misclassified points to the decision boundary.
 Our objective is to find a parameter vector $w$ such that $w^T \Phi(x_n) \geq 0$ when $x_n \in C_1$ and $w^T \Phi(x_n) < 0$ when $x_n \in C_2$.
-Now we define an error function as follow,
+We define the error as follow:
 \begin{align*}
     \epsilon_p(w, x_n) =
     \begin{cases}
@@ -156,11 +162,13 @@ Now we define an error function as follow,
         w^T\Phi(x_n)t_n, & \text{If x is not classified correctly (proportional to boundary distance)}
     \end{cases}
 \end{align*}
+$w^T\Phi(x_n)$ being our prediction, we can consider it as the non normalized distance from the decision boundary, and $t_n$ the correct target value.
+
 Now we define an error function for the parameter optimization,
 \begin{equation}
     L_P(w) = -\sum_{n \in M}w^T\Phi(x_n)t_n
 \end{equation}
-To perform minimization we use stochastic gradient descent(online)
+To perform minimization we use stochastic gradient descent(online):
 \begin{equation}
     w^{(k+1)} = w^{(k)} - \alpha \nabla L_P(w) = w^{(k)} + \alpha \Phi(x_n)t_n
 \end{equation}
