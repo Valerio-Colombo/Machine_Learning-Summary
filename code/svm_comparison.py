@@ -43,12 +43,13 @@ def plot_svm(X, y, model, title, filename):
     plt.axis('off')  # Turn off the axis
 
     # Save the plot to a file
-    plt.savefig(os.path.join(images_dir, filename), bbox_inches='tight')
+    plt.savefig(os.path.join(images_dir, filename), format='png', dpi=300, bbox_inches='tight', pad_inches=0)
+
     plt.close()
 
 # Plot and save the results
-plot_svm(X, y, svm_linear, 'SVM with Linear Kernel', 'SVM_linear.svg')
-plot_svm(X, y, svm_rbf, 'SVM with RBF Kernel', 'SVM_rbf.svg')
+plot_svm(X, y, svm_linear, 'SVM with Linear Kernel', 'SVM_linear.png')
+plot_svm(X, y, svm_rbf, 'SVM with RBF Kernel', 'SVM_rbf.png')
 
 # Print the number of support vectors
 print(f"Number of support vectors (linear kernel): {len(svm_linear.support_vectors_)}")
