@@ -436,12 +436,12 @@ So P(w) is a multivariate\footnotemark Gaussian.
 \footnotetext{In probability theory and statistics, the multivariate normal distribution or multivariate Gaussian distribution is a generalization of the one-dimensional (univariate) normal distribution to higher dimensions.}
 As we have said before, the posterior will be Gaussian
 \begin{align*}
-    P(w|t, \Phi, \sigma^2) & \propto \mathcal{N} (w|w_0, S_0) \mathcal{N} (t|\Phi w, \sigma^2I_N) = \mathcal{N} (w_N,S_N) \\
-    w_N                    & = S_N \bigg( S_0^{-1}w_0 + \frac{\Phi^T t}{\sigma^2} \bigg)                                  \\
+    P(w|t, \Phi, \sigma^2) & \propto \underbrace{\mathcal{N} (w|w_0, S_0)}_{\text{prior}} \underbrace{\mathcal{N} (t|\Phi w, \sigma^2I_N)}_{\text{likelihood}} = \mathcal{N} (w_N,S_N) \\
+    w_N                    & = S_N \bigg( S_0^{-1}w_0 + \frac{\Phi^T t}{\sigma^2} \bigg)                                                                                               \\
     S_N^{-1}               & = S_0^{-1} + \frac{\Phi^T \Phi}{\sigma^2}
 \end{align*}
+$N$ stands for the number of data points or observations in the dataset, and it is used to denote that the posterior parameters \( S_N \) and \( w_N \) are derived after considering all \( N \) observations.
 
-\newpage
 For two particular prior distribution cases, Bayesian regression estimate reduces to already known regressions,
 \begin{itemize}
     \item $S_0 = \infty I$
