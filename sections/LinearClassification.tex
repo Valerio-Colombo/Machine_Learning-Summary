@@ -64,9 +64,11 @@ Consider the use of K-1 classifiers each of which solves a two-class problem of 
 \paragraph{One-versus-one}
 An alternative is to introduce K(K - 1)/2 binary discriminant functions, one for every possible pair of classes. Each
 point is then classified according to a majority vote amongst the discriminant functions. However, this too runs into the problem of ambiguous regions, as illustrated in the right-hand diagram.
-\begin{center}
+\begin{figure}[htbp]
+    \centering
     \includegraphics[scale=0.5]{images/Multiclass_classification.PNG}
-\end{center}
+    \caption*{Left: One-versus-the-rest. Right: One-versus-one}
+\end{figure}
 
 \newpage
 \paragraph{Linear discriminant functions}
@@ -87,7 +89,8 @@ Convexity and linearity of the discriminant functions imply that
 A simple example with three classes in a 2-dimensional space:
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.8]{images/lda_decision_boundaries.png}
+    \includegraphics[scale=0.8]{images/lda_decision_boundaries.png}    \includegraphics[scale=0.5]{images/Multiclass_classification.PNG}
+    \caption{Left: One-versus-the-rest. Right: One-versus-one}
 \end{figure}
 
 \subsection{Least square for classification}
