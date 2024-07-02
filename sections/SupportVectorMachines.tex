@@ -253,9 +253,12 @@ This bound have several computational advantages. It's like performing LOO, but 
 Instead of calculating all the weights at the same time, we can find them in couples\footnotemark. \footnotetext{Note that if we calculate one $\alpha_i$ at the time we would violate the constraints}We can apply the following iteratively until convergence,
 \begin{enumerate}
     \item Find example $x_i$ that violates KKT conditions
-    \item Select second example $x_j$ heuristically
+    \item Select second example $x_j$ heuristically, in such a way that the joint optimization of \( \alpha_i \) and \( \alpha_j \) (the Lagrange multipliers corresponding to \( x_i \) and \( x_j \)) leads to a significant improvement in the objective function.
     \item Jointly optimize $\alpha_i$ and $\alpha_j$
 \end{enumerate}
+
+Once we found the solution for each Lagrange multiplier $\alpha_i$, we have the corresponding support vectors ($\alpha_i \ge 0$), the resulting model can then be used to make predictions on new data.
+The iterative approach of SMO is efficient, simple to implement, and scalable to large datasets.
 
 \subsection{Noisy data}
 So far we have assumed that the data are always linearly separable. This assumption was encoded in the fact that the margin was always greater than one. Now we want to allow some samples to have a margin smaller than one, in some cases even negative. Obviously we want to minimize this behaviour, giving this points a penalization. At the same time we will relax our assumption in order to handle noisy data. The penalization is given by the \textbf{slack variables} $\xi_i$. Now we have to reformulate our primal problem to include the slack variables.
