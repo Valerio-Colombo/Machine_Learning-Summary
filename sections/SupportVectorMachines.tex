@@ -242,6 +242,9 @@ In this example we see the difference between a linear and a gaussian kernel (RB
         \caption{Gaussian kernel has 13 support vectors}
     \end{subfigure}
 \end{figure}
+Some data points are closer to the boundary than the margin because we account for noise in the data (we give a slack to the margin).
+
+\paragraph*{Bound on the loss function}
 We have seen how we are able to construct bounds about the loss function of our models. For SVMs exists a very handy way to construct such bound. It's called \textbf{Leave-One-Out Bound}.
 As for classic LOO, we use N-1 samples for the training phase and one sample for validation. We repeat this operation N times. We have already observed how eliminating a sample from the training set, which is not a support vector, doesn't change the solution. In this case we will not misclassify any point. In the worst case, when we "leave out" a support vector, we can misclassify a point. The loss function will be upper bounded by the probability of misclassify a point, which in our case is \footnotemark \footnotetext{$|\mathcal{S}|$ is the number of support vectors}
 \begin{equation}
@@ -249,7 +252,7 @@ As for classic LOO, we use N-1 samples for the training phase and one sample for
 \end{equation}
 This bound have several computational advantages. It's like performing LOO, but without the need to train at each iteration the model, because we already know for which samples we will have a potential loss. This eliminates the major problem of LOO, but keeps the fact that is the less biased way to perform cross-validation.
 
-\paragraph{Note - Solution technique} We have seen previously how we can solve the quadratic problem of finding the weights $\alpha$. There are more efficient way to calculate the weights. For example \textbf{SMO (Sequential Minimal Optimization)}.
+\paragraph{Solution technique} We have seen previously how we can solve the quadratic problem of finding the weights $\alpha$. There are more efficient way to calculate the weights. For example \textbf{SMO (Sequential Minimal Optimization)}.
 Instead of calculating all the weights at the same time, we can find them in couples\footnotemark. \footnotetext{Note that if we calculate one $\alpha_i$ at the time we would violate the constraints}We can apply the following iteratively until convergence,
 \begin{enumerate}
     \item Find example $x_i$ that violates KKT conditions
