@@ -33,9 +33,9 @@ where the superscript indicate the iteration step. If we assume that every weigh
 Now we can put our new formulation of $w_j$ into the perceptron function
 \begin{align*}
     f(x_q) & = sign \bigg( \sum_{j=1}^M \bigg( \sum_{n=1}^N \alpha_n t_n \Phi_j(x_n) \bigg) \Phi_j(x_q) \bigg) \\
-           & = sign \bigg( \sum_{n=1}^N \alpha_n t_n (\Phi(x_n) \Phi(x_q)) \bigg) \numberthis
+           & = sign \bigg( \sum_{n=1}^N \alpha_n t_n (\Phi(x_n) \cdot \Phi(x_q)) \bigg) \numberthis
 \end{align*}
-We can observe that the only elements dependent on m are the features $\Phi_j$. We can rewrite the sum over m as a dot product between $\Phi(x_q)$ and $\Phi(x_n)$. Doing so, the sum over features as been rewritten as a sum over the samples. Furthermore, the feature appears only as dot product, so we can find a kernel representation for this function. What before was a parametric method, now is an instance-based method. Our prediction is now become a weighted average over the target value and the similarity between the input and the training data samples. What we are doing is like a weighted kNN.
+We can observe that the only elements dependent on m are the features $\Phi_j$. We can rewrite the sum over m as a dot product between $\Phi(x_q)$ and $\Phi(x_n)$. Doing so, the sum over features as been rewritten as a sum over the samples. Furthermore, the feature appears only as dot product, so we can find a kernel representation for this function. What before was a parametric method, now is an instance-based method. Our prediction is now a weighted average over the target value and the similarity between the input and the training data samples. What we are doing is like a weighted kNN.
 Now, one can argue that this method has parameter even though it is non-parametric. Non-parametric it doesn't mean that our method doesn't have parameters, but that they are related to the samples, instead of the features, as we can see in the example above.
 
 To obtain a SVM from the perceptron we can replace the dot product with an arbitrary kernel $k(x,x')$. A very good property of SVM is that the usage of kernels ensure a convex weight optimization problem. In practice, we can always find the global optimum.
@@ -137,7 +137,11 @@ This is not exactly what we were looking for, because the constraint in the exam
     \textbf{Subject to} \quad & g_i(w) \leq 0, \quad i=1,2,\dots \\
                               & h_i(w) = 0, \quad i=1,2,\dots
 \end{align*}
-We define a Lagrange multiplier $\alpha_i$ for the inequalities. To find the optimal solution we can exploit the \textbf{KKT conditions}(necessary conditions)
+We define a Lagrange multiplier $\alpha_i$ for the inequalities. The Lagrangian function becomes:
+\begin{align*}
+    L(\mathbf{w}, \alpha, \lambda) = f(\mathbf{w}) + \sum_i \alpha_i g_i(\mathbf{w}) + \sum_i \lambda_i h_i(\mathbf{w})
+\end{align*}
+To find the optimal solution we can exploit the \textbf{KKT conditions}\footnote{KKT stands for Karush-Kuhn-Tucker conditions, which are necessary conditions for optimization problems with inequality constraints.} (necessary conditions):
 \begin{align*}
     \nabla L(w^*,\alpha^*,\lambda^*) & = 0    \\
     h_i(w^*)                         & = 0    \\
@@ -226,6 +230,21 @@ This is very similar to the perceptron case. Be aware, that we don't have a fast
 \end{equation*}
 
 Sadly, as for every method we have seen so far, the curse of dimensionality hits also the SVMs. When the number of dimensions increases, the percentage of support vectors increases too. This leads to poor generalization and to some scalability issue.
+In this example we see the difference between a linear and a gaussian kernel (RBF). The Gaussian kernel can easily overfit the data, the support vectors are too many, while the linear kernel has a few and is more robust to noise and outliers:
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.5\textwidth}
+        \includegraphics[width=\textwidth]{images/SVM_linear.png}
+        \caption{Linear kernel has 4 support vectors}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+        \includegraphics[width=\textwidth]{images/SVM_rbf.png}
+        \caption{Gaussian kernel has 13 support vectors}
+    \end{subfigure}
+\end{figure}
+Some data points are closer to the boundary than the margin because we account for noise in the data (we give a slack to the margin).
+
+\paragraph*{Bound on the loss function}
 We have seen how we are able to construct bounds about the loss function of our models. For SVMs exists a very handy way to construct such bound. It's called \textbf{Leave-One-Out Bound}.
 As for classic LOO, we use N-1 samples for the training phase and one sample for validation. We repeat this operation N times. We have already observed how eliminating a sample from the training set, which is not a support vector, doesn't change the solution. In this case we will not misclassify any point. In the worst case, when we "leave out" a support vector, we can misclassify a point. The loss function will be upper bounded by the probability of misclassify a point, which in our case is \footnotemark \footnotetext{$|\mathcal{S}|$ is the number of support vectors}
 \begin{equation}
@@ -233,13 +252,16 @@ As for classic LOO, we use N-1 samples for the training phase and one sample for
 \end{equation}
 This bound have several computational advantages. It's like performing LOO, but without the need to train at each iteration the model, because we already know for which samples we will have a potential loss. This eliminates the major problem of LOO, but keeps the fact that is the less biased way to perform cross-validation.
 
-\paragraph{Note - Solution technique} We have seen previously how we can solve the quadratic problem of finding the weights $\alpha$. There are more efficient way to calculate the weights. For example \textbf{SMO (Sequential Minimal Optimization)}.
+\paragraph{Solution technique} We have seen previously how we can solve the quadratic problem of finding the weights $\alpha$. There are more efficient way to calculate the weights. For example \textbf{SMO (Sequential Minimal Optimization)}.
 Instead of calculating all the weights at the same time, we can find them in couples\footnotemark. \footnotetext{Note that if we calculate one $\alpha_i$ at the time we would violate the constraints}We can apply the following iteratively until convergence,
 \begin{enumerate}
     \item Find example $x_i$ that violates KKT conditions
-    \item Select second example $x_j$ heuristically
+    \item Select second example $x_j$ heuristically, in such a way that the joint optimization of \( \alpha_i \) and \( \alpha_j \) (the Lagrange multipliers corresponding to \( x_i \) and \( x_j \)) leads to a significant improvement in the objective function.
     \item Jointly optimize $\alpha_i$ and $\alpha_j$
 \end{enumerate}
+
+Once we found the solution for each Lagrange multiplier $\alpha_i$, we have the corresponding support vectors ($\alpha_i \ge 0$), the resulting model can then be used to make predictions on new data.
+The iterative approach of SMO is efficient, simple to implement, and scalable to large datasets.
 
 \subsection{Noisy data}
 So far we have assumed that the data are always linearly separable. This assumption was encoded in the fact that the margin was always greater than one. Now we want to allow some samples to have a margin smaller than one, in some cases even negative. Obviously we want to minimize this behaviour, giving this points a penalization. At the same time we will relax our assumption in order to handle noisy data. The penalization is given by the \textbf{slack variables} $\xi_i$. Now we have to reformulate our primal problem to include the slack variables.

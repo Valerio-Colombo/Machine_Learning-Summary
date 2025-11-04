@@ -259,9 +259,9 @@ This statistical technique consists in generating samples of size B (called boot
 After boostraping we train a model for each bootstrap sample. In the prediction phase, in case of classification the result will be the majority vote on the classification results of every model, and for regression will be the average of the predicted values estimated by every model. Bagging improves performance for unstable learners which vary significantly with small changes in the data set. In practice we want to average multiple overfitting model. From what we have studied before, an overfitting model has low bias and high variance. By combining different model we reduce the variance maintaining the low bias. In practice bagging almost always helps.
 
 \subsubsection{Boosting}
-The aim of boosting is to reduce the bias. It achieve so by sequentially train weak learners\footnotemark. Now you are wondering, what the fuck means sequentially.
-Sequentially means that we train a model based on the prediction of the previous.
-The steps to perform boosting are the following,
+The objective of boosting is to minimize bias. This is accomplished by training weak learners in a sequential manner\footnotemark. You might be wondering what 'sequential' implies.
+Sequential training means that each model is trained based on the predictions of the preceding model.
+Here are the steps to implement boosting:
 \begin{enumerate}
     \item Give an equal weight to all training samples
     \item Train a weak model on the training set
@@ -273,6 +273,19 @@ The final prediction is the weighted prediction of every weak learner. In practi
 On average, boosting helps more than bagging, but it is also more common for boosting to hurt performance.
 \footnotetext{A weak learner is a learner that has a slightly better performance
     than chance prediction on any training set}
+
+\subsubsection{Bagging vs Boosting}
+
+\begin{itemize}
+    \item Bagging reduces \textbf{variance}
+    \item Boosting reduces \textbf{bias}
+    \item Bagging doesn't work so well with \textbf{stable models}. Boosting might still help
+    \item Boosting might hurt performance on \textbf{noisy datasets}. Bagging doesn't have this problem
+    \item In practice bagging almost always helps
+    \item On average, boosting helps more than bagging, but it is also more common for boosting to hurt performance
+    \item The weights grow \textbf{exponentially}
+    \item Bagging is easier to \textbf{parallelize}
+\end{itemize}
 
 \newpage
 

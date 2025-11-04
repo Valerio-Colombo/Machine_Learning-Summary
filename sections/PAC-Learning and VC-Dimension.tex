@@ -27,10 +27,10 @@ Now we introduce the so called \textbf{version space} $VS_{H,\mathcal{D}}$. It i
 
 \newpage
 \begin{proof}
-    $$P((L_{train}(h_1)=0 \land L_{train}(h_1) \geq \epsilon) \lor \dots \lor (L_{train}(h_{|H|})=0 \land L_{train}(h_{|H|}) \geq \epsilon))$$
+    $$P((L_{train}(h_1)=0 \land L_{true}(h_1) \geq \epsilon) \lor \dots \lor (L_{train}(h_{|H|})=0 \land L_{true}(h_{|H|}) \geq \epsilon))$$
     \begin{align*}
-         & \leq \sum_{h \in H} P(L_{train}(h)=0 \land L_{train}(h) \geq \epsilon) & \text{Union bound}                                               \\
-         & \leq \sum_{h \in H} P(L_{train}(h)=0 | L_{train}(h) \geq \epsilon)     & \text{Bound using Bayes’ rule}                                   \\
+         & \leq \sum_{h \in H} P(L_{train}(h)=0 \land L_{true}(h) \geq \epsilon) & \text{Union bound}                                               \\
+         & \leq \sum_{h \in H} P(L_{train}(h)=0 | L_{true}(h) \geq \epsilon)     & \text{Bound using Bayes’ rule}                                   \\
          & \leq \sum_{h \in H_{bad}} (1-\epsilon)^N                               & \text{Bound on individual }h_is                                  \\
          & \leq |H|(1-\epsilon)^N                                                 & |H|_{bad}\leq|H|                                                 \\
          & \leq |H|e^{-\epsilon N}                                                & (1-\epsilon \leq e^{-\epsilon},for \quad 0 \leq \epsilon \leq 1)
@@ -155,7 +155,7 @@ Equally we can express this as an upper bound for $L_{true}$
     \end{align*}
 \end{proof}
 \begin{theorem}
-    Concept class C with $VC(C) = 1$ is not PAC-learnable.
+    Concept class C with $VC(C) = \infty$ is not PAC-learnable. 
 \end{theorem}
 
 \newpage
